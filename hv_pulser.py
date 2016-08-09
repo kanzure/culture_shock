@@ -1,11 +1,10 @@
 # hv_pulser.py
 import pyb
-import micropython
 from pyb import Timer
+import micropython
+import stm
 
 micropython.alloc_emergency_exception_buf(100)
-
-debug_pin = pyb.Pin('JP6', pyb.Pin.OUT_PP)
 
 # Use with pyb.freq(96000000) and prescaler=11 for .125 usec timer ticks.
 xfmr_pulse_period = 0x1F40   # (1000 usec * 8)-> hex
@@ -21,10 +20,7 @@ t1ch2 = t1.channel(2, pyb.Timer.OC_TOGGLE, compare=xfmr_pulse_period,
                    polarity=pyb.Timer.HIGH, pin=pyb.Pin.board.JP3)   # working!
 
 # Define pins so they can be set with pinx.value()on the fly.
-neg_drive_pin = pyb.Pin('JP5')
-neg_drive_pin.init(mode=Pin.AF_PP, af=1)
-pos_drive_pin = pyb.Pin('JP4')
-pos_drive_pin.init(mode=Pin.AF_PP, af=1)
+debug_pin = pyb.Pin('JP6', pyb.Pin.OUT_PP)
 
 
 # NOT(xfmr_pulse_pos_half_cycle) driver pin.  (negative driving transistor)
@@ -37,10 +33,6 @@ t1ch1 = t1.channel(1, pyb.Timer.OC_INACTIVE, compare=xfmr_pulse_w,
 t1ch3 = t1.channel(3, pyb.Timer.OC_INACTIVE, compare=xfmr_pulse_w,
                    polarity=pyb.Timer.HIGH, pin=pyb.Pin.board.JP4)
 
-# debug stuff:
-pos_drive_pin.value(1)
-neg_drive_pin.value(1)
-
 
 def t1ch2_pulses_start_cb():
     "start pulse rising edge"
@@ -49,23 +41,21 @@ def t1ch2_pulses_start_cb():
         # xfmr_pulse positive half_cycle off-time just ended
         # turn on driver for following negative half_cycle
         xfmr_pulse_pos_half_cycle = 0
-        neg_drive_pin.value(1)
-
-        debug_pin.value(0)
-        debug_pin.value(1)
-        debug_pin.value(0)
-
-        # pyb.Pin.board.JP5.value(1)
+        # For ch1 CCMR1 register OC output to HIGH
+        ccmr1 = stm.mem16[stm.TIM1 + stm.TIM_CCMR1]
+        ccmr1 &= 0b1111111111011111
+        ccmr1 |= 0b0000000001010000
+        stm.mem16[stm.TIM1 + stm.TIM_CCMR1] = ccmr1
     else:
         # xfmr_pulse negative half_cycle off-time just ended
         # turn on driver for following positive xfmr_pulse_pos_half_cycle = 1
         xfmr_pulse_pos_half_cycle = 1
-        pos_drive_pin.value(1)
+        # For ch3 CCMR3 register OC output to HIGH
+        ccmr3 = stm.mem16[stm.TIM1 + stm.TIM_CCMR3]
+        ccmr3 &= 0b1111111111011111
+        ccmr3 |= 0b0000000001010000
+        stm.mem16[stm.TIM1 + stm.TIM_CCMR3] = ccmr3
 
-        # pyb.Pin.board.JP4.value(1)
-        debug_pin.value(1)
-        debug_pin.value(0)
-        debug_pin.value(1)
 
 t1ch2.callback(t1ch2_pulses_start_cb)
 
