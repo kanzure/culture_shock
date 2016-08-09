@@ -20,7 +20,7 @@ t1ch2 = t1.channel(2, pyb.Timer.OC_TOGGLE, compare=xfmr_pulse_period,
                    polarity=pyb.Timer.HIGH, pin=pyb.Pin.board.JP3)   # working!
 
 # Define pins so they can be set with pinx.value()on the fly.
-debug_pin = pyb.Pin('JP6', pyb.Pin.OUT_PP)
+debug_pin = pyb.Pin('JP6', pyb.Pin.OUT_PP)         # working!
 
 
 # NOT(xfmr_pulse_pos_half_cycle) driver pin.  (negative driving transistor)
@@ -32,6 +32,11 @@ t1ch1 = t1.channel(1, pyb.Timer.OC_INACTIVE, compare=xfmr_pulse_w,
 # Compare turns off output pin at xfmr_pulse_w count:
 t1ch3 = t1.channel(3, pyb.Timer.OC_INACTIVE, compare=xfmr_pulse_w,
                    polarity=pyb.Timer.HIGH, pin=pyb.Pin.board.JP4)
+# For ch3 CCMR3 register OC output to HIGH
+ccmr3 = stm.mem16[stm.TIM1 + stm.TIM_CCMR3]
+ccmr3 &= 0b1111111111011111
+ccmr3 |= 0b0000000001010000
+stm.mem16[stm.TIM1 + stm.TIM_CCMR3] = ccmr3
 
 
 def t1ch2_pulses_start_cb():
