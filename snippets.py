@@ -15,12 +15,12 @@ smcr |= 0b0000000001010101
 stm.mem16[stm.TIM2 + stm.TIM_SMCR] = smcr
 
 # For CCMR1 register OC output to HIGH
-ccmr = stm.mem16[stm.TIM1 + stm.TIM_CCMR1]
-ccmr &= 0b1111111111011111
-ccmr |= 0b0000000001010000
-stm.mem16[stm.TIM1 + stm.TIM_CCMR] = ccmr
+ccmr1 = stm.mem16[stm.TIM1 + stm.TIM_CCMR1]
+ccmr1 &= 0b1111111111011111
+ccmr1 |= 0b0000000001010000
+stm.mem16[stm.TIM1 + stm.TIM_CCMR1] = ccmr1
 
-bin(ccmr)[2:]
+bin(ccmr1)[2:]
 '11000000100000'
 
 
@@ -43,3 +43,6 @@ TIM_CHANNEL_ALL is used as list of created channels to start.
 case CHANNEL_MODE_OC_FORCED_INACTIVE:
 HAL_TIM_OC_Start_IT(&self->timer->tim, TIMER_CHANNEL(self));
 all the cases get init then start, even _OC_FORCED_INACTIVE...makes no sense...
+
+stm module timer constants:
+'TIM_CR1', 'TIM_CR2', 'TIM_SMCR', 'TIM_DIER', 'TIM_SR', 'TIM_EGR', 'TIM_CCMR1', 'TIM_CCMR2', 'TIM_CCER', 'TIM_CNT', 'TIM_PSC', 'TIM_ARR', 'TIM_RCR', 'TIM_CCR1', 'TIM_CCR2', 'TIM_CCR3', 'TIM_CCR4', 'TIM_BDTR', 'TIM_DCR', 'TIM_DMAR', 'TIM_OR', 
