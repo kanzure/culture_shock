@@ -1,0 +1,9 @@
+scp ./boot.py john@ecolab3:/home/john/culture_shock_target
+scp ./min_test.py john@ecolab3:/home/john/culture_shock_target
+scp ./hv_pulser.py john@ecolab3:/home/john/culture_shock_target
+scp ./snippets.py john@ecolab3:/home/john/culture_shock_target
+scp ./shcpcode john@ecolab3:/home/john/culture_shock_target
+ssh john@ecolab3 
+#commands to run on ecolab3
+cd /home/john/culture_shock_target
+source $HOME/.bashrc

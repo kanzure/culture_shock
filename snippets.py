@@ -14,11 +14,14 @@ smcr &= 0b1111111110001000
 smcr |= 0b0000000001010101
 stm.mem16[stm.TIM2 + stm.TIM_SMCR] = smcr
 
-# For CCMR register OC output to HIGH
-ccmr = stm.mem16[stm.TIM2 + stm.TIM_CCMR]
+# For CCMR1 register OC output to HIGH
+ccmr = stm.mem16[stm.TIM1 + stm.TIM_CCMR1]
 ccmr &= 0b1111111111011111
 ccmr |= 0b0000000001010000
-stm.mem16[stm.TIM2 + stm.TIM_CCMR] = ccmr
+stm.mem16[stm.TIM1 + stm.TIM_CCMR] = ccmr
+
+bin(ccmr)[2:]
+'11000000100000'
 
 
 This part of timer.c deals with timer enabling,disabling:
