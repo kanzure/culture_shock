@@ -1,9 +1,13 @@
-scp ./boot.py john@ecolab3:/home/john/culture_shock_target
-scp ./min_test.py john@ecolab3:/home/john/culture_shock_target
-scp ./hv_pulser.py john@ecolab3:/home/john/culture_shock_target
-scp ./snippets.py john@ecolab3:/home/john/culture_shock_target
-scp ./shcpcode john@ecolab3:/home/john/culture_shock_target
-ssh john@ecolab3 
-#commands to run on ecolab3
+scp  ./boot.py john@ecolab3:/home/john/culture_shock_target
+scp  ./min_test.py john@ecolab3:/home/john/culture_shock_target
+scp  ./hv_pulser.py john@ecolab3:/home/john/culture_shock_target
+scp  ./snippets.py john@ecolab3:/home/john/culture_shock_target
+scp  ./shcpcode john@ecolab3:/home/john/culture_shock_target
+ssh -t john@ecolab3  <<\ENDSSH
 cd /home/john/culture_shock_target
-source $HOME/.bashrc
+/bin/bash
+export TERM=dumb
+cp hv_pulser.py min_test.py boot.py /media/john/PYBFLASH
+ ls -l /media/john/PYBFLASH
+ENDSSH
+
