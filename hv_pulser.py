@@ -25,12 +25,12 @@ debug_pin = pyb.Pin('JP6', pyb.Pin.OUT_PP)         # working!
 
 # NOT(xfmr_pulse_pos_half_cycle) driver pin.  (negative driving transistor)
 # Compare turns on output pin at xfmr_pulse_w count:
-t1ch1 = t1.channel(1, pyb.Timer.OC_ACTIVE, compare=xfmr_pulse_w,
+t1ch1 = t1.channel(1, pyb.Timer.OC_INACTIVE, compare=xfmr_pulse_w,
                    polarity=pyb.Timer.HIGH, pin=pyb.Pin.board.JP5)
 
 # xfmr_pulse_pos_half_cycle driver pin.  (positive driving transistor)
 # Compare turns on output pin at xfmr_pulse_w count:
-t1ch2 = t1.channel(2, pyb.Timer.OC_ACTIVE, compare=xfmr_pulse_w,
+t1ch2 = t1.channel(2, pyb.Timer.OC_INACTIVE, compare=xfmr_pulse_w,
                    polarity=pyb.Timer.HIGH, pin=pyb.Pin.board.JP3)
 # For t1ch2 CCMR2 reg OC output to HIGH --JP3
 ccmr2 = stm.mem16[stm.TIM1 + stm.TIM_CCMR2]
@@ -42,19 +42,18 @@ stm.mem16[stm.TIM1 + stm.TIM_CCMR2] = ccmr2
 def t1ch3_pulses_start_cb():
     "start pulse rising edge"
     global xfmr_pulse_pos_half_cycle
-    if xfmr_pulse_pos_half_cycle == 1:
-        # xfmr_pulse positive half_cycle off-time just ended
-        # turn on driver for following negative half_cycle
+    if xfmr_pulse_pos_half_cycle == 1:  # pos half_cycle off-time end
         xfmr_pulse_pos_half_cycle = 0
+        # turn on driver for following negative half_cycle
         # For t1ch1 CCMR1 reg OC output to HIGH -- JP5
         ccmr1 = stm.mem16[stm.TIM1 + stm.TIM_CCMR1]
         ccmr1 &= 0b1111111111011111
         ccmr1 |= 0b0000000001010000
         stm.mem16[stm.TIM1 + stm.TIM_CCMR1] = ccmr1
     else:
-        # xfmr_pulse negative half_cycle off-time just ended
-        # turn on driver for following positive xfmr_pulse_pos_half_cycle = 1
-        xfmr_pulse_pos_half_cycle = 1
+        # 				neg half_cycle off-time end
+        xfmr_pulse_pos_half_cycle = 1  # ready for pos pulse
+        # turn on driver for following positive neg half_cycle
         # For t1ch2 CCMR2 reg OC output to HIGH --JP3
         ccmr2 = stm.mem16[stm.TIM1 + stm.TIM_CCMR2]
         ccmr2 &= 0b1111111111011111
