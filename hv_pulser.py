@@ -1,5 +1,4 @@
 # hv_pulser.py
-
 import pyb
 from pyb import Timer
 import micropython
@@ -7,13 +6,13 @@ import stm
 
 micropython.alloc_emergency_exception_buf(100)
 
-# Use with pyb.freq(96000000) and prescaler=11 for .125 usec timer ticks.
-xfmr_pulse_period = 9800   # (x usec * 8)   Same as toggle_half_cycle duration.
-xfmr_pulse_w = 900          # (x usec * 8)
+# Use with pyb.freq(96000000) and prescaler=11 for .25 usec timer ticks.
+xfmr_pulse_period = 2800   # (x usec * 4)   Same as toggle_half_cycle duration.
+xfmr_pulse_w = 1900          # (x usec * 4)
 pos_pulse_total = 0
-pos_pulse_burstlen = 7
+pos_pulse_burstlen = 50007
 neg_pulse_total = 0
-neg_pulse_burstlen = 7
+neg_pulse_burstlen = 50007
 
 # Timer 2 to give .125 usec timer ticks counting up:
 t2 = pyb.Timer(2, prescaler=11, period=xfmr_pulse_period, mode=Timer.UP)
@@ -23,40 +22,40 @@ t2 = pyb.Timer(2, prescaler=11, period=xfmr_pulse_period, mode=Timer.UP)
 t2ch3 = t2.channel(3, pyb.Timer.OC_TOGGLE, compare=xfmr_pulse_period,
                    polarity=pyb.Timer.HIGH, pin=pyb.Pin.board.JP27)
 
-pos_half_cycle_pin = pyb.Pin.board.JP27        # JP27 toggles every half cycle
 
 # Define pins so they can be set with debug_pin.value() on the fly.
 debug_pin = pyb.Pin('JP12', pyb.Pin.OUT_PP)
 debug2_pin = pyb.Pin('JP7', pyb.Pin.OUT_PP)
-
+pin27 = pyb.Pin.board.JP27                     # JP27 toggles every half cycle
+pin26 = pyb.Pin.board.JP26
+pin25 = pyb.Pin.board.JP25
 
 # pos_half_cycle_pin                 (pin pulse drives positive going winding)
 # PWM turns off output pin after xfmr_pulse_w count matches:
-t2ch2 = t2.channel(2, pyb.Timer.PWM, compare=xfmr_pulse_w,
+t2ch2 = t2.channel(2, pyb.Timer.PWM,  pulse_width=xfmr_pulse_w,
                    polarity=pyb.Timer.HIGH, pin=pyb.Pin.board.JP26)
 
-# Delay between t2ch2 init and t2ch1 init could cause out of sync?
-# Or... channels have one counter in common, so they are exactly synced?
+#  channels have one counter in common, so they are exactly synced.
 
 # neg_half_cycle_pin      (pin pulse drives negative going winding)
 # PWM turns off output pin after xfmr_pulse_w count matches:
-t2ch1 = t2.channel(1, pyb.Timer.PWM, compare=xfmr_pulse_w,
+t2ch1 = t2.channel(1, pyb.Timer.PWM, pulse_width=xfmr_pulse_w,
                    polarity=pyb.Timer.HIGH, pin=pyb.Pin.board.JP25)
 
 
 def t2ch3_toggle_half_cycle_cb(t2ch3):
     "PWM pulse rising edges"
-    if pyb.Pin.board.JP27.value() == 1:   # in pos half-cycle
-        # For t2ch1 CCMR1 reg OC1M output to frozen -- JP25
-        debug_pin.value(1)
-    else:                               # neg half_cycle end
-        debug_pin.value(0)
+    if pin27.value():                   # in pos half-cycle
+        debug2_pin.value(1)   # debug2 JP7
+        debug_pin.value(1)   # debug JP12
+    else:                                                 # in neg half_cycle
+        debug_pin.value(0)    # debug JP12
 
 
 def t2ch2_pos_wndg_fall_cb(t2ch2):
     "positive winding PWM pulse falling edge"
-    global pos_pulse_total, pos_pulse_burstlen, debug2_pin
-    if pyb.Pin.board.JP27.value() == 1:                       # pos pulse fall
+    global pos_pulse_total
+    if pin27.value():                       # pos pulse fall
         if pos_pulse_total > pos_pulse_burstlen:
             pass
         else:
@@ -64,24 +63,24 @@ def t2ch2_pos_wndg_fall_cb(t2ch2):
             # disable t2ch2 output until after next half_cycle:
             # write frozen state to t2 CCMR1 reg OC2M pin JP26:
             ccmr1 = stm.mem16[stm.TIM2 + stm.TIM_CCMR1]
-            ccmr1 &= 0b1000111111111111  # upcnt channel out frozen OC2M "000"
+            ccmr1 &= 0b1000111111111111  # upcnt chan out frozen OC2M "000"
             ccmr1 |= 0b0000000000000000
             stm.mem16[stm.TIM2 + stm.TIM_CCMR1] = ccmr1
+            debug2_pin.value(0)  # debug2  JP7
     else:                                             # blanked pos pulse fall
         # turn pos output back on for next time if total not met.
         # write PWM mode 1 state to t2 CCMR1 reg OC2M pin JP26:
         ccmr1 = stm.mem16[stm.TIM2 + stm.TIM_CCMR1]
-        ccmr1 &= 0b1110111111111111        # upcnt channel out PWM1 OC2M "110"
+        ccmr1 &= 0b1110111111111111       # upcnt channel out PWM1 OC2M "110"
         ccmr1 |= 0b0110000000000000
         stm.mem16[stm.TIM2 + stm.TIM_CCMR1] = ccmr1
-        debug2_pin.value(0)
+        pass
 
 
 def t2ch1_neg_wndg_fall_cb(t2ch1):
     "negative winding PWM pulse falling edge"
-    global neg_pulse_total, neg_pulse_burstlen
-
-    if pyb.Pin.board.JP27.value() == 0:                       # neg pulse fall
+    global neg_pulse_total
+    if pin27.value() == 0:                       # neg pulse fall
         if neg_pulse_total > neg_pulse_burstlen:
             pass
         else:
