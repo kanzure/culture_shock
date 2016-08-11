@@ -10,7 +10,7 @@ micropython.alloc_emergency_exception_buf(100)
 # Use with pyb.freq(96000000) and prescaler=11 for .125 usec timer ticks.
 xfmr_pulse_period = 9800   # (x usec * 8)
 xfmr_pulse_w = 900          # (x usec * 8)
-xfmr_pulse_pos_half_cycle = 1
+xfmr_pulse_pos_half_cycle = 1  # initial value -- changes every half cycle
 
 # to give .125 usec timer ticks counting up:
 t2 = pyb.Timer(2, prescaler=11, period=xfmr_pulse_period, mode=Timer.UP)
@@ -20,7 +20,7 @@ t2 = pyb.Timer(2, prescaler=11, period=xfmr_pulse_period, mode=Timer.UP)
 t2ch3 = t2.channel(3, pyb.Timer.OC_TOGGLE, compare=xfmr_pulse_period,
                    polarity=pyb.Timer.HIGH, pin=pyb.Pin.board.JP27)
 
-# Define pins so they can be set with debug_pi.value()on the fly.
+# Define pins so they can be set with debug_pin.value() on the fly.
 debug_pin = pyb.Pin('JP12', pyb.Pin.OUT_PP)         # working!
 
 
