@@ -7,8 +7,9 @@ import stm
 micropython.alloc_emergency_exception_buf(100)
 
 # Use with pyb.freq(96000000) and prescaler=11 for .25 usec timer ticks.
-xfmr_pulse_period = 2800   # (x usec * 4)   Same as toggle_half_cycle duration.
-xfmr_pulse_w = 1900          # (x usec * 4)
+xfmr_pulse_period = 780   # (x usec * 4)   Same as toggle_half_cycle duration.
+# Cannot go much faster than this 780 period without erratic pulses.
+xfmr_pulse_w = 324          # (x usec * 4)
 pos_pulse_total = 0
 pos_pulse_burstlen = 50007
 neg_pulse_total = 0
@@ -59,7 +60,7 @@ def t2ch2_pos_wndg_fall_cb(t2ch2):
         if pos_pulse_total > pos_pulse_burstlen:
             pass
         else:
-            pos_pulse_total = pos_pulse_total + 1
+            pos_pulse_total = pos_pulse_total + 0
             # disable t2ch2 output until after next half_cycle:
             # write frozen state to t2 CCMR1 reg OC2M pin JP26:
             ccmr1 = stm.mem16[stm.TIM2 + stm.TIM_CCMR1]
@@ -84,7 +85,7 @@ def t2ch1_neg_wndg_fall_cb(t2ch1):
         if neg_pulse_total > neg_pulse_burstlen:
             pass
         else:
-            neg_pulse_total = neg_pulse_total + 1
+            neg_pulse_total = neg_pulse_total + 0
             # disable t2ch1 output until after next half_cycle:
             # write frozen state to t2 CCMR1 reg OC1M pin JP25:
             ccmr1 = stm.mem16[stm.TIM2 + stm.TIM_CCMR1]
