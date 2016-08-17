@@ -7,13 +7,13 @@ import stm
 micropython.alloc_emergency_exception_buf(100)
 
 # Use with pyb.freq(96000000) and prescaler=11 for .25 usec timer ticks.
-xfmr_pulse_period = 780   # (x usec * 4)   Same as toggle_half_cycle duration.
+xfmr_pulse_period = 2970   # (x usec * 4)   Same as toggle_half_cycle duration.
 # Cannot go much faster than this 780 period without erratic pulses.
-xfmr_pulse_w = 324          # (x usec * 4)
+xfmr_pulse_w = 334          # (x usec * 4)
 pos_pulse_total = 0
-pos_pulse_burstlen = 50007
+pos_pulse_burstlen = 30
 neg_pulse_total = 0
-neg_pulse_burstlen = 50007
+neg_pulse_burstlen = 30
 
 # Timer 2 to give .125 usec timer ticks counting up:
 t2 = pyb.Timer(2, prescaler=11, period=xfmr_pulse_period, mode=Timer.UP)
@@ -62,10 +62,10 @@ def t2ch2_pos_wndg_fall_cb(t2ch2):
         else:
             pos_pulse_total = pos_pulse_total + 0
             # disable t2ch2 output until after next half_cycle:
-            # write frozen state to t2 CCMR1 reg OC2M pin JP26:
+            # write LOW state to t2 CCMR1 reg OC2M pin JP26:
             ccmr1 = stm.mem16[stm.TIM2 + stm.TIM_CCMR1]
-            ccmr1 &= 0b1000111111111111  # upcnt chan out frozen OC2M "000"
-            ccmr1 |= 0b0000000000000000
+            ccmr1 &= 0b1100111111111111  # upcnt chan out LOW OC2M "100"
+            ccmr1 |= 0b0100000000000000
             stm.mem16[stm.TIM2 + stm.TIM_CCMR1] = ccmr1
             debug2_pin.value(0)  # debug2  JP7
     else:                                             # blanked pos pulse fall
@@ -87,10 +87,10 @@ def t2ch1_neg_wndg_fall_cb(t2ch1):
         else:
             neg_pulse_total = neg_pulse_total + 0
             # disable t2ch1 output until after next half_cycle:
-            # write frozen state to t2 CCMR1 reg OC1M pin JP25:
+            # write LOW state to t2 CCMR1 reg OC1M pin JP25:
             ccmr1 = stm.mem16[stm.TIM2 + stm.TIM_CCMR1]
-            ccmr1 &= 0b1111111110001111  # upcnt channel out frozen OC1M "000"
-            ccmr1 |= 0b0000000000000000
+            ccmr1 &= 0b1111111111001111  # upcnt channel out LOW OC1M "100"
+            ccmr1 |= 0b0000000001000000
             stm.mem16[stm.TIM2 + stm.TIM_CCMR1] = ccmr1
     else:                                             # blanked neg pulse fall
         # turn pos output back on for next time if total not met.
@@ -104,3 +104,8 @@ def t2ch1_neg_wndg_fall_cb(t2ch1):
 t2ch3.callback(t2ch3_toggle_half_cycle_cb)
 t2ch1.callback(t2ch1_neg_wndg_fall_cb)
 t2ch2.callback(t2ch2_pos_wndg_fall_cb)
+
+while True:
+    delay(200)
+    neg_pulse_total = 0
+    pos_pulse_total = 0
