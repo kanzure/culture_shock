@@ -14,7 +14,7 @@ smcr &= 0b1111111110001000
 smcr |= 0b0000000001010101
 stm.mem16[stm.TIM2 + stm.TIM_SMCR] = smcr
 
-# For CCMR1 register OC output to HIGH
+# Force CCMR1 register OC output to HIGH for all time...
 ccmr1 = stm.mem16[stm.TIM1 + stm.TIM_CCMR1]
 ccmr1 &= 0b1111111111011111
 ccmr1 |= 0b0000000001010000
@@ -80,5 +80,42 @@ dir(stm)
 #     debug_pin.value(0)
 #     pyb.delay(5000)
 #     debug_pin.value(1)
+
+
+
+Take this whole interrupt callback out and do it with knowledge of t2ch2 only:
+
+
+def t2ch1_neg_wndg_fall_cb(t2ch1):
+    "negative winding PWM pulse falling edge interrupt"
+    global neg_pulse_total
+if neg_pulse_total > pulse_burstlen:
+    pass  # Only way to here is previously set out = froz, neg_pulse_total + 1
+else:
+    if pin27.value() == 0:                       # neg pulse fall
+        # disable t2ch1 output until changed again:
+        # write LOW state to t2 CCMR1 reg OC1M pin JP25:
+        ccmr1 = stm.mem16[stm.TIM2 + stm.TIM_CCMR1]
+        ccmr1 &= 0b1111111110001111  # upcnt channel out frozen OC1M "000"
+        ccmr1 |= 0b0000000000000000
+        stm.mem16[stm.TIM2 + stm.TIM_CCMR1] = ccmr1
+        neg_pulse_total = neg_pulse_total + 1
+    else:                                             # blanked neg pulse fall
+        # turn output back on for next time.
+        # write PWM mode 1 state to t2 CCMR1 reg OC1M pin JP25:
+        ccmr1 = stm.mem16[stm.TIM2 + stm.TIM_CCMR1]
+        ccmr1 &= 0b1111111111101111        # upcnt channel out PWM1 OC1M "110"
+        ccmr1 |= 0b0000000001100000
+        stm.mem16[stm.TIM2 + stm.TIM_CCMR1] = ccmr1
+
+
+====was goingto use for setup, but can use t2.counter(xfmr_pulse_w + 10)=====
+# Put t2ch2 mode to FORCED_INACTIVE to start...
+ccmr1 = stm.mem16[stm.TIM2 + stm.TIM_CCMR1]
+ccmr1 &= 0b1100111111001111  # OC2M "100"....OC1M "100"
+ccmr1 |= 0b0100000001000000
+stm.mem16[stm.TIM2 + stm.TIM_CCMR1] = ccmr1
+
+
 
 
