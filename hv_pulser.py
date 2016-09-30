@@ -8,10 +8,10 @@ micropython.alloc_emergency_exception_buf(100)
 
 # Use with pyb.freq(96000000) and prescaler=11 for .25 usec timer ticks.
 
-xfmr_pulse_period = 1570  # (= usec * 4)   Same as toggle_half_cycle duration.
-xfmr_pulse_w = 634                              # (= usec * 4)
+xfmr_pulse_period = 370  # (= usec * 4)   Same as toggle_half_cycle duration.
+xfmr_pulse_w = 84                              # (= usec * 4)
 push_puls_cnt = 0
-pulse_burstlen = 7
+pulse_burstlen = 3
 pull_puls_cnt = 0
 burst_period = 31399                            # (= usec * 4)    msec
 
