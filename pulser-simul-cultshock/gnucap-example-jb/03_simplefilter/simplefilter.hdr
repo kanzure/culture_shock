@@ -1,0 +1,4 @@
+.include ../models/LM324.mod
+Vin (Vin 0) AC 1
+Vcc (Vcc 0) pulse(iv=5, pv=5)
+Vcc (-Vcc 0) pulse(iv=-5, pv=-5)
