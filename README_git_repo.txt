@@ -7,3 +7,6 @@ The git repo dirs that need to be there to receive unzipping are:
 culture_shock/photos_protos_tests_simuls
 culture_shock/pulser-simul-cultshock
 
+git config --global user.email "your_email@example.com"
+git config --global user.email
+your_email@example.com
