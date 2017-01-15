@@ -2393,12 +2393,12 @@ ha:pcb-rnd-board-v1 {
      group=3
     }
 
-    {ha:bottom silk}                                 {
+    {ha:bottom silk}                                  {
      visible=1
      group=1
     }
 
-    {ha:top silk}                                 {
+    {ha:top silk}                                  {
      visible=1
      group=0
      li:objects {
@@ -4554,14 +4554,6 @@ ha:netlists {
      enable = false
     }
    }
-   ha:rc {
-    li:library_search_paths {
-     ./pcblib  
-     /home/john/Documents/EEProjects/circuitboards/footprints_pcb  
-     ../pcblib  
-     ~/pcblib/  
-     $(rc.path.share)/pcblib  
-    }
    }
   }
  }
