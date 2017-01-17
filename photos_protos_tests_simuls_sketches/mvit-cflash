@@ -1,0 +1,6 @@
+#!/bin/bash
+#mvit-cflash
+
+mv /canon-flash/DCIM/100CANON/*.JPG .
+ls ./*.JPG | rename 's/.JPG/.jpg/'
+
