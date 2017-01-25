@@ -2,17 +2,33 @@
 # Copyright 2016 by Bdale Garbee, John Griessen.  GPLv2
 #
 # Program to emit PCB footprint for UFQPN48  package used by STM32F401CE
-#
+# Pad[x y x y 1000 3 ...] x, y footprint coords are relative to footprint center.
+# PCB y coordinate is going *DOWN* the page...it can fool you if expecting Y up.
+EdgePadHeelSquare = 6.20	# inside edge of pads to opposite inside edge distance.
+EdgePadWidth = 0.28			# Pad metal width.
+NumEdgePads = 48		# Integer number of pads around edge of QFN.
+EdgePadSoldermaskOpen = 0.381		# width of gap in soldermask or resist over pad
+EdgePadClearance = 0.5		# width of gap between copper and pad.
+PadHeight = 0.75
+EdgePadLength = 0.55		# Distance from end to end of pad.
+EdgePadHeelLength = 0.45	# Length end to end of pad heel (rounded inner part).
+PadSpacing = 0.50
+Overall = 7.30
+CoreSquare = 5.4		# Grid zone of soldermask openings and paste dots.
+CenterPadSquare = 5.60		# Pad lines start EdgePadWidth/2 outside this box.
+CenterPadClearance = 0.9		# width of gap between copper and pad.
+EdgePasteShrink = 0.06		# Paste is smaller than Pad by EdgePasteShrink * 2.
+EdgePasteWidth = EdgePadWidth - (2 * EdgePasteShrink)
+EdgePadHeelStart = EdgePadHeelSquare/2 + EdgePadWidth/2
+EdgePadHeelEnd = EdgePadHeelSquare/2  + EdgePadHeelLength -  EdgePadWidth/2
+EdgePadStart =  EdgePadHeelSquare/2 + EdgePadHeelLength + EdgePadWidth/2
+EdgePadEnd =  EdgePadHeelSquare/2 + EdgePadLength - EdgePadWidth/2
+PadRowStartCenter = (NumEdgePads/4 - 1) * PadSpacing/2
+ZonesDiv = 5			# PadGridSize = 2 gives a 5x5 grid around zero.
+PadGridSize = (ZonesDiv -1)/2	# Even number + and - cols, rows around zero of ctr pad
+EdgePadHeelStart = EdgePadHeelSquare/2+EdgePadWidth
 
-# dimensions in mm from the TI cc1111f32.pdf datasheet
-PinWidth = 0.28		
-PinResist = 0.381		# width of gap in solder resist over pad
-PinHeight = 0.75
-PinSpacing = 0.50
-Overall = 6.30
-GndSquare = 4.40
-CoreSquare = 3.7592		# resist gaps and paste spots over ground tab
-PinSquare = 4.80
+
 
 import sys
 
@@ -28,28 +44,28 @@ print '# use-license: unlimited'
 print 'Element[0x0 "QFN36" "" "" 0 0 0 0 0 100 0x0]'
 print "("
 
-# pad under the chip, must be grounded
+# center pad under the chip -- usually needs thermal or current vias
 print '   Pad[',\
  	mm2mils100(0), \
 	mm2mils100(0), \
  	mm2mils100(0), \
 	mm2mils100(0), \
-	mm2mils100(GndSquare), \
-	0, \
+	mm2mils100(CenterPadSquare), \
+	mm2mils100(CenterPadClearance), \
  	0, \
-	'"pin37" "37" "square,nopaste"]'
+	'"%i"' % (NumEdgePads+1),  '"%i"' %  (NumEdgePads+1),  '"square,nopaste"]'
 
-# vias in the ground pad under the chip
+# vias in the center pad -- center is zero, (python range doesn't include final integer)
 for viarow in range (-1,2):
   for viacol in range (-1,2):
     print '   Pin[',\
-	mm2mils100(2 * viacol * CoreSquare / 5), \
- 	mm2mils100(2 * viarow * CoreSquare / 5), \
+	mm2mils100(2 * viacol * CoreSquare / ZonesDiv), \
+ 	mm2mils100(2 * viarow * CoreSquare / ZonesDiv), \
 	2900, \
 	2500, \
   	0, \
   	1500, \
-	'"pin37" "37" 0x0002]'
+	'"%i"' % (NumEdgePads+1),  '"%i"' %  (NumEdgePads+1), ' 0x0002]'
 
 # break pad under chip into a grid to control the resist and paste masks
 for viarow in range (-2, 3):
@@ -57,77 +73,118 @@ for viarow in range (-2, 3):
     if (viarow in (-2, 0, 2)) and (viacol in (-2, 0, 2)):
       # copper sub-square with resist over vias
       print '   Pad[',\
-	mm2mils100(viacol * CoreSquare / 5), \
- 	mm2mils100(viarow * CoreSquare / 5), \
-	mm2mils100(viacol * CoreSquare / 5), \
- 	mm2mils100(viarow * CoreSquare / 5), \
+	mm2mils100(viacol * CoreSquare / ZonesDiv), \
+ 	mm2mils100(viarow * CoreSquare / ZonesDiv), \
+	mm2mils100(viacol * CoreSquare / ZonesDiv), \
+ 	mm2mils100(viarow * CoreSquare / ZonesDiv), \
 	mm2mils100((CoreSquare)/5), \
 	0, \
  	0, \
-	'"pin37" "37" "square,nopaste"]'
+	'"%i"' % (NumEdgePads+1),  '"%i"' %  (NumEdgePads+1),  ' "square,nopaste"]'
     else:
       # copper sub-square without resist
       print '   Pad[',\
-	mm2mils100(viacol * CoreSquare / 5), \
- 	mm2mils100(viarow * CoreSquare / 5), \
-	mm2mils100(viacol * CoreSquare / 5), \
- 	mm2mils100(viarow * CoreSquare / 5), \
+	mm2mils100(viacol * CoreSquare / ZonesDiv), \
+ 	mm2mils100(viarow * CoreSquare / ZonesDiv), \
+	mm2mils100(viacol * CoreSquare / ZonesDiv), \
+ 	mm2mils100(viarow * CoreSquare / ZonesDiv), \
 	mm2mils100((CoreSquare)/5), \
 	0, \
 	mm2mils100((CoreSquare)/5), \
-	'"pin37" "37" "square,nopaste"]'
+	'"%i"' % (NumEdgePads+1),  '"%i"' %  (NumEdgePads+1), ' "square,nopaste"]'
       # copper spot to control paste mask generation
       print '   Pad[',\
-	mm2mils100(viacol * CoreSquare / 5), \
- 	mm2mils100(viarow * CoreSquare / 5), \
-	mm2mils100(viacol * CoreSquare / 5), \
- 	mm2mils100(viarow * CoreSquare / 5), \
+	mm2mils100(viacol * CoreSquare / ZonesDiv), \
+ 	mm2mils100(viarow * CoreSquare / ZonesDiv), \
+	mm2mils100(viacol * CoreSquare / ZonesDiv), \
+ 	mm2mils100(viarow * CoreSquare / ZonesDiv), \
   	1500, \
 	0, \
 	mm2mils100((CoreSquare)/5), \
-	'"pin37" "37" "square"]'
+	'"%i"' % (NumEdgePads+1),  '"%i"' %  (NumEdgePads+1), ' "square"]'
 
-# pins
-for pin in range (1,10):
-    print '   Pad[',\
- 	mm2mils100(-2.5 + pin * PinSpacing), \
-	mm2mils100(-Overall/2 + PinWidth/2), \
- 	mm2mils100(-2.5 + pin * PinSpacing), \
-	mm2mils100(-Overall/2 + PinHeight - PinWidth/2), \
-	mm2mils100(PinWidth), \
-	mm2mils100(PinSpacing - PinWidth), \
-	mm2mils100(PinResist), \
-	'"pin%i"' % (28-pin), '"%i"' % (28-pin), '"square"]'
+for edgepadnum in range (1, (NumEdgePads/4)+1):
+    # edgepads stepping horizontally
+    hpd = mm2mils100(-PadRowStartCenter + (edgepadnum - 1) * PadSpacing), \
+	mm2mils100(-EdgePadHeelStart), \
+ 	mm2mils100(-PadRowStartCenter + (edgepadnum - 1) * PadSpacing), \
+	mm2mils100(-EdgePadHeelEnd), \
+	mm2mils100(EdgePadWidth), \
+	mm2mils100(EdgePadClearance), \
+	mm2mils100(EdgePadSoldermaskOpen), \
+	'"%i"' % ((NumEdgePads*3/4)+1-edgepadnum), '"%i"' % ((NumEdgePads*3/4)+1-edgepadnum)
 
-    print '   Pad[',\
- 	mm2mils100(-2.5 + pin * PinSpacing), \
-	mm2mils100(+Overall/2 - PinHeight + PinWidth/2), \
- 	mm2mils100(-2.5 + pin * PinSpacing), \
-	mm2mils100(+Overall/2 - PinWidth/2), \
-	mm2mils100(PinWidth), \
-	mm2mils100(PinSpacing - PinWidth), \
-	mm2mils100(PinResist), \
-	'"pin%i"' % pin, '"%i"' % pin, '"square"]'
+    #full metal pad heels define the < NumEdgePads*3/4 row:
+    print '   Pad[', hpd[0], hpd[1], hpd[2], hpd[3], hpd[4], hpd[5], hpd[6], hpd[7] , hpd[8], '"nopaste"]'
 
-    print '   Pad[',\
-	mm2mils100(Overall/2 - PinHeight + PinWidth/2), \
- 	mm2mils100(-2.5 + pin * PinSpacing), \
-	mm2mils100(Overall/2 - PinWidth/2), \
- 	mm2mils100(-2.5 + pin * PinSpacing), \
-	mm2mils100(PinWidth), \
-	mm2mils100(PinSpacing - PinWidth), \
-	mm2mils100(PinResist), \
-	'"pin%i"' % (19-pin), '"%i"' % (19-pin), '"square"]'
+    #full metal pad toes define the < NumEdgePads*3/4 row:
+    print '   Pad[', hpd[0], mm2mils100(-EdgePadStart),  hpd[2], \
+	mm2mils100(-EdgePadEnd),  hpd[4], hpd[5], hpd[6], hpd[7] , hpd[8], '"square,nopaste"]'
 
+    #solderpaste pad heels define the < NumEdgePads*3/4 row:
+    print '   Pad[', hpd[0], hpd[1], hpd[2], hpd[3], \
+    mm2mils100(EdgePasteWidth), hpd[5], hpd[6], hpd[7] , hpd[8], '""]'
+
+    #solderpaste pad toes define the < NumEdgePads*3/4 row:
+    print '   Pad[', hpd[0], mm2mils100(-EdgePadStart),  hpd[2], \
+	mm2mils100(-EdgePadEnd), mm2mils100(EdgePasteWidth),  hpd[5], \
+        hpd[6], hpd[7] , hpd[8], '"square"]'
+
+    #full metal pad heels define the first side row:
+    print '   Pad[',  hpd[0], mm2mils100(EdgePadHeelStart), hpd[2], \
+    mm2mils100(EdgePadHeelEnd), hpd[4], hpd[5], hpd[6], \
+	'"%i"' % edgepadnum, '"%i"' % edgepadnum, '"nopaste"]'
+
+    #full metal pad toes define the first side row:
+    print '   Pad[',  hpd[0], mm2mils100(EdgePadStart), hpd[2], \
+	mm2mils100(EdgePadEnd), \
+	hpd[4], hpd[5], hpd[6], '"%i"' % edgepadnum, '"%i"' % edgepadnum, '"square,nopaste"]'
+
+    #solderpaste pad heels define the first side row:
+    print '   Pad[',  hpd[0], mm2mils100(EdgePadHeelStart), hpd[2], \
+    mm2mils100(EdgePadHeelEnd), mm2mils100(EdgePasteWidth), hpd[5], hpd[6], \
+	'"%i"' % edgepadnum, '"%i"' % edgepadnum, '""]'
+
+    #solderpaste pad toes define the first side row:
+    print '   Pad[',  hpd[0], mm2mils100(EdgePadStart), hpd[2], \
+	mm2mils100(EdgePadEnd), mm2mils100(EdgePasteWidth), \
+	hpd[5], hpd[6], '"%i"' % edgepadnum, '"%i"' % edgepadnum, '"square"]'
+
+    # edgepads running vertically
+    vpd = mm2mils100(EdgePadHeelStart), \
+ 	mm2mils100(-PadRowStartCenter + (edgepadnum - 1) * PadSpacing), \
+	mm2mils100(EdgePadHeelEnd), \
+ 	mm2mils100(-PadRowStartCenter + (edgepadnum - 1) * PadSpacing), \
+	mm2mils100(EdgePadWidth), \
+	mm2mils100(EdgePadClearance), \
+	mm2mils100(EdgePadSoldermaskOpen), \
+	'"%i"' % (NumEdgePads/2+1-edgepadnum), '"%i"' % (NumEdgePads/2+1-edgepadnum)
+
+
+    #full metal pad heels define the < NumEdgePads/2  side column:
+    print '   Pad[', vpd[0], vpd[1], vpd[2], vpd[3], vpd[4], vpd[5], vpd[6], vpd[7] , vpd[8], '"nopaste"]'
+
+    #full metal pad toes define the < NumEdgePads/2  side column:
+    print '   Pad[', mm2mils100(EdgePadStart),  vpd[1], mm2mils100(EdgePadEnd), \
+        vpd[3], vpd[4], vpd[5], vpd[6], vpd[7] , vpd[8], '"square,nopaste"]'
+
+    #full metal pad heels define the highest numbered side column:
     print '   Pad[',\
-	mm2mils100(-Overall/2 + PinWidth/2), \
- 	mm2mils100(-2.5 + pin * PinSpacing), \
-	mm2mils100(-Overall/2 + PinHeight - PinWidth/2), \
- 	mm2mils100(-2.5 + pin * PinSpacing), \
-	mm2mils100(PinWidth), \
-	mm2mils100(PinSpacing - PinWidth), \
-	mm2mils100(PinResist), \
-	'"pin%i"' % (27+pin), '"%i"' % (27+pin), '"square"]'
+	mm2mils100(-EdgePadHeelStart), \
+ 	mm2mils100(PadRowStartCenter - (edgepadnum - 1) * PadSpacing), \
+	mm2mils100(-EdgePadHeelEnd), \
+ 	mm2mils100(PadRowStartCenter - (edgepadnum - 1) * PadSpacing), \
+        vpd[4], vpd[5], vpd[6], \
+	'"%i"' % (NumEdgePads+1-edgepadnum), '"%i"' % (NumEdgePads+1-edgepadnum), '"nopaste"]'
+
+    #full metal pad toess define the highest numbered side column:
+    print '   Pad[',\
+	mm2mils100(-EdgePadStart), \
+ 	mm2mils100(PadRowStartCenter - (edgepadnum - 1) * PadSpacing), \
+	mm2mils100(-EdgePadEnd), \
+ 	mm2mils100(PadRowStartCenter - (edgepadnum - 1) * PadSpacing), \
+        vpd[4], vpd[5], vpd[6], \
+	'"%i"' % (NumEdgePads+1-edgepadnum), '"%i"' % (NumEdgePads+1-edgepadnum), '"square,nopaste"]'
 
 print '   ElementArc[',\
 	mm2mils100(-2.6), \

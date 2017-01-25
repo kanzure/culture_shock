@@ -1,5 +1,5 @@
-# author: Bdale Garbee, John Griessen
-# email: john@cibolo.com
+# author: Bdale Garbee
+# email: bdale@gag.com
 # dist-license: GPL 2
 # use-license: unlimited
 Element[0x0 "QFN36" "" "" 0 0 0 0 0 100 0x0]
