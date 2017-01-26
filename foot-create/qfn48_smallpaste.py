@@ -7,7 +7,7 @@
 EdgePadHeelSquare = 6.20	# inside edge of pads to opposite inside edge distance.
 EdgePadWidth = 0.28			# Pad metal width.
 NumEdgePads = 48		# Integer number of pads around edge of QFN.
-EdgePadSoldermaskOpen = 0.79		# width of gap in soldermask or resist over pad
+EdgePadSoldermaskOpen = 0.58		# width of gap in soldermask or resist over pad
 EdgePadHeelSoldermaskOpen = 0.32		# width of gap in soldermask or resist over pad
 EdgePadClearance = 0.57		# width of gap between copper and pad.
 EdgePadLength = 0.55		# Distance from end to end of pad.
@@ -50,7 +50,7 @@ print '# EdgePadHeelEnd =  ' , mm2mils100(EdgePadHeelEnd), EdgePadHeelEnd
 print '# EdgePadStart =  ' , mm2mils100(EdgePadStart), EdgePadStart
 print '# EdgePadEnd =  ' , mm2mils100(EdgePadEnd), EdgePadEnd
 
-print 'Element[0x0 "QFN36" "" "" 0 0 0 0 0 100 0x0]'
+print 'Element[0x0 "UFQFPN48" "U?" "" 0 0 17000 -17000 0 100 0x0]'
 print "("
 
 # center pad under the chip -- usually needs thermal or current vias

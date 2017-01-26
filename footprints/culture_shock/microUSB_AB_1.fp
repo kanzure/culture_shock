@@ -1,5 +1,5 @@
 
-Element["" "microUSB_AB_1" "G85_post_process_slot" "" 87992 72244 16142 5118 0 100 ""]
+Element["" "microUSB_AB_1" "J?" "G85_post_process_slot"  0 0 17000 -17000 0 100 0x0]
 (
 	Pin[-7874 -6102 3656 2400 4350 2756 "9" "9" "hole,edge2"]
 	Pin[7874 -6102 3156 2400 4350 2756 "8" "8" "hole,edge2"]
