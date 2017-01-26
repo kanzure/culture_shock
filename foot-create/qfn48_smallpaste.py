@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# Copyright 2016 by Bdale Garbee, John Griessen.  GPLv2
+# Copyright 2016 by Bdale Garbee, 2017 by John Griessen.  GPLv2
 #
 # Program to emit PCB footprint for UFQPN48  package used by STM32F401CE
 # Pad[x y x y 1000 3 ...] x, y footprint coords are relative to footprint center.
