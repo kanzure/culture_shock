@@ -18,6 +18,7 @@ GRB = ./fab
 
 myropcb: $(BOARD1)   $(BOARD2)  
 	if test -d $(GRB); then echo $(GRB)" dir exists"; else mkdir $(GRB); fi
+	rm -f $(GRB)/*.zip ; \
 	for board in $(BOARD1) $(BOARD2) ; do \
 	cp $$board  $(GRB)/$$board-$@-$(REV).lht ; \
 	pcb-rnd -x gerber --all-layers $(GRB)/$$board-$@-$(REV).lht ; \
@@ -33,10 +34,9 @@ myropcb: $(BOARD1)   $(BOARD2)
 	mv $(GRB)/$$board-$@-$(REV).bottomsilk.gbr $(GRB)/$$board-$@-$(REV).bot-silk ; \
 	mv $(GRB)/$$board-$@-$(REV).plated-drill.cnc $(GRB)/$$board-$@-$(REV).plated.cnc ; \
 	mv $(GRB)/$$board-$@-$(REV).unplated-drill.cnc $(GRB)/$$board-$@-$(REV).unplated.cnc ; \
-	mv $(GRB)/$$board-$@-$(REV).fab.gbr $(GRB)/$$board-$@-$(REV).fab.gbr ; \
+#	mv $(GRB)/$$board-$@-$(REV).fab.gbr $(GRB)/$$board-$@-$(REV).fab.gbr ; \
 	mv $(GRB)/$$board-$@-$(REV).bottompaste.gbr $(GRB)/$$board-$@-$(REV).bot-paste ; \
 	mv $(GRB)/$$board-$@-$(REV).toppaste.gbr $(GRB)/$$board-$@-$(REV).top-paste ; \
-	rm -f $(GRB)/*.zip ; \
 	rm $(GRB)/*.gr3  $(GRB)/*.gr2; zip -9  $(GRB)/$$board-$@-$(REV).zip  $(GRB)/$$board-$@-$(REV).[a-y]* ; \
 	done
 
