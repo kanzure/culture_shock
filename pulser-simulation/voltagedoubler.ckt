@@ -1,0 +1,23 @@
+* DO NOT MODIFY THIS FILE DIRECTLY, IT IS GENERATED FROM  the .hdr and .sim files!
+
+* Contents of voltagedoubler.hdr follow: 
+.model custom1 D(IS=16.7p RS=4.166 N=3.98 )
+*Vcc is defined by a pulse starting at -1500, that rises to +1500, falls abruptly, repeats.
+Vcc (vin 0) pulse(iv=-1500, pv=1500, period=0.000010, width=0.000005)
+
+
+* voltagedoubler.net COMES FROM RUNNING gnetlist -g spice on voltagedoubler.sch: 
+R2 xfmr-ideal xfmr 500
+R3 vout 0 30k
+R1 xfmr-ideal vin 2
+C1 xfmr v2 10nF
+C2 vout 0 10nF
+D2 0 v2 custom1
+D1 v2 vout custom1
+
+* Contents of voltagedoubler.sim follow: 
+.print tran v(vin) i(C2) v(v2) v(vout) i(R3) i(R2) pd(R3) pd(R2) 
+.store tran pd(R2)
+*.measure integral(probe="pd(R2)")
+.tran 0 0.000120 .0000005 >voltagedoubler.dat
+

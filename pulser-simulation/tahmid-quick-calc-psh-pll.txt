@@ -1,0 +1,36 @@
+Re: Push-Pull center tap converter transformer design
+
+    Let's take your requirements as an example. You're using 2 transformers for 600W. So, each transformer should handle 300W.
+
+    So, your voltage conversion requirement is 12VDC to 250VDC.
+
+    You stated the minimum voltage as 9V. So, you'd still need 250VDC at that input voltage. Let's take maximum duty cycle as 95%. So, at 9VDC input, duty cycle will be maximum. Average voltage to transformer will be 9V * 0.95 = 8.55V. Thus voltage ratio is (250V/8.55V) = 29.24. Let's leave some headroom to allow for losses and voltage drops and some headroom for feedback. So, let's take a voltage ratio of (270V/8.55V) = 31.6.
+
+    Formula for calculating primary turns is:
+
+    Npri = (Vinnom * 10^8) / (4 * f * Bmax * Ac)
+
+    Ac (or sometimes called Ae) is in cm^2, Bmax is in Gauss, f is in Hertz, Vinnom is in Volts.
+
+    Get Ac and Bmax from transformer datasheet.
+
+    For ETD49, from the datasheet I have, I get Ac = 2.36
+    I'll take Bmax to be 1800. Most cores should be okay with that. Make sure though.
+    Vinnom = 12V
+    f = 55000
+
+    So, I get Npri = 1 turn (rounded off)
+    Check Bmax.
+    Bmax (with Npri = 1) comes out to 2311. If that's too high, increase Npri to 2. So, Bmax comes out to 1156. That should be okay.
+
+    Nsec = (Turns Ratio) * Npri
+    Turns Ratio = Voltage Ratio = 31.6
+    With Npri = 1, Nsec = 32 (rounded off).
+    With Npri = 2, Nsec = 63 (rounded off).
+
+    Now, wind with a sufficient number of thin wires in parallel to minimize wire resistance and skin effect. Or use Litz wire.
+
+    There you have it.
+
+    Hope this helps.
+    Tahmid.

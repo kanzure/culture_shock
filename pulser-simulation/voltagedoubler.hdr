@@ -1,0 +1,4 @@
+.model custom1 D(IS=16.7p RS=4.166 N=3.98 )
+*Vcc is defined by a pulse starting at -1500, that rises to +1500, falls abruptly, repeats.
+Vcc (vin 0) pulse(iv=-1500, pv=1500, period=0.000010, width=0.000005)
+
