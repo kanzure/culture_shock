@@ -1,0 +1,25 @@
+#!/bin/bash
+# rotcropschem  acts on a pdf file (output by gschem), outputs a .png file
+
+old_name=$1
+newsuffix=png
+suffix=${old_name##*.}  # chops up to including .
+
+echo " \$suffix = " $suffix
+echo " \$newsuffix = " $suffix
+basename=${old_name%.$suffix}   # chops off suffix, leaves .
+echo " basename = " $basename
+new_name=$basename.$newsuffix
+echo " from " $old_name " to " $new_name
+echo "intermediate = "   $basename.o.pdf
+/usr/bin/pdfjam --angle '-90' --fitpaper 'true' --rotateoversize 'true' --outfile $basename.o.pdf --keepinfo --landscape --trim "2mm 8mm 8mm 11mm" -- $old_name 1
+#  --trim   " top left bottom  right"
+
+convert -colors 64  -density 300 -level 45%,100%    -verbose -quality 98  $basename.o.pdf  -fill white  -tint 50 $basename.o.$newsuffix
+#  $new_name   +sigmoidal-contrast 2x50    -contrast-stretch 9x100%
+# -colors 8 -threshold 76%  -contrast-stretch 4x95% -sharpen 0x1.0
+pngquant -v --output  $new_name --force --floyd=0.47  7 $basename.o.$newsuffix
+#  optipng -o 1 -f 3 -clobber -out $new_name  $basename.o.$newsuffix
+# cleanup
+rm $basename.o.$newsuffix
+mv  $old_name  $old_name.delete.me
