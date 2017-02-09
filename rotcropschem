@@ -21,5 +21,5 @@ convert -colors 64  -density 300 -level 45%,100%    -verbose -quality 98  $basen
 pngquant -v --output  $new_name --force --floyd=0.47  7 $basename.o.$newsuffix
 #  optipng -o 1 -f 3 -clobber -out $new_name  $basename.o.$newsuffix
 # cleanup
-rm $basename.o.$newsuffix
-mv  $old_name  $old_name.delete.me
+rm $basename.o.$newsuffix  $basename.o.pdf
+mv  $old_name  $old_name-
