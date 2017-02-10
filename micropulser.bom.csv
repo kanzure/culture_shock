@@ -1,0 +1,18 @@
+.START
+..device	value	footprint	quantity	refdes
+CAPACITOR	20 pF	unknown	2	C6 C7
+CAPACITOR	4.7 uF	unknown	1	C2
+CAPACITOR	4.7nF	unknown	1	C19
+CAPACITOR	9 pF	unknown	2	C8 C9
+CAPACITOR	unknown	unknown	4	C1 C3 C4 C5
+COIL	unknown	unknown	1	L3
+CRYSTAL	12MHz	unknown	1	X1
+CRYSTAL	unknown	unknown	1	X2
+RESISTOR	100K	unknown	1	R5
+RESISTOR	22	unknown	2	R6 R7
+stm32f401cb	unknown	stm32f401cb	1	U1
+SWITCH_PUSHBUTTON_NO	unknown	unknown	1	S1
+unknown	unknown	unknown	1	U?
+USB	unknown	USB_mini_TYPE-B_SMT	1	J?
+zif_connector	unknown	ffc_zif_20.fp	1	J1
+.END

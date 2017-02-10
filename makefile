@@ -8,18 +8,41 @@
 # change the naming of RS274X files to match
 # how the fabs want them.
 
-#PHONY targets are targets that have nothing to do with a file of same name.
-.PHONY: myropcb hackvana gerbv net pcb 
+#PHONY make does not create a file of this name, the name is placeholder for other files.
+#PHONY targets have an action every time if targets are scripts.
 
-BOARD1 = micropulser.lht
-BOARD2 = kvboard.lht
+.PHONY: myropcb hackvana gerbv net pcb gschem boms
+
+BASENAMES = micropulser kvboard g30pulser
+BOARDS = $(addsuffix .lht, $(BASENAMES))
+SCHEMS = $(addsuffix .sch, $(BASENAMES))
+BOMS =   $(addsuffix .bom.csv,  $(BASENAMES))
 REV = 0.1
 GRB = ./fab
 
-myropcb: $(BOARD1)   $(BOARD2)  
+boms: $(BOMS)
+
+#this automatic target maker is not good for schematics with more than one page.
+$(BOMS): %.bom.csv: %.sch
+	gnetlist -g partslist3 $< -o $@
+	
+# this explicitly makes boms from  schematics with more than one page:
+#micropulser1micropulser2.bom: micropulser1.sch 1micropulser2.sch
+#	gnetlist -g partslist3 micropulser1.sch 1micropulser2.sch  -o micropulser1micropulser2.bom
+
+#bom:	
+#	gnetlist -g partslist3 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.csv
+#	gnetlist -g partslist4 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.csv
+#	gnetlist -g bom2 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.csv
+#	cat $(PROJECTNAME)-bom.csv | a2ps -f 8 --columns=1 -T 25 --center-title="Bill of materials for $(TITLE)" | gs -q -dNOPAUSE -dBATCH -sPAPERSIZE=a4 -sDEVICE=pdfwrite -sOutputFile=$(PROJECTNAME)-bom.pdf -f -
+
+
+
+# this does all $(BOARDS) on each invocation...can be improved...
+myropcb: $(BOARDS)  
 	if test -d $(GRB); then echo $(GRB)" dir exists"; else mkdir $(GRB); fi
 	rm -f $(GRB)/*.zip ; \
-	for board in $(BOARD1) $(BOARD2) ; do \
+	for board in $(BOARDS) ; do \
 	cp $$board  $(GRB)/$$board-$@-$(REV).lht ; \
 	pcb-rnd -x gerber --all-layers $(GRB)/$$board-$@-$(REV).lht ; \
 	mv $(GRB)/$$board-$@-$(REV).outline.gbr $(GRB)/$$board-$@-$(REV).outline ; \
@@ -68,9 +91,8 @@ gerbv:
 	gerbv $(PROJECTNAME)_rev-$(REV).top 
 
 
-edit:
-	gschem $(patsubst %,%.sch,$(SHEET)) &
-
+schems: 
+	gschem $(SCHEMS) &
 
 net:
 	gnetlist -g drc $(patsubst %,%.sch,$(SHEET)) -o -
@@ -84,13 +106,6 @@ pcb:
 	gsch2pcb --use-files --skip-m4 --elements-dir ../lib/pcb/pi $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)
 #	gnetlist -g gsch2pcb $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME).auto.pcb
 #	gnetlist -g pcbpins $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME).cmd
-
-bom:
-	gnetlist -g partslist3 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.csv
-#	gnetlist -g partslist4 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.csv
-#	gnetlist -g bom2 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.csv
-	cat $(PROJECTNAME)-bom.csv | a2ps -f 8 --columns=1 -T 25 --center-title="Bill of materials for $(TITLE)" | gs -q -dNOPAUSE -dBATCH -sPAPERSIZE=a4 -sDEVICE=pdfwrite -sOutputFile=$(PROJECTNAME)-bom.pdf -f -
-
 
 clean:
 	rm -f   *~ *# *.log $(PROJECTNAME).new.pcb *.gbr $(PROJECTNAME).cmd $(patsubst %,./%.ps, $(SHEETS))

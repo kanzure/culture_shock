@@ -1,63 +1,59 @@
-v 20111231 2
-T 100 100 0 1 0 0 0 0 1
+v 20150930 2
+T -100 100 0 1 0 0 0 0 1
 gedasymbols::url=http://www.gedasymbols.org/user/kaimartin_knaak/essential/symbols/analog/regulator_positive_fixed.sym
-B 200 200 1000 600 3 10 0 0 -1 -1 0 -1 -1 -1 -1 -1
-T 200 1100 8 10 1 1 0 0 1
-value=7805
-P 200 500 100 500 1 0 1
+B 100 200 800 600 3 10 0 0 -1 -1 0 -1 -1 -1 -1 -1
+T 0 1100 8 10 1 1 0 0 1
+value=VDC
+P 100 500 0 500 1 0 1
 {
-T 150 550 5 8 1 1 0 6 1
+T 50 550 5 8 1 1 0 6 1
 pinnumber=1
-T 150 550 5 8 0 1 0 6 1
+T -50 550 5 8 0 1 0 6 1
 pinseq=1
-T 150 450 5 8 0 1 0 8 1
-pintype=in
-T 300 500 5 10 1 1 0 1 1
+T -50 450 5 8 0 1 0 8 1
+pintype=pwr
+T 200 500 5 10 1 1 0 1 1
 pinlabel=in
 }
-P 700 100 700 200 1 0 0
+P 500 100 500 200 1 0 0
 {
-T 650 150 5 8 1 1 0 8 1
+T 450 150 5 8 1 1 0 8 1
 pinnumber=2
-T 650 150 5 8 0 1 0 8 1
+T 450 150 5 8 0 1 0 8 1
 pinseq=2
-T 800 0 5 10 0 1 0 0 1
+T 600 0 5 10 0 1 0 0 1
 pintype=pas
-T 700 250 5 10 1 1 0 3 1
+T 500 250 5 10 1 1 0 3 1
 pinlabel=GND
 }
-P 1200 500 1300 500 1 0 1
+P 900 500 1000 500 1 0 1
 {
-T 1250 550 5 8 1 1 0 0 1
+T 950 550 5 8 1 1 0 0 1
 pinnumber=3
-T 1250 550 5 8 0 1 0 0 1
+T 1050 550 5 8 0 1 0 0 1
 pinseq=3
-T 1150 500 5 10 1 1 0 7 1
+T 850 500 5 10 1 1 0 7 1
 pinlabel=out
-T 1250 450 5 10 0 1 0 2 1
+T 1050 450 5 10 0 1 0 2 1
 pintype=pwr
 }
-T 200 1300 8 10 1 1 0 0 1
+T 0 1300 8 10 1 1 0 0 1
 refdes=U?
-T 200 2000 5 8 0 0 0 0 1
+T 0 2000 5 8 0 0 0 0 1
 author=Kai-Martin Knaak, kmk@lilalaser.de
-T 200 3200 5 8 0 0 0 0 1
+T 0 3200 5 8 0 0 0 0 1
 description=fixed positive voltage regulator
-T 200 900 8 8 1 1 0 0 1
-footprint=TO220
-T 200 3000 5 8 0 0 0 0 1
-documentation=http://www.datasheetcatalog.com/datasheets_pdf/7/8/0/5/7805.shtml
-T 200 2400 5 8 0 0 0 0 1
-values=7805, 7809, 7812, 7815, 7818, 7824, 78L05, 78L12, 78L15, 78L18, LF33, LE33, TS911, MCP1825S
-T 200 1600 5 8 0 0 0 0 1
+T 0 900 8 8 1 1 0 0 1
+footprint=SOT23
+T 0 2400 5 8 0 0 0 0 1
+value=3v3
+T 0 1600 5 8 0 0 0 0 1
 use-license=free, no restrictions
-L 600 600 800 600 3 10 0 0 -1 -1
-L 700 700 700 500 3 10 0 0 -1 -1
-T 200 2600 5 8 0 0 0 0 1
-footprints=TO220, TO220_LAY, TO220_bighole, TO220_block, TO92, DPAK, D2PAK, SO8_78Lxx, SOT89_78LxxA
-T 200 2200 5 8 0 0 0 0 1
+L 400 600 600 600 3 10 0 0 -1 -1
+L 500 700 500 500 3 10 0 0 -1 -1
+T 0 2200 5 8 0 0 0 0 1
 symversion=3.0
-T 200 2800 5 8 0 0 0 0 1
-comment=Double check the data sheet for pin out!
-T 200 1800 5 8 0 0 0 0 1
+T 0 1800 5 8 0 0 0 0 1
 dist-license=GPL 3, see http://www.gnu.org/licenses/gpl-3.0.txt
+T 480 949 8 10 0 1 0 0 1
+device=regulator
