@@ -16,25 +16,26 @@
 BASENAMES = micropulser kvboard g30pulser
 BOARDS = $(addsuffix .lht, $(BASENAMES))
 SCHEMS = $(addsuffix .sch, $(BASENAMES))
-BOMS =   $(addsuffix .bom.csv,  $(BASENAMES))
+BOMS =   $(addsuffix .bom.tsv,  $(BASENAMES))
 REV = 0.1
 GRB = ./fab
 
 boms: $(BOMS)
 
 #this automatic target maker is not good for schematics with more than one page.
-$(BOMS): %.bom.csv: %.sch
+$(BOMS): %.bom.tsv: %.sch
 	gnetlist -g partslist3 $< -o $@
+	libreoffice --calc --infilter=generic_Text $@
 	
 # this explicitly makes boms from  schematics with more than one page:
 #micropulser1micropulser2.bom: micropulser1.sch 1micropulser2.sch
 #	gnetlist -g partslist3 micropulser1.sch 1micropulser2.sch  -o micropulser1micropulser2.bom
 
 #bom:	
-#	gnetlist -g partslist3 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.csv
-#	gnetlist -g partslist4 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.csv
-#	gnetlist -g bom2 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.csv
-#	cat $(PROJECTNAME)-bom.csv | a2ps -f 8 --columns=1 -T 25 --center-title="Bill of materials for $(TITLE)" | gs -q -dNOPAUSE -dBATCH -sPAPERSIZE=a4 -sDEVICE=pdfwrite -sOutputFile=$(PROJECTNAME)-bom.pdf -f -
+#	gnetlist -g partslist3 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.tsv
+#	gnetlist -g partslist4 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.tsv
+#	gnetlist -g bom2 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.tsv
+#	cat $(PROJECTNAME)-bom.tsv | a2ps -f 8 --columns=1 -T 25 --center-title="Bill of materials for $(TITLE)" | gs -q -dNOPAUSE -dBATCH -sPAPERSIZE=a4 -sDEVICE=pdfwrite -sOutputFile=$(PROJECTNAME)-bom.pdf -f -
 
 
 
