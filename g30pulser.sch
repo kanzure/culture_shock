@@ -89,7 +89,7 @@ value=3.3
 T 55000 53400 5 10 1 1 0 0 1
 refdes=U1
 T 55000 53000 5 8 1 1 0 0 1
-footprint=SOT23
+footprint=SOT23-123.fp
 T 55000 54300 5 8 0 0 0 0 1
 symversion=3.0
 T 54800 52100 5 10 0 0 0 0 1
@@ -260,5 +260,5 @@ device=DRC_Directive
 }
 N 51200 43000 51500 43000 4
 N 51500 42400 51200 42400 4
-C 54900 49800 1 0 0 gnd-1.sym
-C 56800 44100 1 0 0 gnd-1.sym
+C 54700 49800 1 0 0 com.sym
+C 56800 44100 1 0 0 com.sym

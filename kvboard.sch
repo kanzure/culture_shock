@@ -18,24 +18,28 @@ description=DIODE GEN PURP 3KV 200MA DO15
 C 58500 51600 1 270 0 capacitor-1.sym
 {
 T 59200 51400 5 10 0 0 270 0 1
-device=CAPACITOR
+device=472-3KV
 T 58900 51300 5 10 1 1 0 0 1
 refdes=C3
 T 59400 51400 5 10 0 0 270 0 1
 symversion=0.1
 T 58200 50900 5 10 1 1 0 0 1
 value=4.7nF
+T 58500 51600 5 10 0 0 0 0 1
+footprint=disk_cap_5mm_flat.fp
 }
 C 55200 52600 1 0 0 capacitor-1.sym
 {
 T 55400 53300 5 10 0 0 0 0 1
-device=CAPACITOR
+device=472-3KV
 T 55700 53200 5 10 1 1 180 0 1
 refdes=C1
 T 55400 53500 5 10 0 0 0 0 1
 symversion=0.1
 T 56000 52500 5 10 1 1 180 0 1
 value=4.7nF
+T 55200 52600 5 10 0 0 0 0 1
+footprint=disk_cap_5mm_flat.fp
 }
 N 52900 52400 45100 52400 4
 N 56100 52800 56800 52800 4
@@ -49,13 +53,15 @@ N 58700 51600 58700 52800 4
 C 55300 53500 1 0 0 capacitor-1.sym
 {
 T 55500 54200 5 10 0 0 0 0 1
-device=CAPACITOR
+device=472-3KV
 T 55800 54100 5 10 1 1 180 0 1
 refdes=C2
 T 55500 54400 5 10 0 0 0 0 1
 symversion=0.1
 T 56100 53400 5 10 1 1 180 0 1
 value=4.7nF
+T 55300 53500 5 10 0 0 0 0 1
+footprint=disk_cap_5mm_flat.fp
 }
 N 58300 45500 61600 45500 4
 N 58700 49700 58700 50700 4
@@ -100,8 +106,10 @@ T 59400 52300 5 10 1 1 0 0 1
 refdes=R1
 T 59700 51800 5 10 1 1 0 0 1
 value=475K
-T 59300 52000 5 10 0 0 270 0 1
-footprint=1206
+T 59300 52000 5 10 0 0 0 0 1
+footprint=1206_HV.fp
+T 59300 52000 5 10 0 0 0 0 1
+description=RES SMD 475K OHM 1% 1/4W 1206
 }
 C 60500 52000 1 0 0 resistor-1.sym
 {
@@ -112,7 +120,9 @@ refdes=R2
 T 60900 51800 5 10 1 1 0 0 1
 value=475K
 T 60500 52000 5 10 0 0 0 0 1
-footprint=1206
+footprint=1206_HV.fp
+T 60500 52000 5 10 0 0 0 0 1
+description=RES SMD 475K OHM 1% 1/4W 1206
 }
 N 52600 52400 52600 51800 4
 N 52600 51800 52900 51800 4
@@ -130,6 +140,8 @@ T 50900 51100 5 10 0 0 0 0 1
 description=CAP CER 10UF 50V X7R 1206 
 T 50700 51000 5 10 1 1 0 0 1
 comment=X7R
+T 50900 51100 5 10 0 0 0 0 1
+footprint=1206.fp
 }
 T 56900 44100 9 12 1 0 0 0 3
 2500V divided by 800 attenuation = 
@@ -146,6 +158,8 @@ T 59600 46200 5 10 1 1 90 0 1
 value=4.75K
 T 59400 45800 5 10 0 0 0 0 1
 description=4.75k Ohm ±1% 0.125W, 1/8W Chip Resistor 0805 (2012 Metric) 
+T 59400 45800 5 10 0 0 0 0 1
+footprint=0805.fp
 }
 N 54300 47100 59300 47100 4
 C 54300 47200 1 180 0 resistor-1.sym
@@ -155,7 +169,7 @@ device=MF-RES-0805-220
 T 53600 47400 5 10 1 1 180 0 1
 refdes=R14
 T 54300 47200 5 10 0 1 0 0 1
-footprint=0805
+footprint=0805.fp
 T 53900 47300 5 10 1 1 0 0 1
 value=220
 T 54300 47200 5 10 0 0 0 0 1
@@ -272,7 +286,9 @@ refdes=R3
 T 60900 51000 5 10 1 1 0 0 1
 value=475K
 T 60500 51200 5 10 0 0 0 0 1
-footprint=1206
+footprint=1206_HV.fp
+T 60500 51200 5 10 0 0 0 0 1
+description=RES SMD 475K OHM 1% 1/4W 1206
 }
 C 59300 51200 1 0 0 resistor-1.sym
 {
@@ -283,7 +299,9 @@ refdes=R4
 T 59700 51000 5 10 1 1 0 0 1
 value=475K
 T 59300 51200 5 10 0 0 0 0 1
-footprint=1206
+footprint=1206_HV.fp
+T 59300 51200 5 10 0 0 0 0 1
+description=RES SMD 475K OHM 1% 1/4W 1206
 }
 C 59300 50400 1 0 0 resistor-1.sym
 {
@@ -294,7 +312,9 @@ refdes=R5
 T 59700 50200 5 10 1 1 0 0 1
 value=475K
 T 59300 50400 5 10 0 0 0 0 1
-footprint=1206
+footprint=1206_HV.fp
+T 59300 50400 5 10 0 0 0 0 1
+description=RES SMD 475K OHM 1% 1/4W 1206
 }
 C 60500 50400 1 0 0 resistor-1.sym
 {
@@ -305,7 +325,9 @@ refdes=R6
 T 60900 50200 5 10 1 1 0 0 1
 value=475K
 T 60500 50400 5 10 0 0 0 0 1
-footprint=1206
+footprint=1206_HV.fp
+T 60500 50400 5 10 0 0 0 0 1
+description=RES SMD 475K OHM 1% 1/4W 1206
 }
 C 60500 49600 1 0 0 resistor-1.sym
 {
@@ -316,7 +338,9 @@ refdes=R7
 T 60900 49400 5 10 1 1 0 0 1
 value=475K
 T 60500 49600 5 10 0 0 0 0 1
-footprint=1206
+footprint=1206_HV.fp
+T 60500 49600 5 10 0 0 0 0 1
+description=RES SMD 475K OHM 1% 1/4W 1206
 }
 C 59300 49600 1 0 0 resistor-1.sym
 {
@@ -327,9 +351,9 @@ refdes=R8
 T 59700 49400 5 10 1 1 0 0 1
 value=475K
 T 59300 49600 5 10 0 0 0 0 1
-footprint=1206
-T 59300 49600 5 10 0 0 0 0 1
 description=RES SMD 475K OHM 1% 1/4W 1206
+T 59300 49600 5 10 0 0 0 0 1
+footprint=1206_HV.fp
 }
 N 59300 46700 59300 49700 4
 N 59300 52100 59300 52500 4
@@ -344,6 +368,8 @@ T 49600 49300 5 10 1 1 90 0 1
 value=4.75K
 T 49400 48900 5 10 0 0 0 0 1
 description=4.75k Ohm ±1% 0.125W, 1/8W Chip Resistor 0805 (2012 Metric) 
+T 49400 48900 5 10 0 0 0 0 1
+footprint=0805.fp
 }
 C 48800 50300 1 90 0 resistor-1.sym
 {
@@ -355,6 +381,8 @@ T 49000 50700 5 10 1 1 90 0 1
 value=4.75K
 T 48800 50300 5 10 0 0 0 0 1
 description=4.75k Ohm ±1% 0.125W, 1/8W Chip Resistor 0805 (2012 Metric) 
+T 48800 50300 5 10 0 0 0 0 1
+footprint=0805.fp
 }
 N 48100 51400 51500 51400 4
 N 48700 48100 48700 50300 4
@@ -366,7 +394,7 @@ device=MF-RES-0805-220
 T 47200 50300 5 10 1 1 180 0 1
 refdes=R12
 T 47900 50100 5 10 0 1 0 0 1
-footprint=0805
+footprint=0805.fp
 T 47500 50200 5 10 1 1 0 0 1
 value=220
 T 47900 50100 5 10 0 0 0 0 1
@@ -459,8 +487,8 @@ description=CAP ALUM 220UF 20% 25V SMD
 }
 N 40700 50000 47000 50000 4
 {
-T 40900 50150 5 10 1 1 180 6 1
-netname=PA0
+T 42800 50150 5 10 1 1 180 6 1
+netname=PA0_TIM_pulser
 }
 C 48100 51500 1 180 0 resistor-1.sym
 {
@@ -469,7 +497,7 @@ device=MF-RES-0805-220
 T 47400 51700 5 10 1 1 180 0 1
 refdes=R13
 T 48100 51500 5 10 0 1 0 0 1
-footprint=0805
+footprint=0805.fp
 T 47700 51600 5 10 1 1 0 0 1
 value=220
 T 48100 51500 5 10 0 0 0 0 1
@@ -479,8 +507,8 @@ N 47200 51400 45700 51400 4
 N 45700 51400 45700 50300 4
 N 40700 50300 45700 50300 4
 {
-T 40900 50450 5 10 1 1 180 6 1
-netname=PA1
+T 42800 50450 5 10 1 1 180 6 1
+netname=PA1_TIM_pulser
 }
 N 40700 50600 41500 50600 4
 {
@@ -494,8 +522,8 @@ netname=PA3
 }
 N 40700 51200 44700 51200 4
 {
-T 40900 51350 5 10 1 1 180 6 1
-netname=PA4
+T 43200 51350 5 10 1 1 180 6 1
+netname=PA4_HV_sense
 }
 N 40700 51500 41500 51500 4
 {
@@ -645,6 +673,8 @@ T 40000 57050 5 10 0 0 0 0 1
 device=MCX
 T 40000 56500 5 10 1 1 0 0 1
 refdes=J2
+T 40000 55700 5 10 0 0 0 0 1
+footprint=DC-05-jack.fp
 }
 C 40400 55400 1 0 0 gnd-1.sym
 C 42300 54100 1 0 0 gnd-1.sym

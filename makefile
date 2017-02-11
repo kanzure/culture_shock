@@ -25,8 +25,8 @@ boms: $(BOMS)
 #this automatic target maker is not good for schematics with more than one page.
 $(BOMS): %.bom.tsv: %.sch
 	gnetlist -g partslist3 $< -o $@
-	libreoffice --calc --infilter=generic_Text $@
-	
+	libreoffice --calc --infilter=generic_Text $@ &
+#	gnumeric $@ &
 # this explicitly makes boms from  schematics with more than one page:
 #micropulser1micropulser2.bom: micropulser1.sch 1micropulser2.sch
 #	gnetlist -g partslist3 micropulser1.sch 1micropulser2.sch  -o micropulser1micropulser2.bom
