@@ -11,31 +11,47 @@
 #PHONY make does not create a file of this name, the name is placeholder for other files.
 #PHONY targets have an action every time if targets are scripts.
 
-.PHONY: myropcb hackvana gerbv net pcb gschem boms
+.PHONY: myropcb hackvana gerbv net pcb gschem bom drc
 
 BASENAMES = micropulser kvboard g30pulser
 BOARDS = $(addsuffix .lht, $(BASENAMES))
 SCHEMS = $(addsuffix .sch, $(BASENAMES))
+NETS = $(addsuffix .net, $(BASENAMES))
+DRCS = $(addsuffix .drc, $(BASENAMES))
 BOMS =   $(addsuffix .bom.tsv,  $(BASENAMES))
 REV = 0.1
 GRB = ./fab
 
-boms: $(BOMS)
+bom: $(BOMS)
 
 #this automatic target maker is not good for schematics with more than one page.
 $(BOMS): %.bom.tsv: %.sch
 	gnetlist -g partslist3 $< -o $@
 	libreoffice --calc --infilter=generic_Text $@ &
-#	gnumeric $@ &
+#	a2ps -B  --borders=0  -f 10 --columns=1 -T 22 --center-title="Bill of Materials $(basename $(basename $@))" $@ -o -  |  ps2pdf - > $@.pdf
+#	evince $@.pdf &
+#	a2ps -B    #no headers
+#	a2ps --right-title=culture shock electroporator project   #set rt header only has 8 chars of room....
+
+
+
 # this explicitly makes boms from  schematics with more than one page:
-#micropulser1micropulser2.bom: micropulser1.sch 1micropulser2.sch
 #	gnetlist -g partslist3 micropulser1.sch 1micropulser2.sch  -o micropulser1micropulser2.bom
 
-#bom:	
-#	gnetlist -g partslist3 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.tsv
-#	gnetlist -g partslist4 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.tsv
-#	gnetlist -g bom2 $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)-bom.tsv
-#	cat $(PROJECTNAME)-bom.tsv | a2ps -f 8 --columns=1 -T 25 --center-title="Bill of materials for $(TITLE)" | gs -q -dNOPAUSE -dBATCH -sPAPERSIZE=a4 -sDEVICE=pdfwrite -sOutputFile=$(PROJECTNAME)-bom.pdf -f -
+net: $(NETS)
+
+#this automatic target maker is not good for schematics with more than one page.
+$(NETS): %.net: %.sch
+
+	gnetlist -g PCB  $< -o $@
+
+drc: $(DRCS)
+
+#this automatic target maker is not good for schematics with more than one page.
+$(DRCS): %.drc: %.sch
+
+	gnetlist -g drc2  $< -o $@
+	gvim  $@
 
 
 
@@ -95,12 +111,6 @@ gerbv:
 schems: 
 	gschem $(SCHEMS) &
 
-net:
-	gnetlist -g drc $(patsubst %,%.sch,$(SHEET)) -o -
-	gnetlist -g drc2 $(patsubst %,%.sch,$(SHEET)) -o -
-	gnetlist -g PCB $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME).net
-	rm -
-	echo - make net completed successfully
 
 
 pcb:

@@ -1,9 +1,12 @@
 .START
 ..device	value	footprint	quantity	refdes
 AP2120N-3.3TRG1	3.3	SOT23-123.fp	1	U1
-CAPACITOR	0.1 uF	unknown	1	C1
-CAPACITOR	4.7 uF	unknown	1	C2
-HEADER50	unknown	header50	1	J2
-SWITCH_PUSHBUTTON_NO	unknown	unknown	1	S1
-zif_connector	unknown	ffc_zif_20.fp	1	J1
+FC5030-20	na	ffc_zif_20.fp	1	J1
+header20single	na	header20single.fp	1	J2
+MF-CAP-0603-0.1uF	0.1 uF	chip_1608_0603_N.fp	1	C1
+MF-CAP-0603-1uF	1 uF	chip_1608_0603_N.fp	2	C2 C3
+MF-RES-0805-220	220	0805.fp	6	R3 R4 R5 R6 R7 R8
+MF-RES-0805-220	220	chip_2012_0805_N.fp	2	R1 R2
+MF-RES-0805-220	4.75K	0805.fp	2	R11 R9
+SWITCH_PUSH_NO	na	6mm_push.fp	2	S1 S2
 .END

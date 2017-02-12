@@ -1,14 +1,16 @@
 .START
 ..device	value	footprint	quantity	refdes
+AP2120N-3.3TRG1	3.3	SOT23-123.fp	1	U2
 CAPACITOR	20 pF	0805.fp	2	C6 C7
 CAPACITOR	4.7 uF	unknown	1	C2
-CAPACITOR	4.7nF	unknown	1	C19
 CAPACITOR	9 pF	0805.fp	2	C8 C9
 CAPACITOR	unknown	1206.fp	2	C3 C5
 CAPACITOR	unknown	unknown	2	C1 C4
 COIL	unknown	unknown	1	L3
 CRYSTAL	12MHz	1812.fp	1	X1
 CRYSTAL	32.78	2412.fp	1	X2
+MF-CAP-0603-0.1uF	0.1 uF	chip_1608_0603_N.fp	1	C10
+MF-CAP-0603-1uF	1 uF	chip_1608_0603_N.fp	2	C11 C12
 RESISTOR	100K	unknown	1	R5
 RESISTOR	22	0805_HV.fp	2	R6 R7
 stm32f401cb	unknown	UFQFPN48.fp	1	U1
