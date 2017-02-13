@@ -1,0 +1,43 @@
+
+Element["" "DC_05_jack" "J?" "" 554134 135827 24000 -2000 0 100 ""]
+(
+#      Pin [rX rY   Thick Clear Mask Drill "Name" "Number" SFlags]
+	Pin[0 -8661 13780 4000 6506 5906 "" "1" "hole"]
+	Pin[0 9055 7087 4000 7687 7087 "" "2" "hole"]
+#       Pad[rX1 rY1      rX2      rY2 Thick Clear Mask "Name" "Number" SFlags]
+	Pad[-23621 -8661 -21653 -8661 7874 3149 11023 "2" "1" "square"]
+	Pad[-23621 16535 -21653 16535 7874 3149 11023 "3" "2" "square"]
+	Pad[21653 16535 23621 16535 7874 3149 11023 "1" "3" "square"]
+	Pad[21653 -8661 23621 -8661 7874 3149 11023 "1" "4" "square"]
+	ElementLine [-18110 -14370 -18110 -23228 984]
+	ElementLine [-13583 -27559 13780 -27559 984]
+	ElementLine [-18110 21457 -18110 29921 984]
+	ElementLine [18307 25000 18307 22047 984]
+	ElementLine [18307 -23228 18307 -14370 984]
+	ElementLine [-18110 -3740 -18110 11024 984]
+	ElementLine [18307 -3740 18307 11220 984]
+	ElementLine [-12598 -27559 -12598 -26969 984]
+	ElementLine [-12598 -23228 -12598 -21063 984]
+	ElementLine [-12598 -17323 -12598 -15157 984]
+	ElementLine [-12598 -11417 -12598 -9252 984]
+	ElementLine [12598 -27559 12598 -26969 984]
+	ElementLine [12598 -23228 12598 -21063 984]
+	ElementLine [12598 -17323 12598 -15157 984]
+	ElementLine [12598 -11417 12598 -9252 984]
+	ElementLine [-12598 -5512 -12598 -3346 984]
+	ElementLine [-12598 394 -12598 2559 984]
+	ElementLine [-12598 6299 -12598 8465 984]
+	ElementLine [12598 -5512 12598 -3346 984]
+	ElementLine [12598 394 12598 2559 984]
+	ElementLine [12598 6299 12598 8465 984]
+	ElementLine [-18110 29921 -7283 29921 984]
+	ElementLine [-7283 25000 18307 25000 984]
+	ElementLine [-7283 29921 -7283 25000 984]
+	ElementArc [-27559 -12598 0 0 270 90 0]
+	ElementArc [-13583 -23031 4528 4528 270 90 1000]
+	ElementArc [13780 -23031 4528 4528 180 90 1000]
+	Attribute("author" "John Griessen") 
+	Attribute("copyright" "2017 John Griessen")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "GPL")
+)

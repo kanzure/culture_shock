@@ -2,7 +2,7 @@ v 20150930 2
 C 37600 38200 0 0 0 title-A-cibolo.sym
 {
 T 58500 38200 5 10 1 1 0 0 1
-file=shock_micropulser.sch
+file=micropulser.sch
 T 62600 37900 5 10 1 1 0 0 1
 drawn-by=John Griessen
 T 50800 38000 5 18 1 1 0 0 1
@@ -12,7 +12,7 @@ first-pagenum=1
 T 59400 37900 5 10 1 1 0 0 1
 last-pagenum=1
 T 62600 38200 5 10 1 1 0 0 1
-rev=1
+rev=2017-02-13
 T 64400 43400 5 18 1 1 270 0 1
 title2=Culture Shock Micropulser PCB
 }

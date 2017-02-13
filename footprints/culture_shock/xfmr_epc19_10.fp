@@ -20,4 +20,8 @@ Element["" "xfmr_epc19_10" "T?" "" 216535 273622 -39323 -2500 0 100 ""]
 	ElementLine [-30000 30000 30000 30000 1000]
 	ElementLine [30000 30000 30000 29528 1000]
 	ElementArc [-51181 -27755 0 0 270 90 10]
-	)
+	Attribute("author" "John Griessen") 
+	Attribute("copyright" "2017 John Griessen")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "GPL")
+)

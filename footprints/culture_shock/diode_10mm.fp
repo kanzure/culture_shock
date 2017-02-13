@@ -12,5 +12,9 @@ Element["" "diode_10mm" "D?" "" 108268 78740 -3937 7874 0 100 ""]
 	ElementLine [-4685 0 5315 -6000 2500]
 	ElementLine [-4685 0 5315 6000 2500]
 	ElementLine [15315 0 -14685 0 2500]
+	Attribute("author" "John Griessen") 
+	Attribute("copyright" "2017 John Griessen")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "GPL")
 
 	)

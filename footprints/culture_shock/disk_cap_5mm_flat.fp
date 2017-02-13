@@ -15,5 +15,9 @@ Element["" "" "C??" "" 218504 220472 -3937 -2953 0 100 ""]
 	ElementArc [0 -25591 14764 14764 180 90 1000]
 	ElementArc [0 -25591 14764 14764 270 90 1000]
 	ElementArc [0 -25591 14764 14764 0 90 1000]
+	Attribute("author" "John Griessen") 
+	Attribute("copyright" "2017 John Griessen")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "GPL")
 
 	)

@@ -110,7 +110,7 @@ refdes=S1
 T 53200 51400 5 10 0 0 180 2 1
 device=SWITCH_PUSH_NO
 T 53600 50800 5 10 0 0 0 0 1
-footprint=6mm_push.fp
+footprint=push_b_6mm.fp
 T 53600 50800 5 10 0 0 0 0 1
 value=na
 }
@@ -164,14 +164,12 @@ N 51200 46600 52100 46600 4
 T 51400 46750 5 10 1 1 180 6 1
 netname=PA5
 }
-T 51700 54200 9 12 1 0 180 0 7
+T 51700 54600 9 12 1 0 180 0 5
 This where a G30_TH 
 module connects with 
 its JP21 - JP40
 corresponding to
 J1-1 to J1-20
-
- .
 T 58400 51400 9 12 1 0 0 0 6
 ZIF connector pin numbering 
 is not connected 1 to 1,
@@ -395,12 +393,12 @@ C 56500 47500 1 0 0 com.sym
 N 55900 47800 56600 47800 4
 C 54900 49400 1 90 1 switch-pushbutton-no-1.sym
 {
-T 54600 49000 5 10 1 1 270 2 1
+T 54400 49000 5 10 1 1 0 2 1
 refdes=S2
 T 54300 49000 5 10 0 0 270 2 1
 device=SWITCH_PUSH_NO
 T 54900 49400 5 10 0 0 90 0 1
-footprint=6mm_push.fp
+footprint=push_b_6mm.fp
 T 54900 49400 5 10 0 0 90 0 1
 value=na
 }

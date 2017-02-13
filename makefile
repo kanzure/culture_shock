@@ -17,6 +17,7 @@ BASENAMES = micropulser kvboard g30pulser
 BOARDS = $(addsuffix .lht, $(BASENAMES))
 SCHEMS = $(addsuffix .sch, $(BASENAMES))
 NETS = $(addsuffix .net, $(BASENAMES))
+CMDS = $(addsuffix .lht.cmd, $(BASENAMES))
 DRCS = $(addsuffix .drc, $(BASENAMES))
 BOMS =   $(addsuffix .bom.tsv,  $(BASENAMES))
 REV = 0.1
@@ -38,7 +39,7 @@ $(BOMS): %.bom.tsv: %.sch
 # this explicitly makes boms from  schematics with more than one page:
 #	gnetlist -g partslist3 micropulser1.sch 1micropulser2.sch  -o micropulser1micropulser2.bom
 
-net: $(NETS)
+net: $(NETS) $(BOMS) $(DRCS)
 
 #this automatic target maker is not good for schematics with more than one page.
 $(NETS): %.net: %.sch
@@ -54,6 +55,9 @@ $(DRCS): %.drc: %.sch
 	gvim  $@
 
 
+pcb: $(BOARDS)
+ $(BOARDS): %.lht: %.sch
+	gsch2pcb-rnd  $< -o $@
 
 # this does all $(BOARDS) on each invocation...can be improved...
 myropcb: $(BOARDS)  
@@ -113,10 +117,6 @@ schems:
 
 
 
-pcb:
-	gsch2pcb --use-files --skip-m4 --elements-dir ../lib/pcb/pi $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME)
-#	gnetlist -g gsch2pcb $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME).auto.pcb
-#	gnetlist -g pcbpins $(patsubst %,%.sch,$(SHEET)) -o $(PROJECTNAME).cmd
 
 clean:
 	rm -f   *~ *# *.log $(PROJECTNAME).new.pcb *.gbr $(PROJECTNAME).cmd $(patsubst %,./%.ps, $(SHEETS))

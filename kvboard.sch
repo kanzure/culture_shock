@@ -85,7 +85,7 @@ first-pagenum=1
 T 59400 37900 5 10 1 1 0 0 1
 last-pagenum=1
 T 62600 38200 5 10 1 1 0 0 1
-rev=0.1    2017-2-12
+rev=0.1    2017-2-13
 T 64400 43100 5 18 1 1 270 0 1
 title2=Culture Shock kvboard PCB
 }
@@ -99,6 +99,8 @@ T 54400 51300 5 10 0 0 0 0 1
 description=1500V transformer
 T 54400 51300 5 10 0 0 0 0 1
 footprint=xfmr_epc19_10.fp
+T 54400 51300 5 10 0 0 0 0 1
+value=xfmr
 }
 C 59300 52000 1 0 0 resistor-1.sym
 {
@@ -143,7 +145,7 @@ description=CAP CER 10UF 50V X7R 1206
 T 50700 51000 5 10 1 1 0 0 1
 comment=X7R
 T 50900 51100 5 10 0 0 0 0 1
-footprint=1206.fp
+footprint=chip_3216_1206_N.fp
 }
 T 56900 44100 9 12 1 0 0 0 3
 2500V divided by 800 attenuation = 
@@ -161,7 +163,7 @@ value=4.75K
 T 59400 45800 5 10 0 0 0 0 1
 description=4.75k Ohm ±1% 0.125W, 1/8W Chip Resistor 0805 (2012 Metric) 
 T 59400 45800 5 10 0 0 0 0 1
-footprint=0805.fp
+footprint=chip_2012_0805_N.fp
 }
 N 54300 47100 59300 47100 4
 C 54300 47200 1 180 0 resistor-1.sym
@@ -171,7 +173,7 @@ device=MF-RES-0805-220
 T 53600 47400 5 10 1 1 180 0 1
 refdes=R14
 T 54300 47200 5 10 0 1 0 0 1
-footprint=0805.fp
+footprint=chip_2012_0805_N.fp
 T 53900 47300 5 10 1 1 0 0 1
 value=220
 T 54300 47200 5 10 0 0 0 0 1
@@ -183,18 +185,22 @@ C 62500 52400 1 0 1 terminal-1.sym
 T 62190 53150 5 10 0 0 0 6 1
 device=terminal
 T 62190 53000 5 10 0 0 0 6 1
-footprint=CONNECTOR 1 1
+footprint=spring_coin_contact.fp
 T 62250 52450 5 10 1 1 0 0 1
 refdes=CT1
+T 62500 52400 5 10 0 0 0 0 1
+value=connect
 }
 C 62500 45400 1 0 1 terminal-1.sym
 {
 T 62190 46150 5 10 0 0 0 6 1
 device=terminal
 T 62190 46000 5 10 0 0 0 6 1
-footprint=CONNECTOR 1 1
+footprint=spring_coin_contact.fp
 T 62250 45450 5 10 1 1 0 0 1
 refdes=CT2
+T 62500 45400 5 10 0 0 0 0 1
+value=connect
 }
 N 60300 45300 60300 45500 4
 N 54400 51400 54400 49700 4
@@ -224,11 +230,15 @@ T 52200 49800 5 10 0 0 0 0 1
 device=NMOS FET enhanced mode channel
 T 52200 49800 5 10 0 0 0 0 1
 description=MOSFET N-CH 55V 5.5A SOT223
+T 52200 49800 5 10 0 0 0 0 1
+value=NFET
 }
 C 39400 48400 1 0 0 ffc-zif-20.sym
 {
 T 39700 55000 5 10 1 1 0 0 1
 refdes=J3
+T 39400 48400 5 10 0 0 0 0 1
+value=connect
 }
 C 57800 51900 1 270 0 capacitor-1.sym
 {
@@ -366,7 +376,7 @@ value=4.75K
 T 49400 48900 5 10 0 0 0 0 1
 description=4.75k Ohm ±1% 0.125W, 1/8W Chip Resistor 0805 (2012 Metric) 
 T 49400 48900 5 10 0 0 0 0 1
-footprint=0805.fp
+footprint=chip_2012_0805_N.fp
 }
 C 48800 50300 1 90 0 resistor-1.sym
 {
@@ -379,7 +389,7 @@ value=4.75K
 T 48800 50300 5 10 0 0 0 0 1
 description=4.75k Ohm ±1% 0.125W, 1/8W Chip Resistor 0805 (2012 Metric) 
 T 48800 50300 5 10 0 0 0 0 1
-footprint=0805.fp
+footprint=chip_2012_0805_N.fp
 }
 N 48100 51400 51500 51400 4
 N 48700 48100 48700 50300 4
@@ -391,7 +401,7 @@ device=MF-RES-0805-220
 T 47200 50300 5 10 1 1 180 0 1
 refdes=R12
 T 47900 50100 5 10 0 1 0 0 1
-footprint=0805.fp
+footprint=chip_2012_0805_N.fp
 T 47500 50200 5 10 1 1 0 0 1
 value=220
 T 47900 50100 5 10 0 0 0 0 1
@@ -411,6 +421,8 @@ T 51500 51200 5 10 0 0 0 0 1
 device=NMOS FET enhanced mode channel
 T 51500 51200 5 10 0 0 0 0 1
 description=MOSFET N-CH 55V 5.5A SOT223
+T 51500 51200 5 10 0 0 0 0 1
+value=NFET
 }
 N 51100 51100 51100 52400 4
 N 51100 50200 51100 48100 4
@@ -439,6 +451,8 @@ T 48800 44200 5 10 1 1 90 0 1
 value=220 uF
 T 48700 44500 5 10 0 0 0 0 1
 description=CAP ALUM 220UF 20% 25V SMD
+T 48700 44500 5 10 0 0 0 0 1
+footprint=cap_10mm_alum_smt.fp
 }
 N 48900 44500 48900 45400 4
 N 48900 43600 48900 42900 4
@@ -451,9 +465,11 @@ refdes=C8
 T 50400 44200 5 10 0 0 270 0 1
 symversion=0.1
 T 49600 44100 5 10 1 1 90 0 1
-value=470 uF
+value=220 uF
 T 49500 44400 5 10 0 0 0 0 1
 description=CAP ALUM 220UF 20% 25V SMD
+T 49500 44400 5 10 0 0 0 0 1
+footprint=cap_10mm_alum_smt.fp
 }
 L 55200 49300 56000 49300 3 10 1 0 -1 -1
 L 53700 49300 53800 49300 3 10 1 0 -1 -1
@@ -476,13 +492,15 @@ C 50200 44400 1 270 0 capacitor-2.sym
 T 50100 43600 5 10 1 1 0 0 1
 refdes=C9
 T 50300 44100 5 10 1 1 90 0 1
-value=470 uF
+value=220 uF
 T 50900 44200 5 10 0 0 270 0 1
 device=UUX1E221MNL1GS
 T 51100 44200 5 10 0 0 270 0 1
 symversion=0.1
 T 50200 44400 5 10 0 0 0 0 1
 description=CAP ALUM 220UF 20% 25V SMD
+T 50200 44400 5 10 0 0 0 0 1
+footprint=cap_10mm_alum_smt.fp
 }
 N 40700 50000 47000 50000 4
 {
@@ -496,7 +514,7 @@ device=MF-RES-0805-220
 T 47400 51700 5 10 1 1 180 0 1
 refdes=R13
 T 48100 51500 5 10 0 1 0 0 1
-footprint=0805.fp
+footprint=chip_2012_0805_N.fp
 T 47700 51600 5 10 1 1 0 0 1
 value=220
 T 48100 51500 5 10 0 0 0 0 1
@@ -510,25 +528,13 @@ T 42800 50450 5 10 1 1 180 6 1
 netname=PA1_TIM_pulser
 }
 N 40700 50600 41500 50600 4
-{
-T 40900 50750 5 10 1 1 180 6 1
-netname=PA2
-}
 N 40700 50900 41500 50900 4
-{
-T 40900 51050 5 10 1 1 180 6 1
-netname=PA3
-}
 N 40700 51200 44700 51200 4
 {
 T 43200 51350 5 10 1 1 180 6 1
 netname=PA4_HV_sense
 }
 N 40700 51500 41500 51500 4
-{
-T 40900 51650 5 10 1 1 180 6 1
-netname=PA5
-}
 N 40500 56500 40500 56200 4
 N 40700 53600 43200 53600 4
 {
@@ -546,43 +552,19 @@ N 41200 49100 40700 49100 4
 N 40700 54500 42400 54500 4
 N 42400 54500 42400 54400 4
 N 40700 52400 41500 52400 4
-{
-T 40900 52550 5 10 1 1 180 6 1
-netname=PB8
-}
 N 40700 52700 42300 52700 4
-{
-T 40900 52850 5 10 1 1 180 6 1
-netname=PB9
-}
 N 40700 53900 41600 53900 4
 N 41600 53900 41600 53600 4
 N 40700 54200 41200 54200 4
 N 41200 54200 41200 54500 4
 N 40700 52100 41500 52100 4
-{
-T 40900 52250 5 10 1 1 180 6 1
-netname=PB1
-}
 N 40700 51800 41500 51800 4
-{
-T 40900 51950 5 10 1 1 180 6 1
-netname=PB0
-}
 N 40700 49700 41500 49700 4
-{
-T 40900 49850 5 10 1 1 180 6 1
-netname=PC1
-}
 N 40700 49400 41500 49400 4
-{
-T 40900 49550 5 10 1 1 180 6 1
-netname=PC0
-}
 N 44700 47100 44700 51200 4
 T 49700 45300 9 12 1 0 0 0 2
-These caps go 
-near C6, T1-7, T1-8.
+These aluminum SMT 10mm 
+caps go near C6, T1-7, T1-8.
 T 39400 46500 9 12 1 0 0 0 6
 ZIF connector pin numbering 
 is not connected 1 to 1,
@@ -669,7 +651,9 @@ device=MCX
 T 40000 56500 5 10 1 1 0 0 1
 refdes=J2
 T 40000 55700 5 10 0 0 0 0 1
-footprint=DC-05-jack.fp
+footprint=DC-0500.fp
+T 40000 55700 5 10 0 0 0 0 1
+value=connect
 }
 N 43800 48600 43800 48800 4
 C 42300 52600 1 0 0 nc-right-1.sym
@@ -718,4 +702,76 @@ C 40300 56500 1 0 0 power_+.sym
 {
 T 40200 56800 5 10 1 1 0 0 1
 net=20V_IN:1
+}
+N 44700 44400 44700 45300 4
+N 44700 43500 44700 42800 4
+N 45500 43400 45500 43000 4
+N 44700 43000 46200 43000 4
+N 45500 44300 45500 44900 4
+N 44700 44900 46200 44900 4
+N 46200 44300 46200 44900 4
+N 46200 43400 46200 43000 4
+C 44600 42500 1 0 0 com.sym
+{
+T 44700 42600 5 10 0 1 0 0 1
+net=common:1
+}
+C 44500 45300 1 0 0 Vdd.sym
+{
+T 44400 45600 5 10 1 1 0 0 1
+net=20V_IN:1
+}
+T 45500 45200 9 12 1 0 0 0 2
+These ceramic SMT 1206 
+caps go near C6, T1-7, T1-8.
+C 44500 44400 1 270 0 capacitor-1.sym
+{
+T 45200 44200 5 10 0 0 270 0 1
+device=CL21B105KBFNFNE
+T 44600 43800 5 10 1 1 180 0 1
+refdes=C10
+T 45400 44200 5 10 0 0 270 0 1
+symversion=0.1
+T 44900 44100 5 10 1 1 90 0 1
+value=1 uF
+T 44500 44400 5 10 0 0 0 0 1
+description=CAP CER 1UF 50V X7R
+T 44300 44300 5 10 1 1 0 0 1
+comment=X5R
+T 44500 44400 5 10 0 0 0 0 1
+footprint=chip_2012_0805_N.fp
+}
+C 45300 44300 1 270 0 capacitor-1.sym
+{
+T 46000 44100 5 10 0 0 270 0 1
+device=CL31B106KBHNNNE
+T 45400 43700 5 10 1 1 180 0 1
+refdes=C11
+T 46200 44100 5 10 0 0 270 0 1
+symversion=0.1
+T 45700 44000 5 10 1 1 90 0 1
+value=10 uF
+T 45300 44300 5 10 0 0 0 0 1
+description=CAP CER 10UF 50V X7R 1206 
+T 45100 44200 5 10 1 1 0 0 1
+comment=X7R
+T 45300 44300 5 10 0 0 0 0 1
+footprint=chip_3216_1206_N.fp
+}
+C 46000 44300 1 270 0 capacitor-1.sym
+{
+T 46700 44100 5 10 0 0 270 0 1
+device=CL21B105KBFNFNE
+T 46100 43700 5 10 1 1 180 0 1
+refdes=C12
+T 46900 44100 5 10 0 0 270 0 1
+symversion=0.1
+T 46400 44000 5 10 1 1 90 0 1
+value=1 uF
+T 46000 44300 5 10 0 0 0 0 1
+description=CAP CER 1UF 50V X7R
+T 45800 44200 5 10 1 1 0 0 1
+comment=X5R
+T 46000 44300 5 10 0 0 0 0 1
+footprint=chip_2012_0805_N.fp
 }

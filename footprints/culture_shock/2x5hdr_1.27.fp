@@ -26,5 +26,8 @@ Element["" "2x5hdr_1.27" "J?" "" 0 0 22000 -19000  0 100 ""]
 	ElementLine [10039 -13583 7677 -18701 787]
 	ElementLine [10078 -13591 12402 -18701 787]
 	ElementLine [12402 -18701 7677 -18701 787]
-
-	)
+	Attribute("author" "John Griessen") 
+	Attribute("copyright" "2017 John Griessen")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "GPL")
+)

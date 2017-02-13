@@ -22,5 +22,8 @@ Element["" "microUSB_AB_1" "J?" "G85_post_process_slot"  0 0 17000 -17000 0 100 
 	ElementLine [13977 -11220 13977 -2559 1000]
 	ElementLine [-13976 8465 -13976 9646 1000]
 	ElementLine [13977 9646 13977 8465 1000]
-
+	Attribute("author" "John Griessen") 
+	Attribute("copyright" "2017 John Griessen")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "GPL")
 	)
