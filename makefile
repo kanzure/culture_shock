@@ -20,6 +20,7 @@ NETS = $(addsuffix .net, $(BASENAMES))
 CMDS = $(addsuffix .lht.cmd, $(BASENAMES))
 DRCS = $(addsuffix .drc, $(BASENAMES))
 BOMS =   $(addsuffix .bom.tsv,  $(BASENAMES))
+BOMPDFS =   $(addsuffix .bom.tsv.pdf,  $(BASENAMES))
 REV = 0.1
 GRB = ./fab
 
@@ -28,11 +29,14 @@ bom: $(BOMS)
 #this automatic target maker is not good for schematics with more than one page.
 $(BOMS): %.bom.tsv: %.sch
 	gnetlist -g partslist3 $< -o $@
-	libreoffice --calc --infilter=generic_Text $@ &
-#	a2ps -B  --borders=0  -f 10 --columns=1 -T 22 --center-title="Bill of Materials $(basename $(basename $@))" $@ -o -  |  ps2pdf - > $@.pdf
-#	evince $@.pdf &
+#	libreoffice --calc --infilter=generic_Text $@ &
+
+pdf: $(BOMPDFS)
+
+$(BOMPDFS): %.bom.tsv.pdf: %.bom.tsv
+	a2ps -B  --borders=0  -f 10 --columns=1 -T 25 --center-title="Bill of Materials  $(basename $<)" $< -o -  |  ps2pdf - > $@
+	evince $@ &
 #	a2ps -B    #no headers
-#	a2ps --right-title=culture shock electroporator project   #set rt header only has 8 chars of room....
 
 
 

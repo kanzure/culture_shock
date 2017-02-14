@@ -321,8 +321,8 @@ C 54200 47000 1 0 1 USB_SMT_5p.sym
 {
 T 54200 48250 5 10 1 1 0 6 1
 refdes=J2
-T 53910 47310 5 16 1 1 90 2 1
-device=USB
+T 53910 47310 5 16 0 1 90 2 1
+device=microUSB_AB_antek
 T 53900 59450 5 10 0 0 0 6 1
 footprint=microUSB_AB_1.fp
 }
@@ -557,7 +557,7 @@ C 43100 44700 1 0 0 stm32f401cx.sym
 T 49000 52200 5 10 0 0 0 0 1
 device=stm32f401cb
 T 48700 51200 5 20 1 1 0 3 1
-refdes=U1
+refdes=U2
 T 45600 47300 5 10 1 1 0 0 1
 footprint=UFQFPN48.fp
 }
@@ -585,13 +585,13 @@ C 53300 45200 1 0 0 regulator_positive_fixed.sym
 T 53500 47400 5 8 0 0 0 0 1
 symversion=3.0
 T 53300 45200 5 10 0 0 0 0 1
-device=AP2120N-3.3TRG1
+device=AP2120N-3.3TRG1 
 T 53500 46300 5 10 1 1 0 0 1
-value=3.3
+value=3.3V
 T 53500 46100 5 8 1 1 0 0 1
 footprint=SOT23-123.fp
 T 53300 45200 5 10 1 1 0 0 1
-refdes=U2
+refdes=U1
 }
 N 54900 45100 54900 45700 4
 N 54300 45700 55800 45700 4
@@ -605,7 +605,7 @@ T 55100 44200 5 10 0 0 0 0 1
 footprint=chip_1608_0603_N.fp
 T 55100 44200 5 10 0 0 0 0 1
 description=1 uF X7R 25V
-T 54600 44800 5 10 1 1 0 0 1
+T 54500 44800 5 10 1 1 0 0 1
 refdes=C11
 T 55000 44400 5 10 1 1 0 0 1
 value=1 uF
@@ -620,7 +620,7 @@ T 56000 44200 5 10 0 0 0 0 1
 footprint=chip_1608_0603_N.fp
 T 56000 44200 5 10 0 0 0 0 1
 description=Capacitor MLCC 0603 0.1uF 10% 25V
-T 55500 44800 5 10 1 1 0 0 1
+T 55400 44800 5 10 1 1 0 0 1
 refdes=C10
 T 55900 44400 5 10 1 1 0 0 1
 value=0.1 uF
@@ -636,7 +636,7 @@ T 54500 44200 5 10 0 0 0 0 1
 footprint=chip_1608_0603_N.fp
 T 54500 44200 5 10 0 0 0 0 1
 description=1 uF X7R 25V
-T 54000 44800 5 10 1 1 0 0 1
+T 53900 44800 5 10 1 1 0 0 1
 refdes=C12
 T 54400 44400 5 10 1 1 0 0 1
 value=1 uF
