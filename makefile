@@ -11,9 +11,15 @@
 #PHONY make does not create a file of this name, the name is placeholder for other files.
 #PHONY targets have an action every time if targets are scripts.
 
-.PHONY: myropcb hackvana gerbv net pcb gschem bom drc
+.PHONY: myropcb hackvana 4pcb 4pcbnames 4pcbzip 4pcbfab gerbvmyro gerbv4pcb net pcb gschem bom drc
 
 BASENAMES = micropulser kvboard g30pulser
+BOARD2FABROOT = g30pulser
+REV = 0.1
+GRB = ./fab
+BASENAME2 := $(BOARD2FABROOT).$(REV)
+4PCBDIR := 4pcb-$(BOARD2FABROOT)
+BOARD2FAB := $(addsuffix .lht, $(BOARD2FABROOT))
 BOARDS = $(addsuffix .lht, $(BASENAMES))
 SCHEMS = $(addsuffix .sch, $(BASENAMES))
 NETS = $(addsuffix .net, $(BASENAMES))
@@ -21,8 +27,99 @@ CMDS = $(addsuffix .lht.cmd, $(BASENAMES))
 DRCS = $(addsuffix .drc, $(BASENAMES))
 BOMS =   $(addsuffix .bom.tsv,  $(BASENAMES))
 BOMPDFS =   $(addsuffix .bom.tsv.pdf,  $(BASENAMES))
-REV = 0.1
-GRB = ./fab
+
+4pcb:  $(BOARD2FAB)  
+	if test -d $(GRB); then echo $(GRB)" dir exists"; else mkdir $(GRB); fi
+	if test -d $(GRB)/$(4PCBDIR); then echo $(GRB)" dir exists"; else mkdir $(GRB)/$(4PCBDIR); fi
+	rm -f $(GRB)/*$(BOARD2FABROOT)* ; \
+	rm -f  $(GRB)/$(4PCBDIR)/*$(BOARD2FABROOT)* ; \
+	cp  $(BOARD2FAB)  $(GRB)/$(BASENAME2)-4pcb.lht  ; \
+	pcb-rnd -x gerber --all-layers  $(GRB)/$(BASENAME2)-4pcb.lht ; \
+
+	mv $(GRB)/$(BASENAME2)-4pcb.outline.gbr $(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.gm1 ; \
+	mv $(GRB)/$(BASENAME2)-4pcb.topsilk.gbr $(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.gto ; \
+	mv $(GRB)/$(BASENAME2)-4pcb.topmask.gbr $(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.gts ; \
+	mv $(GRB)/$(BASENAME2)-4pcb.top.gbr $(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.gtl ; \
+
+4pcbnames: | 4pcb
+4pcbnames: $(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.paste.gbp $(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.paste.gbo 
+4pcbnames:   $(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.paste.gtp   $(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.gbs
+4pcbnames:  $(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.NPTH.drl  $(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.plated.drl 
+4pcbnames: $(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.gbl  $(GRB)/$(4PCBDIR)/fab.$(BASENAME2)-4pcb.fab
+4pcbnames: $(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.2.sig $(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.3.sig
+
+$(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.2.sig:  $(GRB)/$(BASENAME2)-4pcb.group2.gbr
+	cp $< $@
+
+$(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.3.sig:  $(GRB)/$(BASENAME2)-4pcb.group3.gbr
+	cp $< $@
+
+$(GRB)/$(4PCBDIR)/fab.$(BASENAME2)-4pcb.fab:  $(GRB)/$(BASENAME2)-4pcb.fab.gbr
+	cp $< $@
+
+$(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.gbl:  $(GRB)/$(BASENAME2)-4pcb.bottom.gbr
+	cp $< $@
+
+$(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.paste.gbp:  $(GRB)/$(BASENAME2)-4pcb.bottompaste.gbr
+	cp $< $@
+
+$(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.paste.gbo:  $(GRB)/$(BASENAME2)-4pcb.bottomsilk.gbr
+	cp $< $@
+
+$(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.paste.gtp:  $(GRB)/$(BASENAME2)-4pcb.toppaste.gbr
+	cp $< $@
+
+$(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.NPTH.drl:  $(GRB)/$(BASENAME2)-4pcb.unplated-drill.cnc
+	cp $< $@
+
+$(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.plated.drl:  $(GRB)/$(BASENAME2)-4pcb.plated-drill.cnc
+	cp $< $@
+
+$(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.gbs:  $(GRB)/$(BASENAME2)-4pcb.bottommask.gbr
+	cp $< $@
+
+
+$(GRB)/$(BASENAME2)-4pcb.unplated-drill.cnc:
+	touch $(GRB)/$(BASENAME2)-4pcb.unplated-drill.cnc
+
+$(GRB)/$(BASENAME2)-4pcb.plated-drill.cnc:
+	touch  $(GRB)/$(BASENAME2)-4pcb.plated-drill.cnc
+
+$(GRB)/$(BASENAME2)-4pcb.group2.gbr:
+	touch $(GRB)/$(BASENAME2)-4pcb.group2.gbr
+
+$(GRB)/$(BASENAME2)-4pcb.group3.gbr:
+	touch $(GRB)/$(BASENAME2)-4pcb.group3.gbr
+
+$(GRB)/$(BASENAME2)-4pcb.group5.gbr:
+	touch $(GRB)/$(BASENAME2)-4pcb.group5.gbr
+
+4pcbzip:
+	zip -9  $(BASENAME2)-4pcb.zip  $(GRB)/$(4PCBDIR)/$(BASENAME2)-4pcb.*
+	
+
+4pcbfab: | 4pcb 4pcbnames 4pcbzip
+
+hackvana:
+	if test -d $(GRB); then echo $(GRB)" dir exists"; else mkdir $(GRB); fi
+	cp $(PROJECTNAME).lht  $(PROJECTNAME)_rev-$(REV).lht
+	pcb -x gerber  --all-layers $(PROJECTNAME)_rev-$(REV).lht                         #give the zip file a rev number
+	sleep 1
+	mv $(PROJECTNAME)_rev-$(REV).bottom.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gbl
+	mv $(PROJECTNAME)_rev-$(REV).bottomsilk.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gbo
+	mv $(PROJECTNAME)_rev-$(REV).bottommask.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gbs
+	mv $(PROJECTNAME)_rev-$(REV).top.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gtl
+	mv $(PROJECTNAME)_rev-$(REV).topsilk.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gto
+	mv $(PROJECTNAME)_rev-$(REV).topmask.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gts
+	mv $(PROJECTNAME)_rev-$(REV).plated-drill.cnc $(GRB)/$(PROJECTNAME)_rev-$(REV).drl
+	mv $(PROJECTNAME)_rev-$(REV).unplated-drill.cnc $(GRB)/$(PROJECTNAME)_rev-$(REV).NPTH.drl
+	mv $(PROJECTNAME)_rev-$(REV).outline.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gm1
+	mv $(PROJECTNAME)_rev-$(REV).bottompaste.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).paste.gbp
+	mv $(PROJECTNAME)_rev-$(REV).toppaste.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).paste.gtp
+	mv $(PROJECTNAME)_rev-$(REV).fab.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).fab
+	-rm -f $(GRB)/*.zip
+	cd $(GRB); zip -9 $(PROJECTNAME)_rev-$(REV).zip *.g?? *.drl
+
 
 bom: $(BOMS)
 
@@ -92,28 +189,6 @@ gerbvmyro:
 	gerbv $(GRB)/$(PROJECTNAME)_rev-$(REV).top $(GRB)/$(PROJECTNAME)_rev-$(REV).top-silk  $(GRB)/$(PROJECTNAME)_rev-$(REV).top-soldermask $(GRB)/$(PROJECTNAME)_rev-$(REV).bot $(GRB)/$(PROJECTNAME)_rev-$(REV).bot-silk  $(GRB)/$(PROJECTNAME)_rev-$(REV).bot-soldermask $(GRB)/$(PROJECTNAME)_rev-$(REV).outline $(GRB)/$(PROJECTNAME)_rev-$(REV).bot-paste $(GRB)/$(PROJECTNAME)_rev-$(REV).top-paste
 
 
-hackvana:
-	if test -d $(GRB); then echo $(GRB)" dir exists"; else mkdir $(GRB); fi
-	cp $(PROJECTNAME).lht  $(PROJECTNAME)_rev-$(REV).lht
-	pcb -x gerber  --all-layers $(PROJECTNAME)_rev-$(REV).lht                         #give the zip file a rev number
-	sleep 1
-	mv $(PROJECTNAME)_rev-$(REV).bottom.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gbl
-	mv $(PROJECTNAME)_rev-$(REV).bottomsilk.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gbo
-	mv $(PROJECTNAME)_rev-$(REV).bottommask.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gbs
-	mv $(PROJECTNAME)_rev-$(REV).top.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gtl
-	mv $(PROJECTNAME)_rev-$(REV).topsilk.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gto
-	mv $(PROJECTNAME)_rev-$(REV).topmask.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gts
-	mv $(PROJECTNAME)_rev-$(REV).plated-drill.cnc $(GRB)/$(PROJECTNAME)_rev-$(REV).drl
-	mv $(PROJECTNAME)_rev-$(REV).unplated-drill.cnc $(GRB)/$(PROJECTNAME)_rev-$(REV).NPTH.drl
-	mv $(PROJECTNAME)_rev-$(REV).outline.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gm1
-	mv $(PROJECTNAME)_rev-$(REV).bottompaste.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).paste.gbp
-	mv $(PROJECTNAME)_rev-$(REV).toppaste.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).paste.gtp
-	mv $(PROJECTNAME)_rev-$(REV).fab.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).fab
-	-rm -f $(GRB)/*.zip
-	cd $(GRB); zip -9 $(PROJECTNAME)_rev-$(REV).zip *.g?? *.drl
-
-gerbv:
-	gerbv $(PROJECTNAME)_rev-$(REV).top 
 
 
 schems: 
