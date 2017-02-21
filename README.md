@@ -31,7 +31,8 @@ pcb-rnd kvboard.lht
 pcb-rnd micropulser.lht
 gschem kvboard.sch micropulser.sch
 ```
-More docs to come soon.
+The schematic and netlist tools used are from the lepton-eda code:  https://github.com/lepton-eda/lepton-eda
+The tool names are the familiar gschem and gnetlist at the moment.
 
 The repo's .gitignore file is set to skip git tracking of .jpgs (photos) and pdfs (datasheets),
 zipped file bundles, so any of them to distribute need to be saved outside the git repo as a zip file 
