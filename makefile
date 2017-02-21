@@ -198,6 +198,5 @@ schems:
 
 
 clean:
-	rm -f   *~ *# *.log $(PROJECTNAME).new.pcb *.gbr $(PROJECTNAME).cmd $(patsubst %,./%.ps, $(SHEETS))
-	rm -rf $(GRB)
+	rm -f   *~ *# *.log 
 
