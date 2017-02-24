@@ -117,5 +117,12 @@ ccmr1 |= 0b0100000001000000
 stm.mem16[stm.TIM2 + stm.TIM_CCMR1] = ccmr1
 
 
+# def t1ch1_burst_period_cb(t1ch1):
+#     "toggle at much slower than burst length rate"
+#     global push_puls_cnt
+#     global pull_puls_cnt
+#     push_puls_cnt = 0
+#     pull_puls_cnt = 0
 
+# t1ch1.callback(t1ch1_burst_period_cb)
 

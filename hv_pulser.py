@@ -4,6 +4,7 @@ from pyb import Timer
 import micropython
 import stm
 
+
 micropython.alloc_emergency_exception_buf(100)
 
 # Use with pyb.freq(96000000) and prescaler=11 for .25 usec timer ticks.
