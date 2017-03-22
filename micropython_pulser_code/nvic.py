@@ -1,3 +1,7 @@
+"""
+thanks to dhylands
+https://forum.micropython.org/viewtopic.php?f=12&t=3174#p18741
+"""
 import machine
 
 SCS = 0xE000E000
