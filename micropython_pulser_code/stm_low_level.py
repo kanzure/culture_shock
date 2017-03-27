@@ -56,7 +56,7 @@ slave_tim_2_through_5 = { 'TIM1' : {'TIM5':0b000, 'TIM2':0b001, 'TIM3':0b010, 'T
 TIM_SMCR_SMS_0 = 0
 TIM_SMCR_TS_0 = 4
 TIM_SMCR_MSM = 7
-def set_slave_mode_and_trigger_source(slave_tim_name, master_tim_name):
+def set_slave_mode_and_trigger_source(slave_tim_name, master_tim_name, mode='trigger'):
   # (SMCR)
   # 15  14  13 12     11 10 9 8  7    6 5 4  3    2 1 0
   # ETP ECE ETPS[1:0] ETF[3:0]   MSM TS[2:0] Res. SMS[2:0]
@@ -109,7 +109,11 @@ def set_slave_mode_and_trigger_source(slave_tim_name, master_tim_name):
   # 15  14  13 12     11 10 9 8  7    6 5 4  3    2 1 0
   # ETP ECE ETPS[1:0] ETF[3:0]   MSM TS[2:0] Res. SMS[2:0]
   tim_base_address = getattr(stm, slave_tim_name)
-  stm.mem16[tim_base_address + stm.TIM_SMCR] = (TIM_SMCR_SMS__TRIGGER << TIM_SMCR_SMS_0
+  if mode=='trigger':
+    slave_mode  = TIM_SMCR_SMS__TRIGGER << TIM_SMCR_SMS_0
+  elif mode == 'external':
+    slave_mode  = 0b111 << TIM_SMCR_SMS_0
+  stm.mem16[tim_base_address + stm.TIM_SMCR] = (slave_mode
     | slave_tim_2_through_5[slave_tim_name][master_tim_name]<<TIM_SMCR_TS_0)
 
 @micropython.native
@@ -343,15 +347,16 @@ def adjust_tim2(period, width):
   stm.mem32[stm.TIM2 + stm.TIM_ARR] = period
   stm.mem32[stm.TIM2 + stm.TIM_CCR1] = period - width
 
+def adjust_tim1_pulses(number_pulses):
+  number_pulses = (number_pulses * 2) - 1
+  stm.mem16[stm.TIM1 + stm.TIM_RCR] = (stm.mem16[stm.TIM1 + stm.TIM_RCR] 
+                                      & 0xff<<8) | ((number_pulses - 1) & 0xff)
 
 def adjust_tim1(period, width, number_pulses):
   stm.mem16[stm.TIM1 + stm.TIM_ARR] = period
   stm.mem16[stm.TIM1 + stm.TIM_CCR1] = width
   if number_pulses != None:
-    number_pulses = (number_pulses * 2) - 1
-    stm.mem16[stm.TIM1 + stm.TIM_RCR] = (stm.mem16[stm.TIM1 + stm.TIM_RCR]
-                                         & 0xff<<8) | ((number_pulses - 1)
-                                         & 0xff)
+    adjust_tim1_pulses(number_pulses)
 
 # (CR1)
 # 15 14 13 12 11 10   9 8     7   6 5  4   3   2    1   0
