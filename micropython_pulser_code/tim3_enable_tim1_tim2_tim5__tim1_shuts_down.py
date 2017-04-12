@@ -8,15 +8,19 @@ Based on:
 
 
 import stm
+from math import ceil
 from pyb import Timer
 from machine import Pin
 from stm_low_level import *
 import micropython
 micropython.alloc_emergency_exception_buf(100)
 
-period = 3194 # 400# 10000
-width = 684 # 10#1500
-number_of_pulse_pairs = 6
+# to replicate John's Original period = 3194
+# to replicate John's Original width = 684
+# to replicate John's Original number_of_pulse_pairs = 6
+period = 150 # 400# 10000
+width = 4 # 10#1500 
+number_of_pulse_pairs = 92
 common_prescaler = 11
 
 p32_pin = Pin('JP32', Pin.OUT) # Pin('JP17', Pin.OUT)
@@ -25,6 +29,18 @@ p32_pin.value(0)
 
 enable_gpio_and_timers()
 enable_pa0_pa1_af()
+
+# Setup ADC Timer and a callback to try printing the value
+# t4 = pyb.Timer(4, prescaler=90, period=0xFFFF)
+# adc_timer = t4.channel(4, pyb.Timer.OC_TIMING)
+# adc = pyb.ADC(pyb.Pin.board.JP29)
+# def adc_cb(the_active_timer):
+#   global adc
+#   print(adc.read())
+# stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
+# adc_timer.callback(adc_cb)
+# stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
+
 counter = 0
 
 #
@@ -41,16 +57,80 @@ def end_of_n_pulse_train_pa1_first(t):
   #p32_pin.value(0)
   #stm.mem16[stm.TIM5 + stm.TIM_CR1] &= (~1) & two_byte_mask
 
-@micropython.native
-def end_of_n_pulse_train_less_than_289_period(t):
-  import stm
-  #stm.mem16[stm.TIM5 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
-  #stm.mem16[stm.TIM2 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
-  stm.mem16[stm.TIM5 + stm.TIM_CR1] |= 0b1000 # enable OPM
-  stm.mem16[stm.TIM2 + stm.TIM_CR1] |= 0b1000 # enable OPM
-  
+class OnePulseOverFlowCounter(object):
+  def __init__(self, t1):
+    self.longer_counter = 0
+    self._longer_counter = 0
+    self.tail_end = 0
+    self.or_in_end = 0
+    self.cr1 = stm.mem16[stm.TIM1 + stm.TIM_CR1] & (~1 & two_byte_mask)
+    t1.callback(self.end_of_n_pulse_train__longer)
 
-t1 = pyb.Timer(1, prescaler=common_prescaler, period=0, callback=end_of_n_pulse_train_pa1_first)
+  def set_longer_counter(self, number_pulses):
+    global number_of_pulse_pairs
+    number_of_pulse_pairs = number_pulses
+    self.cr1 = stm.mem16[stm.TIM1 + stm.TIM_CR1] & (~1 & two_byte_mask)
+    if number_pulses is not None and number_pulses>128: # since RCR==0 yields one pulse, we SHOULD get an extra
+      self.longer_counter = int((number_pulses-1) / 128.)
+      self._longer_counter = self.longer_counter
+      self.tail_end = (number_pulses % 128)
+      self.or_in_end = (((self.tail_end*2)-1) & 0xff)
+      #if self.tail_end==1 and self.longer_counter>1 and self.or_in_end>0:
+      #  self.or_in_end -= 1
+      
+      #self.or_in_end = 0
+      print('longer: {} tail: {} or in end: {}'.format(self.longer_counter, self.tail_end, self.or_in_end))
+      self.or_in_end = ((stm.mem16[stm.TIM1 + stm.TIM_RCR] & 0xff<<8) 
+                                             | self.or_in_end) 
+      if self.tail_end == 1 and self.longer_counter<=1:
+        adjust_tim1_pulses(127)
+      else:
+        adjust_tim1_pulses(128)
+      # stm.mem16[stm.TIM1 + stm.TIM_CR1]  |= (0
+      #  #| 0b11<<5  # center aligned
+      #  | (1 << TIM_CR1_OPM)   # want one-time mode
+      # )
+      #stm.mem16[stm.TIM1 + stm.TIM_RCR] = stm.mem16[stm.TIM1 + stm.TIM_RCR] & 0xff<<8 # 0 RCR
+      stm.mem16[stm.TIM1 + stm.TIM_CR1] &= (~(1<<TIM_CR1_OPM))&two_byte_mask # disable OPM
+    else:#t1 = pyb.Timer(1, prescaler=common_prescaler, period=two_byte_mask, callback=end_of_n_pulse_train__longer)#end_of_n_pulse_train_pa1_first)
+      stm.mem16[stm.TIM1 + stm.TIM_CR1]  |= (0
+        #| 0b11<<5  # center aligned
+        | (1 << TIM_CR1_OPM)   # want one-time mode
+      )
+      self.longer_counter = 0
+      self._longer_counter = self.longer_counter
+      print('longer: {} tail: {} pulses: {}'.format(self.longer_counter, self.tail_end, number_pulses))
+      adjust_tim1_pulses(number_pulses)
+
+
+  def end_of_n_pulse_train__longer(self, t):
+    """ Writing the timer callback inside a Class allows us to have persistent data. TODO: is that true? do we need the Class?"""
+    import stm
+    if self.longer_counter == 0:
+      stm.mem16[stm.TIM5 + stm.TIM_CR1] |= 0b1000 # enable OPM
+      stm.mem16[stm.TIM2 + stm.TIM_CR1] |= 0b1000 # enable OPM
+      stm.mem16[stm.TIM1 + stm.TIM_CR1] = self.cr1
+
+      stm.mem32[stm.GPIOB + stm.GPIO_ODR] = 0
+      stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN on ADC
+      #stm.mem32[stm.GPIOB + stm.GPIO_ODR] = 0xFFFF # faster (?) version of p32_pin.value(1)
+      #stm.mem32[stm.GPIOB + stm.GPIO_ODR] = 0
+    else:
+      if self.longer_counter == 1:
+          stm.mem16[stm.TIM1 + stm.TIM_CR1] |= 0b1000 # OPM
+      elif self.longer_counter == 2:
+          stm.mem16[stm.TIM1 + stm.TIM_RCR] = self.or_in_end
+
+      #stm.mem32[stm.GPIOB + stm.GPIO_ODR] = 0
+      #stm.mem32[stm.GPIOB + stm.GPIO_ODR] = 0xFFFF # faster (?) version of p32_pin.value(1)
+      #stm.mem32[stm.GPIOB + stm.GPIO_ODR] = 0
+      self.longer_counter = (self.longer_counter - 1) & 0xFFFF
+      #print('else')
+      #stm.mem16[stm.TIM1 + stm.TIM_CR1] |=  0b1000 # enable OPM
+
+
+#t1 = pyb.Timer(1, prescaler=common_prescaler, period=two_byte_mask, callback=end_of_n_pulse_train__longer)#end_of_n_pulse_train_pa1_first)
+f = OnePulseOverFlowCounter(pyb.Timer(1, prescaler=common_prescaler, period=two_byte_mask))
 
 
 connect_pa0_and_pa1_to_tim2_and_tim5()
@@ -63,11 +143,37 @@ two_bits = 2
 # this has to be factored in (individually per timer, as they are on different APBs)
 
 
+
 def a(period, width, number_pulses=None):
+  """ adjust the HV pulser's pulse-to-pulse period, pulse width, and number of push-pull pulse-pairs """
   adjust_tim5(period, width)
   adjust_tim2(period, width)
-  adjust_tim1(period, 1, number_pulses)
+  adjust_tim1(period, period//2, number_pulses)
+  f.set_longer_counter(number_pulses)
 
+def q(num):
+  """ adjust number of pulses for quick-pulsing that seems to produce HV low ripple """
+  a(150,4,num)
+  pulse()
+
+# aa, b, and c are functions that I used during debug of overflow detection
+# (N-pulse counter can hold 255, since we have pairs, that is 127 pairs)... so this was testing the interface of overflow
+def aa():
+  a(150,4,127)
+  pulse()
+
+def b():
+  a(150,4,128)
+  pulse()
+
+def c():
+  a(150,4,129)
+  pulse()
+
+def d():
+  a();pulse()
+  b();pulse()
+  c();pulse()
 
 
 slave_tim = setup_slave_timer('TIM5', 2, 'TIM3', common_prescaler, period, width)
@@ -77,7 +183,7 @@ tim_kickoff = setup_n_pulse_kickoff_timer("TIM3", 1, common_prescaler, period, w
 
 # now setup TIM1 - we want it to disable itself i.e. one-pulse mode; 3 pulses, that goes to repetition counter - as the window is cca 600ms, let make them 50ms ON / 50ms OFF
 stm.mem16[stm.TIM1 + stm.TIM_PSC] = 11
-adjust_tim1(period=period, width=1, number_pulses=number_of_pulse_pairs)
+adjust_tim1(period=period, width=period//2, number_pulses=number_of_pulse_pairs)
 
 # 15 14 13 12 11 10 9 8 7 6   5    4    3    2    1    0
 # Reserved                TG  Res. CC4G CC3G CC2G CC1G UG
@@ -117,6 +223,7 @@ stm.mem16[stm.TIM1 + stm.TIM_CR1]  |= (0
    #| 0b11<<5  # center aligned
    | (1 << TIM_CR1_OPM)   # want one-time mode
   )
+#stm.mem16[stm.TIM1 + stm.TIM_CR1] &= (~(1<<TIM_CR1_OPM))&two_byte_mask # disable OPM
 
 # force_inactive_tim5()
 # force_inactive_tim2()
@@ -130,6 +237,8 @@ stm.mem16[stm.TIM1 + stm.TIM_CR1]  |= (0
 
 @micropython.native
 def pulse():
+  global number_of_pulse_pairs
+  pyb.disable_irq()
   #stm.mem32[stm.TIM2 + stm.TIM_CNT] = 0
   # TODO: check these two have any effect, I thought they might prevent a pending GPIO toggle
   #stm.mem32[stm.TIM5 + stm.TIM_EGR] &= 0xff<<8 #|= 1
@@ -137,13 +246,17 @@ def pulse():
   force_inactive_tim1()
   force_inactive_tim2()
   force_inactive_tim5()
+  f.set_longer_counter(number_of_pulse_pairs)
   # TODO: is this needed? -- yes, it is... after you adjust the period/width,
   # otherwise you'll get a glitch for the first call to pulse()
   stm.mem32[stm.TIM5 + stm.TIM_EGR] |= 1
   stm.mem32[stm.TIM3 + stm.TIM_EGR] |= 1
   stm.mem32[stm.TIM2 + stm.TIM_EGR] |= 1
+  stm.mem32[stm.TIM1 + stm.TIM_EGR] |= 1  # gotta do this, or the num-pulses won't register (if it was just changed)
 
+  
   stm.mem16[stm.TIM1 + stm.TIM_CNT] = 0#period 
+
   #stm.mem16[stm.TIM1 + stm.TIM_CNT] = (stm.mem32[stm.TIM1 + stm.TIM_ARR] // 2) + (2* get_tim5_width1())+2
   stm.mem16[stm.TIM1 + stm.TIM_CNT] = stm.mem32[stm.TIM1 + stm.TIM_ARR] # it seems TIM1 is running at double the freq TIM2/5
   stm.mem32[stm.TIM2 + stm.TIM_CNT] = 0#stm.mem32[stm.TIM2 + stm.TIM_ARR] //2
@@ -157,8 +270,20 @@ def pulse():
   stm.mem16[stm.TIM2 + stm.TIM_CR1] &= (~(1<<TIM_CR1_OPM))&two_byte_mask # disable OPM
   stm.mem16[stm.TIM5 + stm.TIM_CR1] &= (~(1<<TIM_CR1_OPM))&two_byte_mask # disable OPM
   #stm.mem32[stm.GPIOB + stm.GPIO_ODR] = four_byte_mask # faster (?) version of p32_pin.value(1)
+  p32_pin.value(0)
   p32_pin.value(1)
-  stm.mem16[tim_kickoff + stm.TIM_CR1] |= 1
+  f.longer_counter = f._longer_counter
+  print('trace')
+  stm.mem16[stm.TIM1 + stm.TIM_SR] = (stm.mem16[stm.TIM1 + stm.TIM_SR] & 0b111<<13) # clear all flags
+  pyb.enable_irq()
+  print('pulsing')
+  stm.mem16[stm.TIM4 + stm.TIM_CR1] |= 1 # CEN -- start ADC callback
+  if f.longer_counter==1:
+    stm.mem16[tim_kickoff + stm.TIM_CR1] |= 1
+    stm.mem16[stm.TIM1 + stm.TIM_RCR] = f.or_in_end
+  else:
+    stm.mem16[tim_kickoff + stm.TIM_CR1] |= 1
+
 
 # increase the TIM1 Update Interrupt priority, by lowering it's number all the way to 1
 # stm.mem8[0xe000e400+25]=1<<4

@@ -226,6 +226,7 @@ def enable_gpio_and_timers():
   # SPI3EN SPI2EN Reserved WWDGEN  Reserved        TIM5EN TIM4EN TIM3EN TIM2EN
   stm.mem32[stm.RCC + stm.RCC_APB1ENR] |=(0 
                                           | 1<<APB1_TIM2EN
+                                          | 1<<APB1_TIM4EN
                                           | 1<<APB1_TIM5EN
                                           | 1<<APB1_PWREN
                                           | 1<<APB1_TIM3EN)
