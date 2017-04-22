@@ -25,7 +25,7 @@ sudo apt-get install geda
 sudo apt-get install pcb-rnd
 ```
 
-then run these commands from the project directory created by cloning the **culture shock** repo:
+then run these commands from the project subdirectory hardware_schematics_layouts created by cloning the **culture shock** repo:
 ```bash
 pcb-rnd kvboard.lht
 pcb-rnd micropulser.lht
