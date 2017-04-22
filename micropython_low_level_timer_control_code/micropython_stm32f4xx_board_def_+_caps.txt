@@ -1,0 +1,26 @@
+
+JonHylands	    Posts: 59	    Joined: Sat Dec 28, 2013 7:33 pm	
+Re: Step-by-step guide to putting micropython onto STM32F405
+
+    Report this post
+    Quote
+
+Unread postby JonHylands » Fri Jun 10, 2016 11:31 am
+Here's the parts I use on my boards:
+
+8 MHz crystal - 887-1448-1-ND
+6 pF caps (for the 8 MHz crystal) - 1276-2133-1-ND
+
+32.768 KHz Crystal - 535-11899-1-ND
+18 pF caps (for the 32 KHz crystal) - 1276-2209-1-ND
+
+Digikey and Mouser both have 0 of the 8 MHz crystals, but Newark has them in stock.
+
+Regardless of what the manufacturer says about the capacitors to be used with each crystal, those are ones I've used that work.
+
+pythoncoder:  Interesting. The Pyboard schematics show 2.2pF for the 32KHz crystal. PB1.0 shows 18pF for the 8MHz xtal, PB1.1 shows 10pF for the 12MHz one. It seems getting these oscillators to actually oscillate is something of a black art - I think Damien had problems with early boards. And capacitors as small as 2.2pF are likely to be swamped by strays without careful PCB layout...
+
+I guess anyone planning their own board needs to be prepared to experiment.
+================================
+
+

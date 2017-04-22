@@ -1,0 +1,94 @@
+what the machinery behind Tasks being woken up when a certain condition is met. 
+
+That machinery is called "coroutines", "generators" being a somewhat limited form of them. Note that "when a certain condition is met" is what you'll need to write yourself. Though, if you know how multitasking and synchronization build from the simplest up, the simpler option is to just have unconditional scheduler, and leave conditions checking (e.g. for synchronization) to coroutines themselves (which just yield to scheduler immediately if condition is not satisfied).
+
+first choice should be the the official documentation:
+https://docs.python.org/3.4/tutorial/classes.html#generators
+https://docs.python.org/3.4/reference/expressions.html#generator
+
+Then, ticket mentioned at the beginning of this thread ( https://github.com/micropython/micropython/issues/242 ) has links to more material (I recommend David Beazley's excellent 3-series slides).
+
+dhylands, sure, the best way to learn this stuff is to write your own scheduler. With "yield from" it should be trivial. And then feel free to submit any optimization you make to micropython-lib's implementations, more details: viewtopic.php?f=3&t=85
+
+
+
+
+http://docs.micropython.org/en/latest/pyboard/reference/speed_python.html
+Accessing hardware directly 
+Consider the example of toggling an output pin on the Pyboard. The standard approach would be to write
+
+mypin.value(mypin.value() ^ 1) # mypin was instantiated as an output pin
+
+This involves the overhead of two calls to the Pin instance’s value() method. This overhead can be eliminated by performing a read/write to the relevant bit of the chip’s GPIO port output data register (odr). To facilitate this the stm module provides a set of constants providing the addresses of the relevant registers. A fast toggle of pin P4 (CPU pin A14) - corresponding to the green LED - can be performed as follows:
+
+BIT14 = const(1 << 14)
+stm.mem16[stm.GPIOA + stm.GPIO_ODR] ^= BIT14
+
+Timer callbacks need to take one, and exactly one argument, which is the timer object associated with the interrupt.
+dhylands bound function  (bound method) used to getmore than one param into a subroutine
+
+import pyb
+import micropython
+
+class Heartbeat(object):
+
+    def __init__(self):
+        self.tick = 0
+        self.led = pyb.LED(4) # 4 = Blue
+        tim = pyb.Timer(4)
+        tim.init(freq=10)
+        tim.callback(self.heartbeat_cb)
+
+    def heartbeat_cb(self, tim):
+        if self.tick <= 3:
+            self.led.toggle()
+        self.tick = (self.tick + 1) % 10
+
+micropython.alloc_emergency_exception_buf(100)
+Heartbeat()
+
+This file controls the current ISR levels:
+https://github.com/micropython/micropython/blob/master/stmhal/irq.h#L78
+You should be able to tweak the ISR levels by a register write from asm code. This is the C code:
+============= https://github.com/micropython/micropython/blob/master/stmhal/cmsis/inc/core_cm4.h#L1555    ==============
+/** \brief  Set Interrupt Priority
+    The function sets the priority of an interrupt.
+    \note The priority cannot be set for every core interrupt.
+    \param [in]      IRQn  Interrupt number.
+    \param [in]  priority  Priority to set.
+ */
+__STATIC_INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
+{
+  if(IRQn < 0) {
+    SCB->SHP[((uint32_t)(IRQn) & 0xF)-4] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff); } /* set Priority for Cortex-M  System Interrupts */
+  else {
+    NVIC->IP[(uint32_t)(IRQn)] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff);    }        /* set Priority for device specific Interrupts  */
+}
+============= https://github.com/micropython/micropython/blob/master/stmhal/cmsis/inc/core_cm4.h#L1555    ==============
+
+The NVIC->IP is at address 0xE000E000 + 0x100 + 0x300 + IRQ-number
+You can find the IRQ numbers for the various timers by looking here:
+https://github.com/micropython/micropython/blob/master/stmhal/cmsis/devinc/stm32f405xx.h#L96
+/******  STM32 specific Interrupt Numbers **********************************************************************/
+  WWDG_IRQn                   = 0,      /*!< Window WatchDog Interrupt                                         */
+  PVD_IRQn                    = 1,      /*!< PVD through EXTI Line detection Interrupt                         */
+  TAMP_STAMP_IRQn             = 2,      /*!< Tamper and TimeStamp interrupts through the EXTI line             */
+  RTC_WKUP_IRQn               = 3,      /*!< RTC Wakeup interrupt through the EXTI line                        */
+  FLASH_IRQn                  = 4,      /*!< FLASH global Interrupt                                            */
+  RCC_IRQn                    = 5,      /*!< RCC global Interrupt                                              */
+  EXTI0_IRQn                  = 6,      /*!< EXTI Line0 Interrupt                                              */
+  EXTI1_IRQn                  = 7,      /*!< EXTI Line1 Interrupt                                              */
+  EXTI2_IRQn = 8, /*!< EXTI Line2 Interrupt                            
+
+You'll need to take the IRQ level (number from 0 to 15) and shift it left by 4 bits and store that at the address calculated above. You can do this in python using the stm module. For example, I know that just initializing the UART will set its IRQ entry. USART6_IRQn has a value of 71. 
+>>> import stm
+>>> hex(stm.mem8[0xe000E000 + 0x100 + 0x300 + 71])
+'0x0'
+>>> pyb.UART(6,9600)
+UART(6, baudrate=9600, bits=8, parity=None, stop=1, timeout=1000, timeout_char=2, read_buf_len=64)
+>>> hex(stm.mem8[0xe000E000 + 0x100 + 0x300 + 71])
+'0x10'
+
+Currently, we only have one callback function (in C for all of the timers):
+https://github.com/micropython/micropython/blob/master/stmhal/timer.c#L1322
+

@@ -1,0 +1,164 @@
+﻿  "Locklessness" provided by algo in your source is needed only for a case of multiple concurrent producers/consumers. For a case of concurrency with just a single producer/consumer, arbitrary length with if (idx >=SIZE) idx=0; check works just fine.
+
+Hmm. Yes that works as long as you don't fill the queue. Otherwise you can't tell if the queue is empty or full, and calculating the number of items in the queue is more complex (because you need to deal with the wraparound), but it has the flexibility of not needing to be a power of 2 in size.
+
+ dpgeorge commented on Jan 19, 2014
+
+You can call Python code on an interrupt (so long as it doesn't allocate heap memory). This is useful for responding immediately (and asynchronously) to events. You could even implement a queueing system in Python.
+
+If you wanted to provide a queueing system implemented in C (for efficiency reasons) and exposed as a set of Python bindings, that would also make sense.
+
+Note that if you change the frequency while the USB is enabled then the USB may become unreliable. It is best to change the frequency in boot.py, before the USB peripheral is started. Also note that sysclk frequencies below 36MHz do not allow the USB to function correctly.
+
+>>> pyb.freq()
+(84000000, 84000000, 21000000, 42000000)
+
+Supported sysclk frequencies are (in MHz): 8, 16, 24, 30, 32, 36, 40, 42, 48, 54, 56, 60, 64, 72, 84, 96, 108, 120, 144, 168.
+
+The maximum frequency of hclk is 168MHz, of pclk1 is 42MHz, and of pclk2 is 84MHz. Be sure not to set frequencies above these values.
+
+The hclk, pclk1 and pclk2 frequencies are derived from the sysclk frequency using a prescaler (divider). Supported prescalers for hclk are: 1, 2, 4, 8, 16, 64, 128, 256, 512. Supported prescalers for pclk1 and pclk2 are: 1, 2, 4, 8. A prescaler will be chosen to best match the requested frequency.
+
+
+import pyb, micropython, array
+micropython.alloc_emergency_exception_buf(100)
+
+class BoundsException(Exception):
+    pass
+
+ARRAYSIZE = const(20)
+index = 0
+data = array.array('i', 0 for x in range(ARRAYSIZE))   #array is a python module with .array an object in it.
+
+def callback1(t):
+    global data, index
+    for x in range(5):			#x is a don't =care in this for loop, since simulated input.
+        data[index] = pyb.rng() # simulate input
+        index += 1				# index tracks x since index starts at 0, and range() generates 0 also.
+        if index >= ARRAYSIZE:
+            raise BoundsException('Array bounds exceeded')
+
+tim4 = pyb.Timer(4, freq=100, callback=callback1)
+
+for loop in range(1000):
+    if index > 0:
+        irq_state = pyb.disable_irq() # Start of critical section
+        for x in range(index):
+            print(data[x])
+        index = 0
+        pyb.enable_irq(irq_state) # End of critical section
+        print('loop {}'.format(loop))
+    pyb.delay(1)
+
+tim4.callback(None)
+
+A critical section can comprise a single line of code and a single variable. Consider the fol
+
+my_array = array('i',[1,2,3,4])
+
+In the example above, typecode used is ‘i’. This typecode represents signed integer whose size is 2 bytes.
+‘b’ -> Represents signed integer of size 1 byte
+‘B’ -> Represents unsigned integer of size 1 byte
+‘c’ -> Represents character of size 1 byte
+‘u’ -> Represents unicode character of size 2 bytes
+‘h’ -> Represents signed integer of size 2 bytes
+‘H’ -> Represents unsigned integer of size 2 bytes
+‘i’ -> Represents signed integer of size 2 bytes
+‘I’ -> Represents unsigned integer of size 2 bytes
+‘w’ -> Represents unicode character of size 4 bytes
+‘l’ -> Represents signed integer of size 4 bytes
+‘L’ -> Represents unsigned integer of size 4 bytes
+
+The pass statement does nothing.
+>>> while True:
+...     pass  # Busy-wait for keyboard interrupt (Ctrl+C)
+
+def introduces a function definition. must be followed by the function name, (list of formal parameters).
+first statement of the function body can be a string litera -- the function’s documentation string, or docstring
+
+The execution of a function introduces a new symbol table used for the local variables of the function. More precisely, all variable assignments in a function store the value in the local symbol table; whereas variable references first look in the local symbol table, then in the local symbol tables of enclosing functions, then in the global symbol table, and finally in the table of built-in names. Thus, global variables cannot be directly assigned a value within a function (unless named in a global statement), although they may be referenced.
+
+[global declaration needed to use in ISRs.]
+
+even functions without a return statement do return a value  called None
+>>> fib(0)
+>>> print(fib(0))
+None
+
+
+# some examples to cut and paste from:
+
+import pyb
+
+# TIM2 runs at 84 MHz
+# at 20000 Hz, count runs from 0 to 4199
+# In center mode, the frequency will be halved, so we'll get a 10 kHz output
+t2 = pyb.Timer(2, freq=20000, mode=pyb.Timer.CENTER)
+ch2 = t2.channel(2, pyb.Timer.PWM, pin=pyb.Pin.board.X2, pulse_width=(t2.period() + 1) // 4)
+ch3 = t2.channel(3, pyb.Timer.PWM, pin=pyb.Pin.board.X3, pulse_width=(t2.period() + 1) // 2)
+
+==================
+pin_a = pyb.Pin('X1', pyb.Pin.AF_PP, pull=pyb.Pin.PULL_NONE, af=pyb.Pin.AF1_TIM2)
+pin_b = pyb.Pin('X2', pyb.Pin.AF_PP, pull=pyb.Pin.PULL_NONE, af=pyb.Pin.AF1_TIM2)
+
+========
+# setup oc_clock to be a 1 kHz clock. Since it toggles we want it to toggle
+# 2000 times per second to get a 1000 Hz clock.
+t2 = pyb.Timer(2, freq=2000)
+oc  = t2.channel(2, pyb.Timer.OC_TOGGLE, pin=pyb.Pin.board.X2)
+
+# stup PWM to be 200 Hz with a 1 clock pulse_width
+t5 = pyb.Timer(5, prescaler=41999, period=9)
+pwm = t5.channel(3, pyb.Timer.PWM, pin=pyb.Pin.board.X3, pulse_width=1)
+===============
+# At 20 kHz, the duty cycle should 50 usec
+t2 = pyb.Timer(2, freq=20000, mode=pyb.Timer.PWM)
+ch1 = t2.channel(1, pyb.Timer.PWM, pin=pyb.Pin.board.X1, pulse_width_percent=5)
+ch2 = t2.channel(2, pyb.Timer.PWM, pin=pyb.Pin.board.X2, pulse_width_percent=35)
+ch3 = t2.channel(3, pyb.Timer.PWM, pin=pyb.Pin.board.X3, pulse_width_percent=50)
+===============
+#define a timer+channel capture at BOTH edges:
+t2 = pyb.Timer(2, prescaler=83, period=0x0fffffff)
+ic_pin = pyb.Pin.board.X4
+ic = t2.channel(4, pyb.Timer.IC, pin=ic_pin, polarity=pyb.Timer.BOTH)
+
+     # Now! turn on output pin:
+t1ch1(mode=Timer.OC_FORCED_ACTIVE)
+
+Timer.ONE_SHOT   # not coded for stmhal
+
+t5 = pyb.Timer(5, prescaler=83, period=19999);
+servo = t5.channel(1, pyb.Timer.PWM, pin=servo_pin)
+
+#======misc junk============================
+servo.pulse_width(pw)
+
+
+
+t1.counter(0)  #zero the counter of t1
+
+t1ch1.compare(xfmr_pulse_w)   #set width to an integer
+=========================================
+    Roberthh wrote:
+    You could try to use viper code, which is translated directly into machine instruction, like:
+
+    Code: Select all
+    BIT15 = const(1 << 15)
+    import stm
+
+    @micropython.viper       
+    def SCS_tick(self, tim):
+        gpiod = ptr16(stm.GPIOD + stm.GPIO_BSRRL)
+        gpiod[0] = BIT15     # set BIT15 high
+        gpiod[1] = BIT15     # set BIT15 low
+
+    That should result in a pulse width of about 20 ns. Calling the function takes about 4µs. I used this kind of code for fast I/O to a device. I did not test it as a callback function yet. I noticed that the memxx fucntions are rather slow.
+
+=========================================
+
+Frozen bytecode is python source code that has been compiled (on a host computer) and stored into flash.
+
+So frozen bytecode doesn't consume RAM to store the bytecode.
+ frozen bytecode (scripts compiled to .mpy using mpy-cross),
+
+

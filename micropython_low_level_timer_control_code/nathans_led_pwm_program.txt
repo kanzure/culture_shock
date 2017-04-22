@@ -1,0 +1,90 @@
+Code
+Revisions 5
+Half-decent LED-PWM and capacitive-sense GPIO coroutines (in micropython, on GHI Electronics G30TH -- essentiall Nucleo F401 but with different pins and pin names)
+=============main.py=========================
+main.py
+import pyb
+from pyb import Timer
+
+# timer 2 will be created with a frequency of 10 kHz
+tim=pyb.Timer(4,freq=10000);
+# attach the timer to the LED GPIO, turning the brightness OFF to begin
+tchannel = tim.channel(3, Timer.PWM, pin=pyb.Pin.board.JP32, pulse_width_percent=0)
+
+# setup comm channel, for debug prints
+# uart = pyb.UART(2, 9600)                         # init with given baudrate
+# uart.init(9600, bits=8, parity=None, stop=1)
+
+glob_max = glob_min = glob_span = 0
+
+max_num_check_cycles = 50000
+
+
+update_func = None
+
+def later_update_func(current):
+    """
+    use the min and max to calculate a range of sensor readings, then normalize the current reading
+    finally scale the normalized reading to a 0-100 percentage value, cast to Integer
+    then finally update the Timer PWM percentage
+    """
+    global glob_min
+    global glob_max
+    global glob_span
+    global tchannel
+    glob_max = max(current, glob_max)
+    glob_min = min(current, glob_min)
+    glob_span = glob_max - glob_min
+    if (glob_span) > 0:
+        glob_dly = (((current-glob_min)/(glob_span))*100)
+        glob_dly = int(glob_dly)
+    tchannel.pulse_width_percent(glob_dly)
+    # uart.write('LATER UPDATE {}\n'.format(glob_dly))
+
+def first_update_func(i):
+    """
+    set up the initial values for min and max of sensor range, 
+    then switch the update func to "later_update_func" (I think this avoids an "if" branch code)
+    """
+    global glob_min
+    global glob_max
+    global update_func
+    glob_max = i
+    glob_min = i
+    update_func = later_update_func
+    # uart.write('FIRST UPDATE\n')
+
+update_func = first_update_func
+
+def gpio_cap_sense():
+    """
+    GPIO capacitive sense
+    """
+    global update_func
+    while True:
+        # Discharge the pin first by setting it low and output
+        g = pyb.Pin(pyb.Pin.board.JP25, pyb.Pin.OUT_PP, pyb.Pin.PULL_NONE)
+        g.value(True)
+        pyb.delay(1)
+
+        # Make the pin an input WITHOUT the internal pull-up on
+        g = pyb.Pin(pyb.Pin.board.JP25, pyb.Pin.IN, pyb.Pin.PULL_NONE)
+        i=0
+
+        # Now see how many cycles it takes to get the pin pulled up
+        while i<max_num_check_cycles:
+            # apparently there is some inverter,
+            # such that I need to check when the pin goes apparently-low???
+            if not g.value():
+                update_func(i)
+                break
+            i+=1
+        yield
+
+# set up co-tasks
+tasks = [gpio_cap_sense()]
+
+# loop through each task forever
+while 1: 
+    for t in tasks:
+        next(t)
