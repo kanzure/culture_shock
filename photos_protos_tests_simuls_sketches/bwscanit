@@ -1,9 +1,0 @@
-#!/bin/bash
-#bwscanit
-export SCAN_BRIGHTNESS=-3
-export SCAN_RES=300
-export SCAN_WIDTH=213
-export TOP_LEFTX=8
-export SCAN_HEIGHT=277
-export SCAN_THRESHOLD=30
-bwscan $1 $2 $3
