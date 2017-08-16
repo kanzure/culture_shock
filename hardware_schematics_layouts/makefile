@@ -4,7 +4,7 @@
 #
 ###############################################################################
 # myropcb: targets myropcb 
-# and hackvana: targets hackvana-zip 
+# hackvana: targets hackvana-zip 
 # change the naming of RS274X files to match
 # how the fabs want them.
 
@@ -14,8 +14,8 @@
 .PHONY: myropcb hackvana 4pcb 4pcbnames 4pcbzip 4pcbfab gerbvmyro gerbv4pcb net pcb gschem bom drc
 
 BASENAMES = micropulser kvboard g30pulser
-BOARD2FABROOT = g30pulser
-REV = 0.1
+BOARD2FABROOT = kvboard
+REV = 0.2
 GRB = ./fab
 BASENAME2 := $(BOARD2FABROOT).$(REV)
 4PCBDIR := 4pcb-$(BOARD2FABROOT)
@@ -32,7 +32,7 @@ BOMPDFS =   $(addsuffix .bom.tsv.pdf,  $(BASENAMES))
 	if test -d $(GRB); then echo $(GRB)" dir exists"; else mkdir $(GRB); fi
 	if test -d $(GRB)/$(4PCBDIR); then echo $(GRB)" dir exists"; else mkdir $(GRB)/$(4PCBDIR); fi
 	rm -f $(GRB)/*$(BOARD2FABROOT)* ; \
-	rm -f  $(GRB)/$(4PCBDIR)/*$(BOARD2FABROOT)* ; \
+	rm -rf  $(GRB)/$(4PCBDIR)/* ; \
 	cp  $(BOARD2FAB)  $(GRB)/$(BASENAME2)-4pcb.lht  ; \
 	pcb-rnd -x gerber --all-layers  $(GRB)/$(BASENAME2)-4pcb.lht ; \
 
@@ -102,23 +102,23 @@ $(GRB)/$(BASENAME2)-4pcb.group5.gbr:
 
 hackvana:
 	if test -d $(GRB); then echo $(GRB)" dir exists"; else mkdir $(GRB); fi
-	cp $(PROJECTNAME).lht  $(PROJECTNAME)_rev-$(REV).lht
-	pcb -x gerber  --all-layers $(PROJECTNAME)_rev-$(REV).lht                         #give the zip file a rev number
+	cp $(BOARD2FABROOT).lht  $(BOARD2FABROOT)_rev-$(REV).lht
+	pcbr -x gerber  --all-layers $(BOARD2FABROOT)_rev-$(REV).lht                         #give the zip file a rev number
 	sleep 1
-	mv $(PROJECTNAME)_rev-$(REV).bottom.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gbl
-	mv $(PROJECTNAME)_rev-$(REV).bottomsilk.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gbo
-	mv $(PROJECTNAME)_rev-$(REV).bottommask.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gbs
-	mv $(PROJECTNAME)_rev-$(REV).top.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gtl
-	mv $(PROJECTNAME)_rev-$(REV).topsilk.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gto
-	mv $(PROJECTNAME)_rev-$(REV).topmask.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gts
-	mv $(PROJECTNAME)_rev-$(REV).plated-drill.cnc $(GRB)/$(PROJECTNAME)_rev-$(REV).drl
-	mv $(PROJECTNAME)_rev-$(REV).unplated-drill.cnc $(GRB)/$(PROJECTNAME)_rev-$(REV).NPTH.drl
-	mv $(PROJECTNAME)_rev-$(REV).outline.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).gm1
-	mv $(PROJECTNAME)_rev-$(REV).bottompaste.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).paste.gbp
-	mv $(PROJECTNAME)_rev-$(REV).toppaste.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).paste.gtp
-	mv $(PROJECTNAME)_rev-$(REV).fab.gbr $(GRB)/$(PROJECTNAME)_rev-$(REV).fab
+	mv $(BOARD2FABROOT)_rev-$(REV).bottom.gbr $(GRB)/$(BOARD2FABROOT)_rev-$(REV).gbl
+	mv $(BOARD2FABROOT)_rev-$(REV).bottomsilk.gbr $(GRB)/$(BOARD2FABROOT)_rev-$(REV).gbo
+	mv $(BOARD2FABROOT)_rev-$(REV).bottommask.gbr $(GRB)/$(BOARD2FABROOT)_rev-$(REV).gbs
+	mv $(BOARD2FABROOT)_rev-$(REV).top.gbr $(GRB)/$(BOARD2FABROOT)_rev-$(REV).gtl
+	mv $(BOARD2FABROOT)_rev-$(REV).topsilk.gbr $(GRB)/$(BOARD2FABROOT)_rev-$(REV).gto
+	mv $(BOARD2FABROOT)_rev-$(REV).topmask.gbr $(GRB)/$(BOARD2FABROOT)_rev-$(REV).gts
+	mv $(BOARD2FABROOT)_rev-$(REV).plated-drill.cnc $(GRB)/$(BOARD2FABROOT)_rev-$(REV).drl
+	mv $(BOARD2FABROOT)_rev-$(REV).unplated-drill.cnc $(GRB)/$(BOARD2FABROOT)_rev-$(REV).NPTH.drl
+	mv $(BOARD2FABROOT)_rev-$(REV).outline.gbr $(GRB)/$(BOARD2FABROOT)_rev-$(REV).gm1
+	mv $(BOARD2FABROOT)_rev-$(REV).bottompaste.gbr $(GRB)/$(BOARD2FABROOT)_rev-$(REV).paste.gbp
+	mv $(BOARD2FABROOT)_rev-$(REV).toppaste.gbr $(GRB)/$(BOARD2FABROOT)_rev-$(REV).paste.gtp
+	mv $(BOARD2FABROOT)_rev-$(REV).fab.gbr $(GRB)/$(BOARD2FABROOT)_rev-$(REV).fab
 	-rm -f $(GRB)/*.zip
-	cd $(GRB); zip -9 $(PROJECTNAME)_rev-$(REV).zip *.g?? *.drl
+	cd $(GRB); zip -9 $(BOARD2FABROOT)_rev-$(REV).zip *.g?? *.drl
 
 
 bom: $(BOMS)
@@ -186,7 +186,7 @@ myropcb: $(BOARDS)
 	done
 
 gerbvmyro:
-	gerbv $(GRB)/$(PROJECTNAME)_rev-$(REV).top $(GRB)/$(PROJECTNAME)_rev-$(REV).top-silk  $(GRB)/$(PROJECTNAME)_rev-$(REV).top-soldermask $(GRB)/$(PROJECTNAME)_rev-$(REV).bot $(GRB)/$(PROJECTNAME)_rev-$(REV).bot-silk  $(GRB)/$(PROJECTNAME)_rev-$(REV).bot-soldermask $(GRB)/$(PROJECTNAME)_rev-$(REV).outline $(GRB)/$(PROJECTNAME)_rev-$(REV).bot-paste $(GRB)/$(PROJECTNAME)_rev-$(REV).top-paste
+	gerbv $(GRB)/$(BOARD2FABROOT)_rev-$(REV).top $(GRB)/$(BOARD2FABROOT)_rev-$(REV).top-silk  $(GRB)/$(BOARD2FABROOT)_rev-$(REV).top-soldermask $(GRB)/$(BOARD2FABROOT)_rev-$(REV).bot $(GRB)/$(BOARD2FABROOT)_rev-$(REV).bot-silk  $(GRB)/$(BOARD2FABROOT)_rev-$(REV).bot-soldermask $(GRB)/$(BOARD2FABROOT)_rev-$(REV).outline $(GRB)/$(BOARD2FABROOT)_rev-$(REV).bot-paste $(GRB)/$(BOARD2FABROOT)_rev-$(REV).top-paste
 
 
 
