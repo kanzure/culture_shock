@@ -161,7 +161,7 @@ ha:pcb-rnd-board-v2 {
     ha:via.122139 {
      x=23.7mm; y=29.0mm; hole=0.999998mm; mask=0.0; thickness=2.0mm; clearance=1.0mm;
      ha:flags {
-      ha:thermal { silk=horver-sharp; sold-GND=horver-round; comp-GND=horver-round;      }
+      ha:thermal { silk=horver-sharp; sold-GND=horver-round; comp-GND=horver-round; component=solid;      }
       via=1
      }
     }
@@ -3395,9 +3395,6 @@ ha:pcb-rnd-board-v2 {
        }
        ha:line.120753 {
         x1=23.7mm; y1=29.0mm; x2=23.7mm; y2=1.30393701in; thickness=1.008mm; clearance=1.0mm;
-        ha:flags {
-         clearline=1
-        }
        }
        ha:line.120756 {
         x1=34.25mm; y1=36.05mm; x2=27.25mm; y2=36.05mm; thickness=2.0mm; clearance=1.3mm;
@@ -3836,9 +3833,6 @@ ha:pcb-rnd-board-v2 {
        }
        ha:line.120981 {
         x1=824.80314961mil; y1=31.75mm; x2=23.7mm; y2=29.0mm; thickness=1.2mm; clearance=1.0mm;
-        ha:flags {
-         clearline=1
-        }
        }
        ha:line.120984 {
         x1=824.80314961mil; y1=34.85mm; x2=824.80314961mil; y2=36.6mm; thickness=1.2mm; clearance=1.0mm;
@@ -4534,37 +4528,37 @@ ha:pcb-rnd-board-v2 {
          clearpoly=1
         }
        }
-       ha:text.121311 {
+       ha:text.121338 {
         string=Culture Shock v 0.2; x=32.3mm; y=54.9mm; scale=173; fid=0; direction=0;
         ha:flags {
          clearline=1
         }
        }
-       ha:text.121312 {
+       ha:text.121339 {
         string=(c) 2017 kitmatic.com; x=32.25mm; y=52.05mm; scale=173; fid=0; direction=0;
         ha:flags {
          clearline=1
         }
        }
-       ha:text.121313 {
+       ha:text.121340 {
         string=TAPR; x=58.7mm; y=52.45mm; scale=173; fid=0; direction=0;
         ha:flags {
          clearline=1
         }
        }
-       ha:text.121314 {
+       ha:text.121341 {
         string=license; x=57.95mm; y=54.85mm; scale=173; fid=0; direction=0;
         ha:flags {
          clearline=1
         }
        }
-       ha:text.121315 {
+       ha:text.121342 {
         string=GND; x=5.15mm; y=6.2mm; scale=173; fid=0; direction=0;
         ha:flags {
          clearline=1
         }
        }
-       ha:text.121316 {
+       ha:text.121343 {
         string=+20V; x=2.95mm; y=22.15mm; scale=173; fid=0; direction=0;
         ha:flags {
          clearline=1
@@ -4640,28 +4634,28 @@ ha:pcb-rnd-board-v2 {
          clearline=1
         }
        }
-       ha:text.121372 {
+       ha:text.121373 {
         string=Culture Shock v 0.2; x=66.2mm; y=54.95mm; scale=173; fid=0; direction=2;
         ha:flags {
          clearline=1
          onsolder=1
         }
        }
-       ha:text.121373 {
+       ha:text.121374 {
         string=(c) 2017 kitmatic.com; x=66.25mm; y=52.0mm; scale=173; fid=0; direction=2;
         ha:flags {
          clearline=1
          onsolder=1
         }
        }
-       ha:text.121374 {
+       ha:text.121375 {
         string=TAPR; x=39.85mm; y=52.9mm; scale=173; fid=0; direction=2;
         ha:flags {
          clearline=1
          onsolder=1
         }
        }
-       ha:text.121375 {
+       ha:text.121376 {
         string=License; x=41.35mm; y=54.95mm; scale=173; fid=0; direction=2;
         ha:flags {
          clearline=1
