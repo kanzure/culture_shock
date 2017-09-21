@@ -1,0 +1,50 @@
+li:pcb-rnd-conf-v1 {
+ ha:overwrite {
+  ha:appearance {
+   ha:color {
+    mask = {#ff0000}
+    white = {#ffffff}
+    grid = {#ff0000}
+    via_selected = {#00ffff}
+    subc = {#CC0000}
+    subc_nonetlist = {#551111}
+    li:layer {
+    }
+    black = {#000000}
+    invisible_mark = {#cccccc}
+    subc_selected = {#00ffff}
+    element = {#000000}
+    cross = {#cdcd00}
+    invisible_objects = {#cccccc}
+    pin = {#4d4d4d}
+    crosshair = {#ff0000}
+    connected = {#00ff00}
+    via = {#7f7f7f}
+    rat_selected = {#00ffff}
+    rat = {#b8860b}
+    off_limit = {#cccccc}
+    background = {#e5e5e5}
+    li:layer_selected {
+    }
+    element_selected = {#00ffff}
+    pin_name = {#ff0000}
+    warn = {#ff8000}
+    element_nonetlist = {#777777}
+    pin_selected = {#00ffff}
+    paste = {#cd00cd}
+   }
+  }
+  ha:design {
+   min_ring = 10.00 mil
+   text_scale = 5744
+   min_slk = 6.00 mil
+   max_height = 60.0000 mm
+   shrink = 9.00 mil
+   poly_isle_area = 199999999.999200
+   max_width = 33.5000 mm
+   min_wid = 203.00 um
+   bloat = 6.00 mil
+   min_drill = 15.00 mil
+  }
+ }
+}

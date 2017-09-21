@@ -1,0 +1,122 @@
+ Basic Workflow
+Part, Body, Sketch
+
+Part and Body containers have been introduced.
+
+Part keeps together all the stuff related to a part (a set of objects that are to be moved together during assembly). Part can contain PartDesign Bodies, Part-workbench objects, and other stuff.
+
+Bodies keep chains of PartDesign features together. That is, a Body contains a chain of operations to build a single solid shape. As of now, Bodies are not moveable.
+
+Parts and Bodies are made to:
+
+    keep the tree view nice and organized
+    features can be easily added into Bodies, and Body will present it's most recent state to the outside (this should solve the situations like "I have made a pocket in my part, why wasn't it's clone updated accordingly?")
+    Part can be placed. Everything contained in the Part is translated/rotated, without causing a recompute. It provides a local coordinate system and can be used to group any kind of FreeCAD stuff and move it as one unit.  Independent FreeCAD element. The links to outside of Part will be as if the Part is at the origin, so even a forced recompute will not alter the geometry of the Part.  This will be the future basis for assemblies.
+
+
+Individual solids can depend on each other
+
+  
+
+    Create body A body is a single solid created from multiple individual PartDesign features. It does group all features used for its creation beneath it in the tree. It does provide an Origin (Planes and axis) which can be used in the features as references. Furthermore it can be freely moved without making it nesseccary to move the individual features.  
+
+ to set the Body's tip to Pad. Right-click on Pad in the tree and select "Set tip". 
+
+Active objects: There is now the notion of active objects. for example your file can hold multiple Bodies. If you create a new feature the feature is added to the active one. To activate a body double click it, the state will be indicated in the tree by background color.
+
+    PartDesign NewSketch.png Create sketch
+    Sketch see Sketcher_Workbench 
+
+It is not needed anymore that a sketch is located on a face of a feature. Even if created anywhere in the 3d space the features get added / subtracted from the body
+   Sketch based tools (pad, revolve, ...) now work not only with sketches but also with faces of a feature
+
+Datum
+
+It is now possible to create datum planes/lines/points and attach them to features. Those datums can be used as basis for sketches or as revolution axis etc. There are a multitude of attachment possibilities for datums.
+
+Cross referencing: It is now possible to reference things from a body in another body via datums. For example the datum shape binder allows to copy over faces from a body as reference in annother one. This should make it easy to build a box with fitting cover in two different bodies. FreeCAD helps you to not accidently link to other bodies and inqueries your intend.
+
+    PartDesign Point.png Create a datum point
+    PartDesign Line.png Create a datum line
+    PartDesign Plane.png Create a datum plane
+    PartDesign ShapeBinder.png Create a shape binder
+
+
+
+The new dependent copy creation mechanism should keep the model tree nice and clean, as well as provide some possibility to rip parts off a complex design into a new document.
+
+    It would be really nice to "import" a linked copy of an existing body into a new body to either use as base solid or a "3D shapebinder".
+
+Draft Clone is your friend. Clone a body, then base a new body on the clone (select clone and hit "new body".
+
+PartDesign additive pipe can be pressed after selecting a profile sketch.  The profile must already be oriented perpendicular to the starting point of a section of the sweep outline,
+and offset so it is at the starting point also.  Next choose [add edge] button and select the segment to start the sweep with.  
+Display updates rendering a translucent version of the sweep up to that section end point.  Repeat adding edges one at a time until all there.  Click OK.
+
+
+* you can make Draft Clone of sketch, and even drag the clone into Body, and even Pad the clone.
+
+* you can use "Carbon Copy" tool in sketcher itself, to suck in a semi-linked copy of geometry from other sketch
+
+* in PartDesign, you can use ShapeBinder to bring in a sketch from outside of active body.  (and relate overall size to similar, but not exactly same sketch)
+
+
+===============convert-t-bspline================
+    I think the number of segments of all sections must be the same
+100% agree. In Freecad 0.17 there's a great new feature in the sketcher, called "convert given geometry to b-spline".
+
+convert-t-bspline.png
+    convert-t-bspline.png (1.38 KiB) Viewed 92 times
+
+Maybe with this trick it's possible to avoid these segments. Change the sketch into a bspline, the result is a surface with one or two segments instead of eight. And it's more easy to control the start point and direction of each sweep sketch. Imagine a part with twenty different sweep sketches ... For surface design it works like a charm. With PTC Creo sometimes I used this trick and my colleges wonder how I reached such smooth and perfect surfaces. It's also great for additional fillets. Without the bspline trick many fillets are impossible. With this trick I cracked some hard nut in surface design.
+
+===============convert-t-bspline================
+
+
+
+Cross referencing: It is now possible to reference things from a body in another body via datums. For example the datum shape binder allows to copy over faces from a body as reference in annother one. This should make it easy to build a box with fitting cover in two different bodies. FreeCAD helps you to not accidently link to other bodies and inqueries your intend. 
+
+
+mirroring:
+    In PDWB there is a tool "create a mirrored feature". Is it the only way to mirror an object? (It's not at all convenient to mirror one feature after another step-by-step. And can't copy fillet for example)
+    May be I can copy body and mirror it, and then boolean 2 bodies? 
+
+In 0.17-dev, you can actually select more than one feature for a transformation feature. The problem is that selecting more than one is not intuitive.
+
+Here's what I know works (that's what I came up with by testing, I don't know if there's any other working method):
+
+    Select a single feature then launch the transformation feature you need (mirrored, linear/polar pattern, multitransform)
+    In the Tasks panel, click on the "Add feature" button
+    Here comes the tricky part: you need to make the feature you want to select visible in the 3D view, because that's the only way to select it; so switch to the Model tab, then click on the feature you want and hit spacebar: the model shown in the 3D view will roll back to that particular feature
+    Click on the model in the 3D view
+    Switch back to the Tasks panel, you will see the feature added in the list under the transformation parameters widget; the model shown in the 3D view will go back to the preview for the active transformation feature.
+    Repeat from step 2 as needed until you have selected all the features you want.
+    Adjust the parameters as needed and complete the operation.
+
+
+  Sun May 22, 2016 5:43 am    ickby wrote:
+    It is just too early to build user stuff out of this.
+
+I'm about to start doing it. The pull request I mentioned was born exactly because I want to start using the new FreeCAD, and the fixes are essentially the show-stopper bugs for me (well, the sketcher one, and container deactivation).
+
+Also, a few opinions were born.
+1) there should be only one active container, not two as it is now (now we have two separate fields, active Part and active Body). Having two only adds complications when nesting is considered. I have essentially replaced the two with one in Part-o-magic, see getActiveContainer and setActiveContainer routines.
+2) I think we need the active container in a more accessible place, like ActiveDocument.
+3) Containers should provide an overload of addObject(type, name), that should act just like Document.addObject(), except throw an error if the object cannot be created in the container (say, we can't create a Part Feature in PartDesign Body). Then do a massive search-and-replace around FreeCAD to redirect to ActiveContainer.
+... more to come
+
+
+As for copy-pasting, no, it does not work inside the sketch editing mode. What does is copy-pasting the Sketch itself between two separate FreeCAD documents.
+
+
+ you can drag the sketch into the body you want.
+
+A sketch that is attached to a face or a plane cannot be moved using the regular placement. This was true in 0.16 as well.
+
+What you need to set is the Super placement, which was added in 0.17. This super placement supersedes the normal placement.
+
+NURBs curves by moving pwl line segments:   https://forum.freecadweb.org/viewtopic.php?f=22&t=23243&start=10
+Individual solids can depend on each other
+
+8    Additional toolset: all relevant tools formerly exclusive to the Part workbench are now also available in PartDesign. The do have the usual different behavior: always creating solids, automatic adding or subtracting to the body.
+9    Migration: Files created with older freecad versions can still be opened and edited. If pure part design feature based they can be converted to the new style via the menu ->PartDesign -> Migrate. If they are mixed Part / Part Design/ Draft the conversion will most likely fail.
