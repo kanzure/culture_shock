@@ -1,0 +1,31 @@
+# = tps61040.symdef symbol creation file
+--square
+[labels]
+TPS61040
+
+refdes=U?
+! copryright=2017 John Griessen
+! author=John Griessen
+! uselicense=unlimited
+! distlicense=GPL
+! device=vsri-lp
+! description=TPS61040 boost switcher
+! spec1=a
+! spec2=b
+! spec3=c 
+! footprint=sot23-5.fp
+[left]
+.skip 800
+
+
+[right]
+
+
+
+[top]
+3 FB
+2 GND
+1 SW
+[bottom]
+4 !SHDN
+5 VIN
