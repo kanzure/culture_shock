@@ -6,7 +6,7 @@ file=micropulser.sch
 T 62600 37900 5 10 1 1 0 0 1
 drawn-by=John Griessen
 T 50800 38000 5 18 1 1 0 0 1
-title=Culture Shock Micropulser PCB
+title=Culture Shock PYFLEX_F401
 T 58700 37900 5 10 1 1 0 0 1
 first-pagenum=1
 T 59400 37900 5 10 1 1 0 0 1
@@ -14,7 +14,7 @@ last-pagenum=1
 T 62600 38200 5 10 1 1 0 0 1
 rev=2017-10-10 v0.3
 T 64400 43400 5 18 1 1 270 0 1
-title2=Culture Shock Micropulser PCB
+title2=Culture Shock PYFLEX_F401
 }
 N 44800 51400 44800 54600 4
 N 45700 51400 45700 52000 4
