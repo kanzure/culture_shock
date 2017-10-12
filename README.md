@@ -31,8 +31,7 @@ pcb-rnd kvboard.lht
 pcb-rnd micropulser.lht
 gschem kvboard.sch micropulser.sch
 ```
-The schematic and netlist tools used are from the lepton-eda code:  https://github.com/lepton-eda/lepton-eda
-The tool names are the familiar gschem and gnetlist at the moment.
+The schematic and netlist and layout tools used are from the gEDA code: http://wiki.evilmadscientist.com/GEDA_Resources#Basics
 
 **Running code on the Culture Shock platform(s)**  
 There are two MCU platforms: a board called g30pulser.sch that runs with the micropython platform definition called G30TH, and  a board called micropulser.sch that runs with the micropython platform definition called PYFLEX_F401.  PYFLEX_F401 is not complete now, so compile micropython with platform  G30TH.
