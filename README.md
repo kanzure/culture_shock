@@ -48,7 +48,7 @@ make BOARD=G30TH
 Now the code needs loading by following the instructions in kanzure/culture_shock/micropython_timer_code_lowlevl/micropython_compile_G30TH.txt
 Next step depends on which code you want to run, so follow README.md in  kanzure/culture_shock/micropython_timer_code_lowlevl
 or  kanzure/culture_shock/micropython_pulser_code as they will be different code and different platforms possibly.
-After some testing with the 5 extant g30pulser.sch boards, all activity will switch to using the PYFLEX_F401 platform for 
+As of October 2017, we will be using the PYFLEX_F401 platform for 
 micropython, which has the same MCU as the G30TH platform, different connectors and fewer signals brought to connectors since it is a targeted application instead of a breakout board.
 
 **Project Module Standard**
