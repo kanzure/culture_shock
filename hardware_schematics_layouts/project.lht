@@ -113,6 +113,7 @@ li:pcb-rnd-conf-v1 {
   ha:design {
    min_ring = 10.00 mil
    text_scale = 140
+   groups = {13:10:11,12:c,c,c:7:8:s,s,s:14,16:9:15}
    min_slk = 7.00 mil
    max_height = 5.00000 in
    shrink = 9.00 mil
@@ -120,6 +121,46 @@ li:pcb-rnd-conf-v1 {
    max_width = 6.00000 in
    min_wid = 10.00 mil
    bloat = 12.00 mil
+   li:default_layer_name {
+    top
+    bottom
+    top-pwr
+    top-gnd
+    bot-pwr
+    bot-gnd
+    signal3
+    outline
+    bottom-silk
+    silk
+    top-mask-open
+    top-mask-user
+    top-paste
+    bot-mask-open
+    bot-paste
+    bot-mask-user
+    signal17
+    signal18
+    signal19
+    signal20
+    signal21
+    signal22
+    signal23
+    signal24
+    signal25
+    signal26
+    signal27
+    signal28
+    signal29
+    signal30
+    signal31
+    signal32
+    signal33
+    signal34
+    signal35
+    signal36
+    signal37
+    signal38
+   }
    min_drill = 15.00 mil
   }
   ha:plugins {

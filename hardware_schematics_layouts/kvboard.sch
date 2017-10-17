@@ -692,7 +692,7 @@ T 47100 46850 5 10 1 1 0 0 1
 footprint=SOT23-123.fp
 }
 T 52900 46500 9 12 1 0 0 0 2
-Use either
+Use small
 transistor.
 C 53550 44100 1 90 0 diode-1.sym
 {
@@ -724,7 +724,7 @@ T 48950 44100 5 10 0 0 90 0 1
 footprint=smb-min.fp
 }
 T 48450 46800 9 12 1 0 0 0 2
-Use either
+Use small
 transistor
 N 48350 46650 48350 46400 4
 N 48750 44100 48750 43600 4
@@ -866,3 +866,15 @@ description=DIODE ZENER 2.2V 500MW SOD123
 T 47200 52300 5 10 0 1 0 0 1
 footprint=SOD123.fp
 }
+T 51700 41900 9 12 1 0 0 0 1
+put two vias to gnd near TXFMR pads
+T 51700 41600 9 12 1 0 0 0 1
+to heatsink the drive FETs
+L 54400 46600 54400 42100 3 10 1 0 -1 -1
+L 54400 46600 54300 46400 3 10 1 0 -1 -1
+L 54500 46400 54300 46400 3 10 1 0 -1 -1
+L 54500 46400 54400 46600 3 10 1 0 -1 -1
+T 48600 42800 9 12 1 0 0 0 2
+D3, D4 reduce STPS2L25U footprint tails,
+move into subc around TXFMR
+B 51600 41000 4800 1100 3 10 1 0 -1 -1 0 -1 -1 -1 -1 -1
