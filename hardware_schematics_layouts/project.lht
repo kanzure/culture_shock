@@ -1,168 +1,5 @@
 li:pcb-rnd-conf-v1 {
  ha:overwrite {
-  ha:appearance {
-   ha:color {
-    mask = {#ff0000}
-    white = {#ffffff}
-    grid = {#ff0000}
-    via_selected = {#00ffff}
-    subc = {#CC0000}
-    subc_nonetlist = {#551111}
-    li:layer {
-     {#fb0404}
-     {#0932f6}
-     {#b41304}
-     {#711804}
-     {#0b1e54}
-     {#050826}
-     {#00868b}
-     {#228b22}
-     {#8b2323}
-     {#0b2984}
-     {#104e8b}
-     {#c25c06}
-     {#548b54}
-     {#8b7355}
-     {#00868b}
-     {#228b22}
-     {#8b2323}
-     {#3a5fcd}
-     {#104e8b}
-     {#cd3700}
-     {#548b54}
-     {#8b7355}
-     {#00868b}
-     {#228b22}
-     {#8b2323}
-     {#3a5fcd}
-     {#104e8b}
-     {#cd3700}
-     {#548b54}
-     {#8b7355}
-     {#00868b}
-     {#228b22}
-     {#8b2323}
-     {#3a5fcd}
-     {#104e8b}
-     {#cd3700}
-     {#548b54}
-     {#8b7355}
-    }
-    black = {#000000}
-    invisible_mark = {#cccccc}
-    subc_selected = {#00ffff}
-    element = {#000000}
-    cross = {#cdcd00}
-    invisible_objects = {#cccccc}
-    pin = {#4d4d4d}
-    crosshair = {#ff0000}
-    connected = {#00ff00}
-    via = {#7f7f7f}
-    rat_selected = {#00ffff}
-    rat = {#b8860b}
-    off_limit = {#cccccc}
-    background = {#e5e5e5}
-    li:layer_selected {
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-     {#00ffff}
-    }
-    element_selected = {#00ffff}
-    pin_name = {#ff0000}
-    warn = {#ff8000}
-    element_nonetlist = {#777777}
-    pin_selected = {#00ffff}
-    paste = {#cd00cd}
-   }
-  }
-  ha:design {
-   min_ring = 10.00 mil
-   text_scale = 140
-   groups = {13:10:11,12:c,c,c:7:8:s,s,s:14,16:9:15}
-   min_slk = 7.00 mil
-   max_height = 5.00000 in
-   shrink = 9.00 mil
-   poly_isle_area = 199999999.999200
-   max_width = 6.00000 in
-   min_wid = 10.00 mil
-   bloat = 12.00 mil
-   li:default_layer_name {
-    top
-    bottom
-    top-pwr
-    top-gnd
-    bot-pwr
-    bot-gnd
-    signal3
-    outline
-    bottom-silk
-    silk
-    top-mask-open
-    top-mask-user
-    top-paste
-    bot-mask-open
-    bot-paste
-    bot-mask-user
-    signal17
-    signal18
-    signal19
-    signal20
-    signal21
-    signal22
-    signal23
-    signal24
-    signal25
-    signal26
-    signal27
-    signal28
-    signal29
-    signal30
-    signal31
-    signal32
-    signal33
-    signal34
-    signal35
-    signal36
-    signal37
-    signal38
-   }
-   min_drill = 15.00 mil
-  }
   ha:plugins {
    ha:hid_gtk {
     ha:window_geometry {
@@ -170,8 +7,8 @@ li:pcb-rnd-conf-v1 {
      netlist_y = 0
      pinout_x = 0
      pinout_y = 0
-     library_x = 1945
-     library_y = 300
+     library_x = 1964
+     library_y = 19
      pinout_height = 0
      log_x = 0
      log_y = 1
@@ -179,10 +16,10 @@ li:pcb-rnd-conf-v1 {
      drc_x = 0
      drc_y = 0
      netlist_height = 0
-     top_height = 988
+     top_height = 967
      library_width = 504
      drc_height = 0
-     top_width = 1340
+     top_width = 1384
      drc_width = 0
      keyref_width = 0
      keyref_height = 0
@@ -191,13 +28,11 @@ li:pcb-rnd-conf-v1 {
      keyref_y = 0
      log_width = 442
      library_height = 492
-     top_x = 469
-     top_y = 17
+     top_x = 270
+     top_y = 23
      log_height = 158
     }
    }
-  }
-  ha:editor {
   }
  }
 }
