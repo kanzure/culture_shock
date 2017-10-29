@@ -856,7 +856,7 @@ ha:pcb-rnd-board-v3 {
                                                   }
                                                 }
 
-                                                {ha:top paste}                                                                                             {
+                                                {ha:top paste}                                                                                              {
                                                  lid=2
                                                  ha:combining {                                                 }
 
@@ -994,7 +994,7 @@ ha:pcb-rnd-board-v3 {
                                                   }
                                                 }
 
-                                                {ha:top mask}                                                                                             {
+                                                {ha:top mask}                                                                                              {
                                                  lid=3
                                                  ha:combining { sub=1;                                                 }
 
@@ -14208,6 +14208,213 @@ ha:pcb-rnd-board-v3 {
                                                                         }
                                                                          uid = KQ6tIqYqqfEZJ0zHGXAAAAAh
                                                                         }
+                                                                         ha:subc.457472 {
+                                                                          ha:attributes {
+                                                                           refdes=X0
+                                                                          }
+                                                                         ha:data {
+                                                                         
+                                                                          li:objects {
+                                                                          }
+                                                                          li:layers {
+
+                                                                           ha:top {
+                                                                            lid=0
+                                                                            ha:combining {                                                                            }
+
+                                                                             li:objects {
+                                                                              ha:polygon.457513 { clearance=40.0mil;
+                                                                               li:geometry {
+                                                                                 ta:contour {
+                                                                                  { 115.35mm; 21.15mm }
+                                                                                  { 115.25mm; 21.05mm }
+                                                                                  { 115.25mm; 19.5mm }
+                                                                                  { 115.35mm; 19.4mm }
+                                                                                  { 116.15mm; 19.4mm }
+                                                                                  { 116.25mm; 19.5mm }
+                                                                                  { 116.25mm; 21.05mm }
+                                                                                  { 116.15mm; 21.15mm }
+                                                                                 }
+                                                                               }
+
+                                                                               ha:flags {
+                                                                                clearpoly=1
+                                                                               }
+
+                                                                               ha:attributes {
+                                                                                 term=1
+                                                                               }
+                                                                              }
+                                                                              ha:polygon.457522 { clearance=40.0mil;
+                                                                               li:geometry {
+                                                                                 ta:contour {
+                                                                                  { 117.85mm; 21.15mm }
+                                                                                  { 117.75mm; 21.05mm }
+                                                                                  { 117.75mm; 19.5mm }
+                                                                                  { 117.85mm; 19.4mm }
+                                                                                  { 118.65mm; 19.4mm }
+                                                                                  { 118.75mm; 19.5mm }
+                                                                                  { 118.75mm; 21.05mm }
+                                                                                  { 118.65mm; 21.15mm }
+                                                                                 }
+                                                                               }
+
+                                                                               ha:flags {
+                                                                                clearpoly=1
+                                                                               }
+
+                                                                               ha:attributes {
+                                                                                 term=2
+                                                                               }
+                                                                              }
+                                                                             }
+                                                                             ha:type {
+                                                                              copper = 1
+                                                                              top = 1
+                                                                             }
+                                                                           }
+
+                                                                           ha:silk {
+                                                                            lid=1
+                                                                            ha:combining { auto=1;                                                                            }
+
+                                                                             li:objects {
+                                                                              ha:line.457473 {
+                                                                               x1=115.05mm; y1=19.4mm; x2=115.05mm; y2=19.2mm; thickness=0.2mm; clearance=0.0;
+                                                                              }
+                                                                              ha:line.457476 {
+                                                                               x1=115.05mm; y1=19.2mm; x2=115.35mm; y2=19.2mm; thickness=0.2mm; clearance=0.0;
+                                                                              }
+                                                                              ha:line.457479 {
+                                                                               x1=118.95mm; y1=19.4mm; x2=118.95mm; y2=19.2mm; thickness=0.2mm; clearance=0.0;
+                                                                              }
+                                                                              ha:line.457482 {
+                                                                               x1=118.95mm; y1=19.2mm; x2=118.65mm; y2=19.2mm; thickness=0.2mm; clearance=0.0;
+                                                                              }
+                                                                              ha:line.457485 {
+                                                                               x1=115.05mm; y1=21.15mm; x2=115.05mm; y2=21.35mm; thickness=0.2mm; clearance=0.0;
+                                                                              }
+                                                                              ha:line.457488 {
+                                                                               x1=115.05mm; y1=21.35mm; x2=115.35mm; y2=21.35mm; thickness=0.2mm; clearance=0.0;
+                                                                              }
+                                                                              ha:line.457491 {
+                                                                               x1=118.95mm; y1=21.15mm; x2=118.95mm; y2=21.35mm; thickness=0.2mm; clearance=0.0;
+                                                                              }
+                                                                              ha:line.457494 {
+                                                                               x1=118.95mm; y1=21.35mm; x2=118.65mm; y2=21.35mm; thickness=0.2mm; clearance=0.0;
+                                                                              }
+                                                                              ha:text.457497 {
+                                                                               string=%a.parent.refdes%; x=119.15mm; y=19.55mm; scale=100; fid=0; direction=0;
+                                                                               ha:flags {
+                                                                                dyntext=1
+                                                                                floater=1
+                                                                               }
+                                                                              }
+                                                                             }
+                                                                             ha:type {
+                                                                              silk = 1
+                                                                              top = 1
+                                                                             }
+                                                                           }
+
+                                                                           ha:top-mask-open {
+                                                                            lid=2
+                                                                            ha:combining { sub=1; auto=1;                                                                            }
+
+                                                                             li:objects {
+                                                                              ha:polygon.457531 { clearance=40.0mil;
+                                                                               li:geometry {
+                                                                                 ta:contour {
+                                                                                  { 115.2mm; 19.35mm }
+                                                                                  { 116.3mm; 19.35mm }
+                                                                                  { 116.3mm; 21.2mm }
+                                                                                  { 115.2mm; 21.2mm }
+                                                                                 }
+                                                                               }
+
+                                                                               ha:flags {
+                                                                                clearpoly=1
+                                                                               }
+                                                                              }
+                                                                              ha:polygon.457536 { clearance=40.0mil;
+                                                                               li:geometry {
+                                                                                 ta:contour {
+                                                                                  { 117.7mm; 19.35mm }
+                                                                                  { 118.8mm; 19.35mm }
+                                                                                  { 118.8mm; 21.2mm }
+                                                                                  { 117.7mm; 21.2mm }
+                                                                                 }
+                                                                               }
+
+                                                                               ha:flags {
+                                                                                clearpoly=1
+                                                                               }
+                                                                              }
+                                                                             }
+                                                                             ha:type {
+                                                                              top = 1
+                                                                              mask = 1
+                                                                             }
+                                                                           }
+
+                                                                           ha:top-paste {
+                                                                            lid=3
+                                                                            ha:combining {                                                                            }
+
+                                                                             li:objects {
+                                                                              ha:line.457498 {
+                                                                               x1=115.75mm; y1=19.85mm; x2=115.75mm; y2=20.7mm; thickness=30.0mil; clearance=40.0mil;
+                                                                               ha:flags {
+                                                                                clearline=1
+                                                                               }
+                                                                              }
+                                                                              ha:line.457501 {
+                                                                               x1=118.25mm; y1=19.85mm; x2=118.25mm; y2=20.7mm; thickness=30.0mil; clearance=40.0mil;
+                                                                               ha:flags {
+                                                                                clearline=1
+                                                                               }
+                                                                              }
+                                                                             }
+                                                                             ha:type {
+                                                                              top = 1
+                                                                              paste = 1
+                                                                             }
+                                                                           }
+
+                                                                           ha:subc-aux {
+                                                                            lid=4
+                                                                            ha:combining {                                                                            }
+
+                                                                             li:objects {
+                                                                              ha:line.457504 {
+                                                                               x1=117.0mm; y1=20.25mm; x2=117.0mm; y2=20.25mm; thickness=0.1mm; clearance=0.0;
+                                                                               ha:attributes {
+                                                                                 subc-role=origin
+                                                                               }
+                                                                              }
+                                                                              ha:line.457507 {
+                                                                               x1=117.0mm; y1=20.25mm; x2=118.0mm; y2=20.25mm; thickness=0.1mm; clearance=0.0;
+                                                                               ha:attributes {
+                                                                                 subc-role=x
+                                                                               }
+                                                                              }
+                                                                              ha:line.457510 {
+                                                                               x1=117.0mm; y1=20.25mm; x2=117.0mm; y2=21.25mm; thickness=0.1mm; clearance=0.0;
+                                                                               ha:attributes {
+                                                                                 subc-role=y
+                                                                               }
+                                                                              }
+                                                                             }
+                                                                             ha:type {
+                                                                              top = 1
+                                                                              misc = 1
+                                                                              virtual = 1
+                                                                             }
+                                                                           }
+                                                                          }
+                                                                         }
+                                                                          uid = KQ6tIqYqqfEZJ0zHGXAAAAAh
+                                                                         }
    }
    li:layers {
 
@@ -14752,7 +14959,7 @@ ha:pcb-rnd-board-v3 {
       lid=12
       group=0
       ha:combining {      }
-      visible=1
+      visible=0
 
        li:objects {
         ha:line.444715 {
@@ -17061,10 +17268,10 @@ ha:pcb-rnd-board-v3 {
        drc_x = 0
        drc_y = 0
        netlist_height = 0
-       top_height = 295
+       top_height = 974
        library_width = 504
        drc_height = 0
-       top_width = 762
+       top_width = 1281
        drc_width = 0
        keyref_width = 0
        keyref_height = 0
@@ -17073,7 +17280,7 @@ ha:pcb-rnd-board-v3 {
        keyref_y = 0
        log_width = 294
        library_height = 660
-       top_x = 454
+       top_x = 437
        top_y = 7
        log_height = 363
       }
