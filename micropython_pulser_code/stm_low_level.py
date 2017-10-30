@@ -142,6 +142,16 @@ def force_inactive_tim2():
   ccmr1 |= 0b0100000001000000
   stm.mem16[stm.TIM2 + stm.TIM_CCMR1] = ccmr1
 
+@micropython.native
+def force_inactive_tim4():
+  # TODO link to PDF and page number for register field description
+  ccmr1 = stm.mem16[stm.TIM4 + stm.TIM_CCMR1]
+  ccmr1 &= 0b1000111110001111  # OC2M "100"....OC1M "100"
+  ccmr1 |= 0b0100000001000000
+  stm.mem16[stm.TIM4 + stm.TIM_CCMR1] = ccmr1
+
+
+
 
 def tim1_set_pwm1():
   # TODO link to PDF and page number for register field description
@@ -178,6 +188,9 @@ def tim2_set_pwm2():
   # Put (t2ch2/t2ch1) mode to FORCED_INACTIVE to start...
   # TODO which isn it, ch1 or ch2?
   # TODO link to PDF and page number for register field description
+  ## 111: PWM mode 2 - In upcounting, channel 1 is inactive as long as TIMx_CNT<TIMx_CCR1
+  ## else active. In downcounting, channel 1 is active as long as TIMx_CNT>TIMx_CCR1 else
+  ## inactive.
   ccmr1 = stm.mem16[stm.TIM2 + stm.TIM_CCMR1]
   ccmr1 &= 0b1000111110001111  # OC2M "100"....OC1M "100"
   ccmr1 |= 0b0111000001110000
@@ -198,6 +211,7 @@ APB1_TIM3EN = 1
 APB1_TIM4EN = 2
 APB1_TIM5EN = 3
 APB1_PWREN = 28
+APB2_ADC1EN = 8
 
 
 def tim2_disable():
@@ -304,7 +318,7 @@ def connect_pa0_and_pa1_to_tim2_and_tim5():
   )
 
 def enable_pb13_af_and_connect_to_tim1():
-  """# PB13 -- jut for status of n-pulse timer"""
+  """# PB13 -- just for status of n-pulse timer"""
   #print(bin(stm.mem32[stm.GPIOB + stm.GPIO_MODER]))
   stm.mem32[stm.GPIOB + stm.GPIO_MODER] = (stm.mem32[stm.GPIOB + stm.GPIO_MODER]
     & (~(0b1111<<26)& four_byte_mask)  # MODER8      #GREEN LED
@@ -317,7 +331,7 @@ def enable_pb13_af_and_connect_to_tim1():
   # 15 14 13 12  11 10 9 8    7 6 5 4     3 2 1 0
   # AFRH11[3:0]  AFRH10[3:0]  AFRH9[3:0]  AFRH8[3:0]
   stm.mem32[stm.GPIOB + stm.GPIO_AFR1] = (stm.mem32[stm.GPIOB + stm.GPIO_AFR1]
-    & ((~(0b1111)& four_byte_mask)<<20)  # PB13 -- jut for status of n-pulse timer
+    & ((~(0b1111)& four_byte_mask)<<20)  # PB13 -- just for status of n-pulse timer
   ) | (0
     | (AF1 <<20)   # --> TIM1_CH1N
   )

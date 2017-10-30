@@ -9,7 +9,10 @@ Table of Contents
          * [Squashing commits with rebase](#squashing-commits-with-rebase)
       * [Setup better git difftool/mergetool](#setup-better-git-difftoolmergetool)
    * [Creating table-of-contents for MarkDown (.md) files](#creating-table-of-contents-for-markdown-md-files)
+   * [Preview MarkDown files locally before commit/push to GitHub](#preview-markdown-files-locally-before-commitpush-to-github)
    * [Self-Test Idea](#self-test-idea)
+      * [Debug setup](#debug-setup)
+      * [ADC pulse viewer GUI](#adc-pulse-viewer-gui)
    * [MicroPython C Modules](#micropython-c-modules)
 
 
@@ -164,6 +167,16 @@ based on this StackOverflow (https://stackoverflow.com/a/39628366/253127)
 * commit and push
 
 
+# Preview MarkDown files locally before commit/push to GitHub
+* Download `grip` with `pip`
+  * `pip install grip`
+    * source https://github.com/joeyespo/grip
+* `cd` to __culture_shock__ repo
+* run `grip`
+  * copy the web URL printed on the terminal
+    * navigate to it using your web-browser
+
+
 
 # Self-Test Idea
 * Setup 10 pulses with shortest possible pulse-width
@@ -172,6 +185,42 @@ based on this StackOverflow (https://stackoverflow.com/a/39628366/253127)
 * setup IRQ function callback on ADC timer, the function will:
   * read the ADC, append to `adc_vals`
 * at end of pulse-train, send `adc_vals` out the serial port for printing on the user-terminal
+
+
+## Debug setup
+* PA0 and PA1, as seen here, are responsible for pulsing
+![alt text](https://raw.githubusercontent.com/kanzure/culture_shock/0ed7805f742bc01429d4466670109e092e9572f7/hardware_schematics_layouts/kvboard.png "KiloVolt producing circuit-board v0.1 (2017-2-16)")
+* Connect your oscilloscope to these pins to watch the pulse widths and periods of each digital operation from the microcontroller
+  * These are useful to trigger on
+    * you can then watch the analog/choppier high-voltage develop on another oscilloscope input
+* With Culture_Shock v0.1, the G30TH module was used for the STM microcontroller it was built with
+  * The pinout of the G30TH module is shown here on the right-side
+![alt](photos_protos_tests_simuls_sketches/G30TH_module_schematic_PCB_pinout.jpg)
+* Connecting the first oscilloscope probe to PA1 and GND (red minigrabber)
+  ![alt](photos_protos_tests_simuls_sketches/probing_g30th_pa1_gnd.jpg)
+* Connecting the second oscilloscope probe to PA0
+  ![alt](photos_protos_tests_simuls_sketches/probing_g30th_pa1_pa0_gnd.jpg)
+* Connecting the third oscilloscope probe and 1GOhm resistor to the high-voltage (HV) output
+  * 33 kOhm dummy load is used between the HV terminals
+  ![alt](photos_protos_tests_simuls_sketches/probing_33k_dummy_load_with_1GOhm.jpg)
+* Overall setup
+  ![alt](photos_protos_tests_simuls_sketches/probing__overall_setup.jpg)
+
+## ADC pulse viewer GUI
+* requires pexpect `pip install pexpect` and tk (comes with Python out-of-box in most cases)
+  * pexpect is a terminal interaction library
+    * you can send lines to a terminal
+    * you setup what you expect the terminal to reply with
+      * these act like triggers to tell your program your output was seen
+* I used `picocom` for test and development
+  * thus what I programmed the <b>expect</b>ations to be might need adjusted for other terminal programs
+* the terminal interaction is logged to the command-line where you start the GUI
+  * use this to debug why your <b>expect</b>ations aren't being met
+* every time the __pulse__ button is clicked, the __a()__ function is called using the 3 input boxes for args
+  * reduce the __Num Pulse Pairs__ for a first-try adjustment
+    * you should see the waveform get shorter in length
+* __NOTE__: this __is__ still __work-in-progress__, dependent on the ADC working, which is still WIP
+  * has not been rigourously debugged, understood, or tested with conditions other than the default (starting) conditions for period, width, num-pulses
 
 
 # MicroPython C Modules

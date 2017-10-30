@@ -4,6 +4,15 @@ Based on:
   -- linked timers, slave in trigger mode, i.e. counter enabled from the master
   -- (slave) timer in one-pulse-mode with repetition
   https://community.st.com/thread/39151-one-pulse-with-repitition-counter
+
+Definitions:
+
+CEN -- The counter is clocked by the prescaler output CK_CNT, which is enabled only when the
+       counter enable bit (CEN) in TIMx_CR1 register is set (refer also to the slave mode controller
+       description to get more details on counter enabling).
+       Note that the counter starts counting 1 clock cycle after setting the CEN bit in the TIMx_CR1
+       register.
+
 """
 
 
@@ -31,17 +40,31 @@ enable_gpio_and_timers()
 enable_pa0_pa1_af()
 
 # Setup ADC Timer and a callback to try printing the value
-# t4 = pyb.Timer(4, prescaler=90, period=0xFFFF)
-# adc_timer = t4.channel(4, pyb.Timer.OC_TIMING)
-# adc = pyb.ADC(pyb.Pin.board.JP29)
-# def adc_cb(the_active_timer):
-#   global adc
-#   print(adc.read())
-# stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
-# adc_timer.callback(adc_cb)
-# stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
+#adc_vals = [-1 for i in range(number_of_pulse_pairs+1 if number_of_pulse_pairs+1 > 128 else 128)]
+adc_vals = [-1 for i in range(number_of_pulse_pairs+1)]
+adc_i = 0
+#t4 = pyb.Timer(4, prescaler=common_prescaler, period=period//2)
+t4 = pyb.Timer(4, prescaler=0, period=0)
+stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
+adc_timer = t4.channel(4, pyb.Timer.PWM)#OC_TIMING, polarity=pyb.Timer.HIGH)
+#force_inactive_tim4()
+stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
+adc = pyb.ADC(pyb.Pin.board.JP29)
+@micropython.native
+def adc_cb(the_active_timer):
+  global adc
+  global adc_vals
+  global adc_i
+  adc_vals[adc_i] = adc.read()
+  adc_i += 1
+stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
+adc_timer.callback(adc_cb)
+stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
+t4.prescaler(common_prescaler)
+t4.period(period)
 
-counter = 0
+adc_vals = [-1 for i in range(len(adc_vals))]
+adc_i = 0
 
 #
 # faster version of: pa1_extint.enable()
@@ -63,6 +86,7 @@ class OnePulseOverFlowCounter(object):
     self._longer_counter = 0
     self.tail_end = 0
     self.or_in_end = 0
+    self.disable_cen_val = (~1) & 0xFFFF # disable CEN on ADC
     self.cr1 = stm.mem16[stm.TIM1 + stm.TIM_CR1] & (~1 & two_byte_mask)
     t1.callback(self.end_of_n_pulse_train__longer)
 
@@ -112,7 +136,7 @@ class OnePulseOverFlowCounter(object):
       stm.mem16[stm.TIM1 + stm.TIM_CR1] = self.cr1
 
       stm.mem32[stm.GPIOB + stm.GPIO_ODR] = 0
-      stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN on ADC
+      stm.mem16[stm.TIM4 + stm.TIM_CR1] &= self.disable_cen_val # disable CEN on ADC
       #stm.mem32[stm.GPIOB + stm.GPIO_ODR] = 0xFFFF # faster (?) version of p32_pin.value(1)
       #stm.mem32[stm.GPIOB + stm.GPIO_ODR] = 0
     else:
@@ -146,6 +170,8 @@ two_bits = 2
 
 def a(period, width, number_pulses=None):
   """ adjust the HV pulser's pulse-to-pulse period, pulse width, and number of push-pull pulse-pairs """
+  global number_of_pulse_pairs
+  number_of_pulse_pairs = number_pulses
   adjust_tim5(period, width)
   adjust_tim2(period, width)
   adjust_tim1(period, period//2, number_pulses)
@@ -215,10 +241,12 @@ stm.mem16[stm.TIM1 + stm.TIM_BDTR] &= ~0xff&two_byte_mask      #ensure no delay 
 stm.mem16[stm.TIM1 + stm.TIM_BDTR] |= 0  | (1 << TIM_BDTR_MOE)    # and the advanced-timers' gotcha: main output enable
 
 set_slave_mode_and_trigger_source('TIM1', 'TIM3')
+#set_slave_mode_and_trigger_source('TIM4', 'TIM3')
+#setup_slave_timer('TIM4', 4, 'TIM3', common_prescaler, period, width)
 
 # 15 14 13 12 11 10   9 8     7   6 5  4   3   2    1   0
 #       Reserved    CKD[1:0] ARPE CMS DIR OPM URS UDIS CEN
-stm.mem16[stm.TIM1 + stm.TIM_CR1]  &= ~(0b11<<5) & two_byte_mask
+stm.mem16[stm.TIM1 + stm.TIM_CR1]  &= ~(0b11<<5) & two_byte_mask # Enable edge-aligned counting mode
 stm.mem16[stm.TIM1 + stm.TIM_CR1]  |= (0
    #| 0b11<<5  # center aligned
    | (1 << TIM_CR1_OPM)   # want one-time mode
@@ -238,6 +266,8 @@ stm.mem16[stm.TIM1 + stm.TIM_CR1]  |= (0
 @micropython.native
 def pulse():
   global number_of_pulse_pairs
+  global adc_i
+  global adc_vals
   pyb.disable_irq()
   #stm.mem32[stm.TIM2 + stm.TIM_CNT] = 0
   # TODO: check these two have any effect, I thought they might prevent a pending GPIO toggle
@@ -252,32 +282,41 @@ def pulse():
   stm.mem32[stm.TIM5 + stm.TIM_EGR] |= 1
   stm.mem32[stm.TIM3 + stm.TIM_EGR] |= 1
   stm.mem32[stm.TIM2 + stm.TIM_EGR] |= 1
+  stm.mem32[stm.TIM4 + stm.TIM_EGR] |= 1
   stm.mem32[stm.TIM1 + stm.TIM_EGR] |= 1  # gotta do this, or the num-pulses won't register (if it was just changed)
 
-  
-  stm.mem16[stm.TIM1 + stm.TIM_CNT] = 0#period 
-
+  # reset the counters to their default values (mostly 0, but some offset)
+  stm.mem16[stm.TIM1 + stm.TIM_CNT] = 0
   #stm.mem16[stm.TIM1 + stm.TIM_CNT] = (stm.mem32[stm.TIM1 + stm.TIM_ARR] // 2) + (2* get_tim5_width1())+2
   stm.mem16[stm.TIM1 + stm.TIM_CNT] = stm.mem32[stm.TIM1 + stm.TIM_ARR] # it seems TIM1 is running at double the freq TIM2/5
   stm.mem32[stm.TIM2 + stm.TIM_CNT] = 0#stm.mem32[stm.TIM2 + stm.TIM_ARR] //2
   stm.mem32[stm.TIM3 + stm.TIM_CNT] = 0
-  stm.mem32[stm.TIM5 + stm.TIM_CNT] = stm.mem32[stm.TIM5 + stm.TIM_ARR] //2
+  stm.mem32[stm.TIM4 + stm.TIM_CNT] = 0
+  # offset TIM5 phase by 180 degrees relative to TIM2
+  stm.mem32[stm.TIM5 + stm.TIM_CNT] = stm.mem32[stm.TIM5 + stm.TIM_ARR] //2   # offset TIM5 counter by half-the pulse-width
+
   tim2_set_pwm2()
   tim5_set_pwm2()
   tim1_set_pwm2()
   
-  stm.mem16[tim_kickoff + stm.TIM_CR1] |= 1<<TIM_CR1_OPM   # enable OPM
-  stm.mem16[stm.TIM2 + stm.TIM_CR1] &= (~(1<<TIM_CR1_OPM))&two_byte_mask # disable OPM
-  stm.mem16[stm.TIM5 + stm.TIM_CR1] &= (~(1<<TIM_CR1_OPM))&two_byte_mask # disable OPM
+  # enable OPM
+  stm.mem16[tim_kickoff + stm.TIM_CR1] |= 1<<TIM_CR1_OPM
+  # disable OPM
+  stm.mem16[stm.TIM2 + stm.TIM_CR1] &= (~(1<<TIM_CR1_OPM))&two_byte_mask
+  # disable OPM
+  stm.mem16[stm.TIM5 + stm.TIM_CR1] &= (~(1<<TIM_CR1_OPM))&two_byte_mask
+  stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~(1<<TIM_CR1_OPM))&two_byte_mask
   #stm.mem32[stm.GPIOB + stm.GPIO_ODR] = four_byte_mask # faster (?) version of p32_pin.value(1)
   p32_pin.value(0)
   p32_pin.value(1)
+  adc_i = 0
+  adc_vals = [-1 for i in range(len(adc_vals))]
   f.longer_counter = f._longer_counter
   print('trace')
   stm.mem16[stm.TIM1 + stm.TIM_SR] = (stm.mem16[stm.TIM1 + stm.TIM_SR] & 0b111<<13) # clear all flags
   pyb.enable_irq()
   print('pulsing')
-  stm.mem16[stm.TIM4 + stm.TIM_CR1] |= 1 # CEN -- start ADC callback
+  #stm.mem16[stm.TIM4 + stm.TIM_CR1] |= 1 # CEN -- start ADC callback
   if f.longer_counter==1:
     stm.mem16[tim_kickoff + stm.TIM_CR1] |= 1
     stm.mem16[stm.TIM1 + stm.TIM_RCR] = f.or_in_end
