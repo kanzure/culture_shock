@@ -1,0 +1,58 @@
+v 20150930 2
+T 100 200 0 1 0 0 0 0 1
+gedasymbols::url=http://www.gedasymbols.org/user/ales_hvezda/symbols/crystal-2.sym
+P 0 300 200 300 1 0 0
+{
+T 50 350 5 10 1 1 0 0 1
+pinnumber=1
+T -550 150 5 10 0 0 0 0 1
+pinseq=1
+T 100 350 5 10 0 0 0 0 1
+pintype=pas
+}
+P 400 300 600 300 1 0 1
+{
+T 550 350 5 10 1 1 0 0 1
+pinnumber=2
+T 450 150 5 10 0 0 0 0 1
+pinseq=2
+T 500 350 5 10 0 0 0 0 1
+pintype=pas
+}
+B 250 150 100 300 3 12 2 0 -1 -1 0 -1 -1 -1 -1 -1
+T 100 800 8 10 0 0 0 0 1
+device=CRYSTAL
+L 200 500 200 100 3 12 2 0 -1 -1
+L 400 500 400 100 3 12 2 0 -1 -1
+T 174 756 8 10 1 1 0 0 1
+refdes=X?
+T 100 1000 8 10 0 0 0 0 1
+author=Walter Fetter Lages <w.fetter@ieee.org> & Diego Caberlon Santini <diegos@eletro.ufrgs.br>
+T 0 100 8 10 0 0 0 0 1
+dist-license=GPL
+T 1600 100 8 10 0 0 0 0 1
+use-license=unlimited
+T 0 300 8 10 0 0 0 0 1
+comment=Suggested library: unknown
+P 0 600 150 600 1 0 0
+{
+T 50 650 5 10 1 1 0 0 1
+pinnumber=4
+T -550 450 5 10 0 0 0 0 1
+pinseq=4
+T 100 650 5 10 0 0 0 0 1
+pintype=pas
+}
+P 450 600 600 600 1 0 1
+{
+T 550 650 5 10 1 1 0 0 1
+pinnumber=3
+T 450 450 5 10 0 0 0 0 1
+pinseq=3
+T 500 650 5 10 0 0 0 0 1
+pintype=pas
+}
+L 150 650 450 650 3 10 1 0 -1 -1
+L 150 650 150 0 3 10 1 0 -1 -1
+L 150 0 450 0 3 10 1 0 -1 -1
+L 450 0 450 650 3 10 1 0 -1 -1
