@@ -16,10 +16,12 @@ else:
 
 
 class App(tk.Frame):
+    np_default = 'Num Pulses: {}'
+    integral_default = 'Integral: {}'
     def __init__(self, parent, title, serial_port):
         tk.Frame.__init__(self, parent)
         self.serial_port = serial_port
-        self.npoints = 100
+        self.npoints = 2048
         self.Line1 = [0 for x in range(self.npoints)]
         parent.wm_title(title)
         parent.wm_geometry("800x400")
@@ -37,21 +39,25 @@ class App(tk.Frame):
         
         # change the command from self.serial_read to self.fake to debug/test the GUI/plotting
         b = tk.Button(self, text="pulse", width=10, command=self.read_serial).grid(row=1,column=0)
-        
+        self.np = tk.StringVar(); self.np.set(self.np_default.format("None Yet"))
+        self.integral = tk.StringVar(); self.integral.set(self.integral_default.format("None Yet"))
+        tk.Label(self, textvariable=self.np).grid(row=1, column=1, sticky="w")
+        tk.Label(self, textvariable=self.integral).grid(row=1, column=3, sticky="w")
+
         tk.Label(self, text="Period").grid(row=2, column=0,sticky="e")
         self.p = tk.Entry(self)
         self.p.grid(row=2, column=1,sticky="w")
-        self.p.insert(0, '150')
+        self.p.insert(0, '265')
 
         tk.Label(self, text="Width").grid(row=2, column=2,sticky="w")
         self.w = tk.Entry(self)
         self.w.grid(row=2, column=3,sticky="w")
-        self.w.insert(0,'4')
+        self.w.insert(0,'1')
 
         tk.Label(self, text="Num Pulse Pairs").grid(row=2, column=4)
         self.n_pulses = tk.Entry(self)
         self.n_pulses.grid(row=2, column=5)
-        self.n_pulses.insert(0,'92')
+        self.n_pulses.insert(0,'5')
         
         
     def fake(self):
@@ -84,28 +90,41 @@ class App(tk.Frame):
         a.expect('>>>')
         # send CTRL-D to refresh the filesystem
         a.sendcontrol('d')
+        #a.sendline('\r\n')
         a.expect('>>>')
 
         # call a (adjust) function
         a.sendline('a({},{},{})\r'.format(self.p.get(), self.w.get(), self.n_pulses.get()))
         a.expect('>>>')
+
+        # reset ADC array
+        ##a.sendline('reset_vals()\r')
+        ##a.expect('>>>')
+
         # call pulse function
         a.sendline('pulse()\r')
         a.expect('>>>')
-        # print the adc_vals
-        a.sendline('adc_vals\r')
-        a.expect('>>>')
 
-        # parse the adc_vals list from the terminal
-        matches = re.match(r'[^\[]*\[([^\]]+)\]', a.before)
-        if matches:
-            csv = matches.groups()[0]
-            new_list = [s.strip() for s in csv.split(',')]
-            #print('before ({})'.format(new_list))
-            for s in new_list:
-                self.append_value(s)
-            self.after_idle(self.replot)
-            #print('list is now: {}'.format(self.Line1))
+        # print the adc_vals
+        # this seems to take a try or two for some reason... 
+        # TODO add timeout for this while-loop... so it doesn't lock-up the GUI in case things break for some reason
+        matches = None
+        while not matches:
+            a.sendline('adc_vals\r')
+            a.expect('>>>')
+            print('a.before adc_vals: {}'.format(a.before))
+            print('a.after adc_vals: {}'.format(a.after))
+            # parse the adc_vals list from the terminal
+            matches = re.match(r'[^\[]*\[([^\]]+)\]', a.before)
+            if matches:
+                csv = matches.groups()[0]
+                new_list = [int(s.strip()) for s in csv.split(',')]
+                #print('before ({})'.format(new_list))
+                for s in new_list:
+                    self.append_value(s)
+                self.after_idle(self.replot)
+                non_zeroes = [i for i in new_list if i>0]
+                self.integral.set(self.integral_default.format(sum(non_zeroes)))
 
     def append_value(self, x):
         """

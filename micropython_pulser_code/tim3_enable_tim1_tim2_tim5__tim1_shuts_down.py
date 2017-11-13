@@ -22,14 +22,21 @@ from pyb import Timer
 from machine import Pin
 from stm_low_level import *
 import micropython
+import array
+from machine import I2C
+import ssd1306
 micropython.alloc_emergency_exception_buf(100)
 
 # to replicate John's Original period = 3194
 # to replicate John's Original width = 684
 # to replicate John's Original number_of_pulse_pairs = 6
-period = 150 # 400# 10000
-width = 4 # 10#1500 
-number_of_pulse_pairs = 92
+#period = 150 # 400# 10000
+#width = 4 # 10#1500 
+#number_of_pulse_pairs = 92
+
+period = 265
+width = 1
+number_of_pulse_pairs = 5
 common_prescaler = 11
 
 p32_pin = Pin('JP32', Pin.OUT) # Pin('JP17', Pin.OUT)
@@ -41,44 +48,90 @@ enable_pa0_pa1_af()
 
 # Setup ADC Timer and a callback to try printing the value
 #adc_vals = [-1 for i in range(number_of_pulse_pairs+1 if number_of_pulse_pairs+1 > 128 else 128)]
-adc_vals = [-1 for i in range(number_of_pulse_pairs+1)]
-adc_i = 0
-#t4 = pyb.Timer(4, prescaler=common_prescaler, period=period//2)
-t4 = pyb.Timer(4, prescaler=0, period=0)
-stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
-adc_timer = t4.channel(4, pyb.Timer.PWM)#OC_TIMING, polarity=pyb.Timer.HIGH)
-#force_inactive_tim4()
-stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
+#t4 = pyb.Timer(4, prescaler=0, period=0)
+#stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
+#adc_timer = t4.channel(4, pyb.Timer.PWM)#OC_TIMING, polarity=pyb.Timer.HIGH)
+#stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
+
 adc = pyb.ADC(pyb.Pin.board.JP29)
-@micropython.native
-def adc_cb(the_active_timer):
-  global adc
+#adc_vals = array.array('I',[i for i in range((number_of_pulse_pairs*4)+1)])
+adc_vals = array.array('H',[0 for i in range(2048)])
+#adc.read()
+stm.mem32[stm.ADC1 + stm.ADC_CR2] |= 1   #enable ADC
+adc.read_timed(adc_vals)
+adc.read_timed_stop()
+
+
+def reset_vals():
   global adc_vals
-  global adc_i
-  adc_vals[adc_i] = adc.read()
-  adc_i += 1
-stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
-adc_timer.callback(adc_cb)
-stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
-t4.prescaler(common_prescaler)
-t4.period(period)
+  for i in range(len(adc_vals)):
+    adc_vals[i] = 0
 
-adc_vals = [-1 for i in range(len(adc_vals))]
-adc_i = 0
 
-#
-# faster version of: pa1_extint.enable()
-#stm.mem32[stm.EXTI + stm.EXTI_IMR] |= 1<<1  # enable MR1 (interrupt mask 1)
-#stm.mem16[stm.TIM2 + stm.TIM_CR1] |= 1<<3
-@micropython.native
-def end_of_n_pulse_train_pa1_first(t):
-  import stm
-  #stm.mem16[stm.TIM5 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
-  #stm.mem16[stm.TIM2 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
-  stm.mem16[stm.TIM5 + stm.TIM_CR1] |= 0b1000 # enable OPM
-  stm.mem16[stm.TIM2 + stm.TIM_CR1] |= 0b1000 # enable OPM
-  #p32_pin.value(0)
-  #stm.mem16[stm.TIM5 + stm.TIM_CR1] &= (~1) & two_byte_mask
+### display
+# create software mode (-1) I2C peripheral at frequency of 400kHz
+i2c = I2C(-1, scl=pyb.Pin.board.JP28, sda=pyb.Pin.board.JP27, freq=40000) # was 400000
+ssd = None
+
+# scan for slaves, returning a list of 7-bit addresses
+if i2c.scan():
+  ssd = ssd1306.SSD1306(128, 64, i2c, addr=0x3c)
+
+# just a fun test for displaying text
+def banner():
+  # text, x, y, color
+  ssd.framebuf.text('Culture_Shock!',0,0, 0xffff)
+  ssd.framebuf.text('by', 0, 18, 0xffff)
+  ssd.framebuf.text('JohnG', 0, 27, 0xffff)
+  ssd.framebuf.text('NMZ787', 0, 36, 0xffff)
+  ssd.framebuf.text('and kanzure!', 0, 45, 0xffff)
+  ssd.show()
+
+if ssd:
+  banner()
+
+# some test content for the OLED graphing, should result in a triangle
+def test_graph():
+  global adc_vals
+  f=0
+  for i in range(len(adc_vals)):
+    # increase the value until the half-way point
+    if (i<len(adc_vals)//2):
+      f=i
+    # then start decreasing
+    else:
+      f-=1
+    # scale the values to max 1024, then store
+    adc_vals[i] = int((f/len(adc_vals))*1024.)
+
+# scaling for ADC... full-scale is 1024, but it can also be reduced to make it amplified looking
+# TODO adjust from button/touchscreen? Maybe be able to adjust X stretch too?
+adc_max_val = 1024.
+adc_max_val = 128.
+
+# call this after pulsing
+def graph():
+  global adc_vals
+  global ssd
+  global adc_max_val
+  ssd.fill(1)
+  ssd.fill(0)
+  # figure out how many ADC samples will have to be averaged/filtered together
+  chunk_size = len(adc_vals)//128
+  # step through each chunk
+  for i in range(0, len(adc_vals), chunk_size):
+    avg = 0
+    # loop through each value in this chunk
+    for j in range(chunk_size):
+      avg += adc_vals[i+j]
+    # divide to get the average
+    avg = avg//chunk_size
+    # draw a line (x1,y1, x2,y2, color)
+    ssd.framebuf.line(i//chunk_size, 64, i//chunk_size, 64-int((avg/adc_max_val*64.)), 1)
+    # use this for inverted Y output
+    # ssd.framebuf.line(i//chunk_size, 0, i//chunk_size, int((avg/adc_max_val*64.)), 1)
+  ssd.show()
+
 
 class OnePulseOverFlowCounter(object):
   def __init__(self, t1):
@@ -149,12 +202,13 @@ class OnePulseOverFlowCounter(object):
       #stm.mem32[stm.GPIOB + stm.GPIO_ODR] = 0xFFFF # faster (?) version of p32_pin.value(1)
       #stm.mem32[stm.GPIOB + stm.GPIO_ODR] = 0
       self.longer_counter = (self.longer_counter - 1) & 0xFFFF
+      #stm.mem16[stm.TIM4 + stm.TIM_CR1] = 1
       #print('else')
       #stm.mem16[stm.TIM1 + stm.TIM_CR1] |=  0b1000 # enable OPM
 
 
 #t1 = pyb.Timer(1, prescaler=common_prescaler, period=two_byte_mask, callback=end_of_n_pulse_train__longer)#end_of_n_pulse_train_pa1_first)
-f = OnePulseOverFlowCounter(pyb.Timer(1, prescaler=common_prescaler, period=two_byte_mask))
+rep_counter_overflow_detector = OnePulseOverFlowCounter(pyb.Timer(1, prescaler=common_prescaler, period=two_byte_mask))
 
 
 connect_pa0_and_pa1_to_tim2_and_tim5()
@@ -167,7 +221,6 @@ two_bits = 2
 # this has to be factored in (individually per timer, as they are on different APBs)
 
 
-
 def a(period, width, number_pulses=None):
   """ adjust the HV pulser's pulse-to-pulse period, pulse width, and number of push-pull pulse-pairs """
   global number_of_pulse_pairs
@@ -175,7 +228,7 @@ def a(period, width, number_pulses=None):
   adjust_tim5(period, width)
   adjust_tim2(period, width)
   adjust_tim1(period, period//2, number_pulses)
-  f.set_longer_counter(number_pulses)
+  rep_counter_overflow_detector.set_longer_counter(number_pulses)
 
 def q(num):
   """ adjust number of pulses for quick-pulsing that seems to produce HV low ripple """
@@ -208,7 +261,7 @@ tim_kickoff = setup_n_pulse_kickoff_timer("TIM3", 1, common_prescaler, period, w
 
 
 # now setup TIM1 - we want it to disable itself i.e. one-pulse mode; 3 pulses, that goes to repetition counter - as the window is cca 600ms, let make them 50ms ON / 50ms OFF
-stm.mem16[stm.TIM1 + stm.TIM_PSC] = 11
+stm.mem16[stm.TIM1 + stm.TIM_PSC] = common_prescaler
 adjust_tim1(period=period, width=period//2, number_pulses=number_of_pulse_pairs)
 
 # 15 14 13 12 11 10 9 8 7 6   5    4    3    2    1    0
@@ -266,8 +319,8 @@ stm.mem16[stm.TIM1 + stm.TIM_CR1]  |= (0
 @micropython.native
 def pulse():
   global number_of_pulse_pairs
-  global adc_i
   global adc_vals
+  global adc
   pyb.disable_irq()
   #stm.mem32[stm.TIM2 + stm.TIM_CNT] = 0
   # TODO: check these two have any effect, I thought they might prevent a pending GPIO toggle
@@ -276,7 +329,7 @@ def pulse():
   force_inactive_tim1()
   force_inactive_tim2()
   force_inactive_tim5()
-  f.set_longer_counter(number_of_pulse_pairs)
+  rep_counter_overflow_detector.set_longer_counter(number_of_pulse_pairs)
   # TODO: is this needed? -- yes, it is... after you adjust the period/width,
   # otherwise you'll get a glitch for the first call to pulse()
   stm.mem32[stm.TIM5 + stm.TIM_EGR] |= 1
@@ -291,7 +344,7 @@ def pulse():
   stm.mem16[stm.TIM1 + stm.TIM_CNT] = stm.mem32[stm.TIM1 + stm.TIM_ARR] # it seems TIM1 is running at double the freq TIM2/5
   stm.mem32[stm.TIM2 + stm.TIM_CNT] = 0#stm.mem32[stm.TIM2 + stm.TIM_ARR] //2
   stm.mem32[stm.TIM3 + stm.TIM_CNT] = 0
-  stm.mem32[stm.TIM4 + stm.TIM_CNT] = 0
+  stm.mem32[stm.TIM4 + stm.TIM_CNT] = stm.mem32[stm.TIM5 + stm.TIM_ARR] //2
   # offset TIM5 phase by 180 degrees relative to TIM2
   stm.mem32[stm.TIM5 + stm.TIM_CNT] = stm.mem32[stm.TIM5 + stm.TIM_ARR] //2   # offset TIM5 counter by half-the pulse-width
 
@@ -309,19 +362,21 @@ def pulse():
   #stm.mem32[stm.GPIOB + stm.GPIO_ODR] = four_byte_mask # faster (?) version of p32_pin.value(1)
   p32_pin.value(0)
   p32_pin.value(1)
-  adc_i = 0
-  adc_vals = [-1 for i in range(len(adc_vals))]
-  f.longer_counter = f._longer_counter
+  rep_counter_overflow_detector.longer_counter = rep_counter_overflow_detector._longer_counter
   print('trace')
   stm.mem16[stm.TIM1 + stm.TIM_SR] = (stm.mem16[stm.TIM1 + stm.TIM_SR] & 0b111<<13) # clear all flags
   pyb.enable_irq()
   print('pulsing')
+  #reset_vals()
+  adc.read_timed(adc_vals)
   #stm.mem16[stm.TIM4 + stm.TIM_CR1] |= 1 # CEN -- start ADC callback
-  if f.longer_counter==1:
+  if rep_counter_overflow_detector.longer_counter==1:
     stm.mem16[tim_kickoff + stm.TIM_CR1] |= 1
-    stm.mem16[stm.TIM1 + stm.TIM_RCR] = f.or_in_end
+    stm.mem16[stm.TIM1 + stm.TIM_RCR] = rep_counter_overflow_detector.or_in_end
   else:
     stm.mem16[tim_kickoff + stm.TIM_CR1] |= 1
+  adc.read_timed_stop()
+  print('done')
 
 
 # increase the TIM1 Update Interrupt priority, by lowering it's number all the way to 1

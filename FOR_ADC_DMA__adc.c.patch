@@ -1,0 +1,271 @@
+diff --git a/ports/stm32/adc.c b/ports/stm32/adc.c
+index 9a0dc56..964f6bc 100644
+--- a/ports/stm32/adc.c
++++ b/ports/stm32/adc.c
+@@ -31,6 +31,7 @@
+ #include "py/binary.h"
+ #include "py/mphal.h"
+ #include "adc.h"
++#include "dma.h"
+ #include "pin.h"
+ #include "genhdr/pins.h"
+ #include "timer.h"
+@@ -113,6 +114,8 @@ typedef struct _pyb_obj_adc_t {
+     mp_obj_t pin_name;
+     int channel;
+     ADC_HandleTypeDef handle;
++    DMA_HandleTypeDef DMA_Handle;
++    int adc_i;
+ } pyb_obj_adc_t;
+ 
+ // convert user-facing channel number into internal channel number
+@@ -139,20 +142,20 @@ STATIC bool is_adcx_channel(int channel) {
+ #endif
+ }
+ 
+-STATIC void adc_wait_for_eoc_or_timeout(int32_t timeout) {
+-    uint32_t tickstart = HAL_GetTick();
+-#if defined(MCU_SERIES_F4) || defined(MCU_SERIES_F7)
+-    while ((ADCx->SR & ADC_FLAG_EOC) != ADC_FLAG_EOC) {
+-#elif defined(MCU_SERIES_L4)
+-    while (READ_BIT(ADCx->ISR, ADC_FLAG_EOC) != ADC_FLAG_EOC) {
+-#else
+-    #error Unsupported processor
+-#endif
+-        if (((HAL_GetTick() - tickstart ) > timeout)) {
+-            break; // timeout
+-        }
+-    }
+-}
++// STATIC void adc_wait_for_eoc_or_timeout(int32_t timeout) {
++//     uint32_t tickstart = HAL_GetTick();
++// #if defined(MCU_SERIES_F4) || defined(MCU_SERIES_F7)
++//     while ((ADCx->SR & ADC_FLAG_EOC) != ADC_FLAG_EOC) {
++// #elif defined(MCU_SERIES_L4)
++//     while (READ_BIT(ADCx->ISR, ADC_FLAG_EOC) != ADC_FLAG_EOC) {
++// #else
++//     #error Unsupported processor
++// #endif
++//         if (((HAL_GetTick() - tickstart ) > timeout)) {
++//             break; // timeout
++//         }
++//     }
++// }
+ 
+ STATIC void adcx_clock_enable(void) {
+ #if defined(MCU_SERIES_F4) || defined(MCU_SERIES_F7)
+@@ -191,13 +194,13 @@ STATIC void adc_init_single(pyb_obj_adc_t *adc_obj) {
+ 
+     ADC_HandleTypeDef *adcHandle = &adc_obj->handle;
+     adcHandle->Instance                   = ADCx;
+-    adcHandle->Init.ContinuousConvMode    = DISABLE;
++    adcHandle->Init.ContinuousConvMode    = ENABLE; //DISABLE;
+     adcHandle->Init.DiscontinuousConvMode = DISABLE;
+     adcHandle->Init.NbrOfDiscConversion   = 0;
+     adcHandle->Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE;
+     adcHandle->Init.DataAlign             = ADC_DATAALIGN_RIGHT;
+     adcHandle->Init.NbrOfConversion       = 1;
+-    adcHandle->Init.DMAContinuousRequests = DISABLE;
++    adcHandle->Init.DMAContinuousRequests = ENABLE; //DISABLE;
+     adcHandle->Init.Resolution            = ADC_RESOLUTION_12B;
+ #if defined(MCU_SERIES_F4) || defined(MCU_SERIES_F7)
+     adcHandle->Init.ClockPrescaler        = ADC_CLOCK_SYNC_PCLK_DIV2;
+@@ -227,6 +230,31 @@ STATIC void adc_init_single(pyb_obj_adc_t *adc_obj) {
+         nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, "Can not set multimode on ADC1 channel: %d", adc_obj->channel));
+     }
+ #endif
++
++    //  DMA init  ADC1 is DMA2 channel0 stream 0 or 4 use DMA2_Stream0  thd
++    //  from dac.c
++    __DMA2_CLK_ENABLE();
++    adc_obj->DMA_Handle.Instance = DMA2_Stream0;
++    adc_obj->DMA_Handle.State = HAL_DMA_STATE_READY;
++    HAL_DMA_DeInit(&adc_obj->DMA_Handle);
++
++    adc_obj->DMA_Handle.Init.Channel = DMA_CHANNEL_0;   // dac used 7 ? thd
++    adc_obj->DMA_Handle.Init.Direction = DMA_PERIPH_TO_MEMORY;
++    adc_obj->DMA_Handle.Init.PeriphInc = DMA_PINC_DISABLE;
++    adc_obj->DMA_Handle.Init.MemInc = DMA_MINC_ENABLE;
++    adc_obj->DMA_Handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
++    adc_obj->DMA_Handle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
++    adc_obj->DMA_Handle.Init.Mode =  DMA_NORMAL;
++    adc_obj->DMA_Handle.Init.Priority = DMA_PRIORITY_HIGH;
++    adc_obj->DMA_Handle.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
++    adc_obj->DMA_Handle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_HALFFULL;
++    adc_obj->DMA_Handle.Init.MemBurst = DMA_MBURST_SINGLE;   // spi DMA_MBURST_INC4 ?
++    adc_obj->DMA_Handle.Init.PeriphBurst = DMA_PBURST_SINGLE;
++    HAL_DMA_Init(&adc_obj->DMA_Handle);
++
++    //DMA_HandleTypeDef DMA_Handle = adc_obj->DMA_Handle;
++    __HAL_LINKDMA(adcHandle, DMA_Handle, adc_obj->DMA_Handle);
++
+ }
+ 
+ STATIC void adc_config_channel(ADC_HandleTypeDef *adc_handle, uint32_t channel) {
+@@ -312,6 +340,7 @@ STATIC mp_obj_t adc_make_new(const mp_obj_type_t *type, size_t n_args, size_t n_
+     o->base.type = &pyb_adc_type;
+     o->pin_name = pin_obj;
+     o->channel = channel;
++    o->adc_i = 0;
+     adc_init_single(o);
+ 
+     return o;
+@@ -363,25 +392,25 @@ STATIC MP_DEFINE_CONST_FUN_OBJ_1(adc_read_obj, adc_read);
+ ///         print(val)                      # print the value out
+ ///
+ /// This function does not allocate any memory.
+-STATIC mp_obj_t adc_read_timed(mp_obj_t self_in, mp_obj_t buf_in, mp_obj_t freq_in) {
++STATIC mp_obj_t adc_read_timed(mp_obj_t self_in, mp_obj_t buf_in) {
+     pyb_obj_adc_t *self = self_in;
+ 
+     mp_buffer_info_t bufinfo;
+     mp_get_buffer_raise(buf_in, &bufinfo, MP_BUFFER_WRITE);
+     size_t typesize = mp_binary_get_size('@', bufinfo.typecode, NULL);
+ 
+-    TIM_HandleTypeDef *tim;
+-    #if defined(TIM6)
+-    if (mp_obj_is_integer(freq_in)) {
+-        // freq in Hz given so init TIM6 (legacy behaviour)
+-        tim = timer_tim6_init(mp_obj_get_int(freq_in));
+-        HAL_TIM_Base_Start(tim);
+-    } else
+-    #endif
+-    {
+-        // use the supplied timer object as the sampling time base
+-        tim = pyb_timer_get_handle(freq_in);
+-    }
++    // TIM_HandleTypeDef *tim;
++    // #if defined(TIM6)
++    // if (mp_obj_is_integer(freq_in)) {
++    //     // freq in Hz given so init TIM6 (legacy behaviour)
++    //     tim = timer_tim6_init(mp_obj_get_int(freq_in));
++    //     HAL_TIM_Base_Start(tim);
++    // } else
++    // #endif
++    // {
++    //     // use the supplied timer object as the sampling time base
++    //     tim = pyb_timer_get_handle(freq_in);
++    // }
+ 
+     // configure the ADC channel
+     adc_config_channel(&self->handle, self->channel);
+@@ -390,57 +419,75 @@ STATIC mp_obj_t adc_read_timed(mp_obj_t self_in, mp_obj_t buf_in, mp_obj_t freq_
+     // TODO use DMA
+ 
+     uint nelems = bufinfo.len / typesize;
+-    for (uint index = 0; index < nelems; index++) {
+-        // Wait for the timer to trigger so we sample at the correct frequency
+-        while (__HAL_TIM_GET_FLAG(tim, TIM_FLAG_UPDATE) == RESET) {
+-        }
+-        __HAL_TIM_CLEAR_FLAG(tim, TIM_FLAG_UPDATE);
+-
+-        if (index == 0) {
+-            // for the first sample we need to turn the ADC on
+-            HAL_ADC_Start(&self->handle);
+-        } else {
+-            // for subsequent samples we can just set the "start sample" bit
+-#if defined(MCU_SERIES_F4) || defined(MCU_SERIES_F7)
+-            ADCx->CR2 |= (uint32_t)ADC_CR2_SWSTART;
+-#elif defined(MCU_SERIES_L4)
+-            SET_BIT(ADCx->CR, ADC_CR_ADSTART);
+-#else
+-            #error Unsupported processor
+-#endif
+-        }
+-
+-        // wait for sample to complete
+-        #define READ_TIMED_TIMEOUT (10) // in ms
+-        adc_wait_for_eoc_or_timeout(READ_TIMED_TIMEOUT);
+-
+-        // read value
+-        uint value = ADCx->DR;
+-
+-        // store value in buffer
+-        if (typesize == 1) {
+-            value >>= 4;
+-        }
+-        mp_binary_set_val_array_from_int(bufinfo.typecode, bufinfo.buf, index, value);
+-    }
+-
+-    // turn the ADC off
+-    HAL_ADC_Stop(&self->handle);
+-
+-    #if defined(TIM6)
+-    if (mp_obj_is_integer(freq_in)) {
+-        // stop timer if we initialised TIM6 in this function (legacy behaviour)
+-        HAL_TIM_Base_Stop(tim);
+-    }
+-    #endif
++    //HAL_ADC_Start_DMA(&self->handle, (uint32_t *)bufinfo.buf + (typesize*self->adc_i), 1);
++    HAL_ADC_Start_DMA(&self->handle, bufinfo.buf, nelems);
++    // wait for DMA to complete:  could use ISR/callback
++    ////while (self->DMA_Handle.Instance->CR & DMA_SxCR_EN);   // spin stream 0
++    ////HAL_ADC_Stop_DMA(&self->handle);
++    // if (self->adc_i<bufinfo.len)
++    //     self->adc_i += 1;
++    // else
++    //     self->adc_i = 0;
++//     for (uint index = 0; index < nelems; index++) {
++//         // Wait for the timer to trigger so we sample at the correct frequency
++//         while (__HAL_TIM_GET_FLAG(tim, TIM_FLAG_UPDATE) == RESET) {
++//         }
++//         __HAL_TIM_CLEAR_FLAG(tim, TIM_FLAG_UPDATE);
++
++//         if (index == 0) {
++//             // for the first sample we need to turn the ADC on
++//             HAL_ADC_Start(&self->handle);
++//         } else {
++//             // for subsequent samples we can just set the "start sample" bit
++// #if defined(MCU_SERIES_F4) || defined(MCU_SERIES_F7)
++//             ADCx->CR2 |= (uint32_t)ADC_CR2_SWSTART;
++// #elif defined(MCU_SERIES_L4)
++//             SET_BIT(ADCx->CR, ADC_CR_ADSTART);
++// #else
++//             #error Unsupported processor
++// #endif
++//         }
++
++//         // wait for sample to complete
++//         #define READ_TIMED_TIMEOUT (10) // in ms
++//         adc_wait_for_eoc_or_timeout(READ_TIMED_TIMEOUT);
++
++//         // read value
++//         uint value = ADCx->DR;
++
++//         // store value in buffer
++//         if (typesize == 1) {
++//             value >>= 4;
++//         }
++//         mp_binary_set_val_array_from_int(bufinfo.typecode, bufinfo.buf, index, value);
++//     }
++
++//     // turn the ADC off
++//     HAL_ADC_Stop(&self->handle);
++
++//     #if defined(TIM6)
++//     if (mp_obj_is_integer(freq_in)) {
++//         // stop timer if we initialised TIM6 in this function (legacy behaviour)
++//         HAL_TIM_Base_Stop(tim);
++//     }
++//     #endif
+ 
+     return mp_obj_new_int(bufinfo.len);
+ }
+-STATIC MP_DEFINE_CONST_FUN_OBJ_3(adc_read_timed_obj, adc_read_timed);
++STATIC MP_DEFINE_CONST_FUN_OBJ_2(adc_read_timed_obj, adc_read_timed);
++
++STATIC mp_obj_t adc_read_timed_stop(mp_obj_t self_in) {
++    pyb_obj_adc_t *self = self_in;
++    while (self->DMA_Handle.Instance->CR & DMA_SxCR_EN);   // spin stream 0
++    HAL_ADC_Stop_DMA(&self->handle);
++    return mp_const_none;
++}
++STATIC MP_DEFINE_CONST_FUN_OBJ_1(adc_read_timed_stop_obj, adc_read_timed_stop);
+ 
+ STATIC const mp_rom_map_elem_t adc_locals_dict_table[] = {
+     { MP_ROM_QSTR(MP_QSTR_read), MP_ROM_PTR(&adc_read_obj) },
+     { MP_ROM_QSTR(MP_QSTR_read_timed), MP_ROM_PTR(&adc_read_timed_obj) },
++    { MP_ROM_QSTR(MP_QSTR_read_timed_stop), MP_ROM_PTR(&adc_read_timed_stop_obj) },
+ };
+ 
+ STATIC MP_DEFINE_CONST_DICT(adc_locals_dict, adc_locals_dict_table);
