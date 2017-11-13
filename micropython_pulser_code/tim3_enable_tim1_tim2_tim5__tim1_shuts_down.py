@@ -24,7 +24,11 @@ from stm_low_level import *
 import micropython
 import array
 from machine import I2C
-import ssd1306
+try:
+  import ssd1306
+except:
+  # OLED support won't be available
+  pass
 micropython.alloc_emergency_exception_buf(100)
 
 # to replicate John's Original period = 3194
