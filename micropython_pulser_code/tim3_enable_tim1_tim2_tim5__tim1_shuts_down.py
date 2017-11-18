@@ -79,7 +79,7 @@ ssd = None
 
 # scan for slaves, returning a list of 7-bit addresses
 if i2c.scan():
-  ssd = ssd1306.SSD1306(128, 64, i2c, addr=0x3c)
+  ssd = ssd1306.SSD1306_I2C(128, 64, i2c, addr=0x3c)
 
 # just a fun test for displaying text
 def banner():
