@@ -13,7 +13,7 @@
 
 .PHONY: myropcb hackvana 4pcb 4pcbnames 4pcbzip 4pcbfab gerbvmyro gerbv4pcb net pcb gschem bom drc
 
-BASENAMES = micropulser kvboard g30pulser
+BASENAMES = pyflex_f401  kvboard g30pulser
 BOARD2FABROOT = kvboard
 REV = 0.2
 GRB = ./fab
