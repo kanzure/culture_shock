@@ -49,8 +49,10 @@ Now the code needs loading by following the instructions in kanzure/culture_shoc
 Next step depends on which code you want to run, so follow README.md in  kanzure/culture_shock/micropython_timer_code_lowlevl
 or  kanzure/culture_shock/micropython_pulser_code as they will be different code and different platforms possibly.
 As of October 2017, we will be using the PYFLEX_F401 platform for 
-micropython, which has the same MCU as the G30TH platform, different connectors and fewer signals brought to connectors since it is a targeted application instead of a breakout board.
+micropython, which has the STM32F401CE MCU, voltage converters from USB 5V up to 18VDC and from USB 5V down to lithium iron phosphate battery charging volts between 2.4 and 3.4VDC,2 20 pin flat flex connectors to get to the GPIOs, ADCs, battery and com ports of the MCU, a microUSB C connector for charging, a microUSB AB connector for development and data logging data transfer, and an SD card slot.    A 2-wire I2C port can be used with OLED and LCD displays.
 
+
+ 
 **Project Module Standard**
 Flat flex cables, (FFCs), can be symmetric, their connectors are symmetric, and so connection signal vs. pin number order can be reversed by ordinary use of cables and connectors.  Using symmetric straight through flat flex cables and connectors is the standard for this project because it simplifies early design prototypes by allowing them to lay flat on the bench with component side of all modules up where one can see and probe them.  What symmetric and straight through means by example is: starting with a FFC connector with pins 1 thru 20 with a dot near pin 1 signals connect to another board by going through pin 1 on the first board, straight across without cables being folded or flipped over and into pin 20 of the other board. Pin 2 of the FFC connector on the first board leads to pin 19 on the 2nd, etc.
 
