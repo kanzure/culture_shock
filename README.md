@@ -34,7 +34,7 @@ gschem kvboard.sch micropulser.sch
 The schematic and netlist and layout tools used are from the gEDA code: http://wiki.evilmadscientist.com/GEDA_Resources#Basics
 
 **Running code on the Culture Shock platform(s)**  
-There are two MCU platforms: a board called g30pulser.sch that runs with the micropython platform definition called G30TH, and  a board called micropulser.sch that runs with the micropython platform definition called PYFLEX_F401.  PYFLEX_F401 is not complete now, so compile micropython with platform  G30TH.
+There are two MCU platforms: a board called g30pulser.sch that runs with the micropython platform definition called G30TH, and  a board called pyflex_f401.sch that runs with the micropython platform definition called PYFLEX_F401.  PYFLEX_F401 is not complete now, so compile micropython with platform  G30TH.  Platform definition PYFLEX_F401 is being worked on in November-December 2017, and when ready, new instructions for compiling microptyhon programs for culture shock will be written here.
 
 To do that, clone https://github.com/micropython/micropython to your home directory and checkout a version tag that is compatible with the age of your code in case new changes to micropython break G30TH code. Next plug a culture shock g30pulser.sch board into USB for power and,
 
