@@ -272,13 +272,14 @@ def enable_pa0_pa1_af():
     | (GPIO_Mode_AF<<2) #GPIO_Mode_AF  PA1
   )
 
-def enable_pa0_pa1_input():
-  stm.mem32[stm.GPIOA + stm.GPIO_MODER] = (stm.mem32[stm.GPIOA + stm.GPIO_MODER]
-  & (~(0b11<<0 | 0b11<<2)& four_byte_mask) #GPIO_MODER_MODER3
-  ) | (0
-    | (GPIO_Mode_IN<<0) 
-    | (GPIO_Mode_IN<<2) 
-  )
+# commented out to test use of pyb.Pin.AF_PP
+# def enable_pa0_pa1_input():
+#   stm.mem32[stm.GPIOA + stm.GPIO_MODER] = (stm.mem32[stm.GPIOA + stm.GPIO_MODER]
+#   & (~(0b11<<0 | 0b11<<2)& four_byte_mask) #GPIO_MODER_MODER3
+#   ) | (0
+#     | (GPIO_Mode_IN<<0) 
+#     | (GPIO_Mode_IN<<2) 
+#   )
 
 
 # (AFRL)
@@ -308,14 +309,16 @@ AF15 = 0b1111     # AF15 (EVENTOUT)
 AFRL0_0 = 0
 AFRL1_0 = 4
 
-def connect_pa0_and_pa1_to_tim2_and_tim5():
-  """ PA1 and PA0 are AF1"""
-  stm.mem32[stm.GPIOA + stm.GPIO_AFR0] = (stm.mem32[stm.GPIOA + stm.GPIO_AFR0]
-    & (~(0b1111<<AFRL0_0 | 0b1111<<AFRL1_0)& four_byte_mask) #GPIO_AFRL_AFRL3
-  ) | (0
-    | (AF1 <<AFRL0_0)  # AFRL3_0 # --> TIM2_CH2
-    | (AF2 <<AFRL1_0)
-  )
+# commented out to test use of pyb.Pin.AF_PP
+# def connect_pa0_and_pa1_to_tim2_and_tim5():
+  """ PA0 set to AF1 --> TIM2_CH1/TIM2_ETR"""
+  """ PA1 set to AF1 --> TIM2_CH2"""
+#   stm.mem32[stm.GPIOA + stm.GPIO_AFR0] = (stm.mem32[stm.GPIOA + stm.GPIO_AFR0]
+#     & (~(0b1111<<AFRL0_0 | 0b1111<<AFRL1_0)& four_byte_mask) #GPIO_AFRL_AFRL3
+#  ) | (0
+#     | (AF1 <<AFRL0_0)  # AFRL3_0 # --> TIM2_CH2
+#     | (AF2 <<AFRL1_0)
+#   )
 
 def enable_pb13_af_and_connect_to_tim1():
   """# PB13 -- just for status of n-pulse timer"""
