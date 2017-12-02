@@ -1,3 +1,98 @@
+The Pin and PinAF data structures are currently all generated programmatically. 
+You can look at the underlying data by looking at the pins_BOARDNAME.c in the build-BOARDNAME directory.
+ A snippet looks like this:
+const pin_af_obj_t pin_A0_af[] = {
+  AF( 1, TIM     ,  2, CH1       , TIM2    ), // TIM2_CH1
+  AF( 1, TIM     ,  2, ETR       , TIM2    ), // TIM2_ETR
+  AF( 2, TIM     ,  5, CH1       , TIM5    ), // TIM5_CH1
+#if defined(MICROPY_HW_UART2_PORT)
+  AF( 7, USART   ,  2, CTS       , USART2  ), // USART2_CTS
+#endif
+  //(15, EVENTOUT,  0,           , EVENTOUT), // EVENTOUT
+};
+
+const pin_obj_t pin_A0 = PIN(A, 0, pin_A0_af, PIN_ADC1, 0);
+
+const pin_af_obj_t pin_A1_af[] = {
+  AF( 1, TIM     ,  2, CH2       , TIM2    ), // TIM2_CH2
+  AF( 2, TIM     ,  5, CH2       , TIM5    ), // TIM5_CH2
+#if defined(MICROPY_HW_UART2_PORT)
+  AF( 7, USART   ,  2, RTS       , USART2  ), // USART2_RTS
+#endif
+  //(15, EVENTOUT,  0,           , EVENTOUT), // EVENTOUT
+};
+
+const pin_obj_t pin_A1 = PIN(A, 1, pin_A1_af, PIN_ADC1, 1);
+---------------------------------------------------------------
+, 1);  is for PA1 AF01
+
+======================================
+Looking at the datasheet, CAN2_TX is alternate function 9 on pin B13. So even though we didn't create a constant for it, you can do this:
+
+Code: Select all
+
+can_tx = pyb.Pin(pyb.Pin.cpu.B13, pyb.Pin.AF_PP, pyb.Pin.PULL_NONE, 9)
+=============================================================================
+To configure X3 to expose TIM2_CH3, you could use:
+
+pin = pyb.Pin(pyb.Pin.board.X3, mode=pyb.Pin.AF_PP, af=pyb.Pin.AF1_TIM2)
+
+or:
+
+pin = pyb.Pin(pyb.Pin.board.X3, mode=pyb.Pin.AF_PP, af=1)
+
+=====================USB VBUS======================================
+The 500 mA is a requirement for USB HOST. This supply number is frequently confused with a requirement for a USB DEVICE as consumer. A USB device SHOULD NOT draw more than 100 mA upon initial connect stage, and can draw full power only when it gets enumerated and receives "set_configuration ()" command. 
+
+
+
+    NOTE1: VBUS must be supplied by host even in "sleep" (suspend state) mode.
+
+--
+
+    NOTE2: if a host doesn't drive VBUS high, no attachment would/should occur, even if the device has own power. Connect requests (D+ or D- pull-ups) must occur only if VBUS is present, by USB 2.0 specifications Sec.7.2.1. So it is a spec violation just to "have" the pull-ups, the pull-up must be conditional with VBUS.
+
+
+things are a bit different with introduction of Type-C connector. Type-C devices (both hosts and peripherals) are prohibited to output VBUS, initially. So, instead of boldly having VBUS power on a Type-C port, the host must turn on VBUS source only if the port logic detects the presence of cable/device. It does this by sensing voltage level on "CC" (Communication Channel) pin. A Type-C host has a pull-up on both CC pins. A device (or legacy cable assembly) must have 5.1k pull-down. When device/cable is plugged in, the host detects that 5.k drags its pull-up down, and at this point the host has rights to engage VBUS power, and USB communication begins.
+
+pyflex_f401 is a USB device not a host, so VBUS is just for use in handshaking with hosts, not suppoying power to other USB devices.  The software overhead is huge for that.
+====================================================
+
+Pin.init(mode, pull=Pin.PULL_NONE, af=-1)
+
+    Initialise the pin:
+
+            mode can be one of:
+
+                    Pin.IN - configure the pin for input;
+                    Pin.OUT_PP - configure the pin for output, with push-pull control;
+                    Pin.OUT_OD - configure the pin for output, with open-drain control;
+                    Pin.AF_PP - configure the pin for alternate function, pull-pull;
+                    Pin.AF_OD - configure the pin for alternate function, open-drain;
+                    Pin.ANALOG - configure the pin for analog.
+
+            pull can be one of:
+
+                    Pin.PULL_NONE - no pull up or down resistors;
+                    Pin.PULL_UP - enable the pull-up resistor;
+                    Pin.PULL_DOWN - enable the pull-down resistor.
+
+            when mode is Pin.AF_PP or Pin.AF_OD, then af can be the index or name of one of the alternate functions associated with a pin.
+
+    Returns: None.
+======================================================================================
+you'll see that each AF is really just the number that corresponds to the digit after the AF. So each of these is the same:
+
+Code: Select all
+
+>>> p = pyb.Pin('A0', mode=pyb.Pin.AF_PP, af=pyb.Pin.AF3_TIM8)
+>>> p
+Pin(Pin.cpu.A0, mode=Pin.ALT, af=Pin.AF3_TIM8)
+>>> p = pyb.Pin('A0', mode=pyb.Pin.AF_PP, af=3)
+>>> p
+Pin(Pin.cpu.A0, mode=Pin.ALT, af=Pin.AF3_TIM8)
+==========================================================
+
 PINS_AF = (
   ('JP3', (1, 'TIM1_CH2'), (7, 'USART1_TX'), ),
   ('JP4', (1, 'TIM1_CH3'), (7, 'USART1_RX'), ),
