@@ -43,7 +43,7 @@ p32_pin.value(0)
 
 
 enable_gpio_and_timers()
-enable_pa0_pa1_af()
+#enable_pa0_pa1_af()
 
 # Setup ADC Timer and a callback to try printing the value
 #adc_vals = [-1 for i in range(number_of_pulse_pairs+1 if number_of_pulse_pairs+1 > 128 else 128)]
