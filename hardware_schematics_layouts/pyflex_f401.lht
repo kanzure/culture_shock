@@ -385,7 +385,6 @@ ha:pcb-rnd-board-v4 {
        number=9; x1=-2540.0um; y1=-2616.962um; x2=-2540.0um; y2=-1092.962um; mask=33.07mil; thickness=30.0mil; clearance=0.899922mm;
        ha:flags {
         square=1
-        termname=1
        }
       }
       ha:pad.536858 {
@@ -393,14 +392,12 @@ ha:pcb-rnd-board-v4 {
        ha:flags {
         edge2=1
         square=1
-        termname=1
        }
       }
       ha:pad.536859 {
        number=7; x1=-1270.0um; y1=-2616.962um; x2=-1270.0um; y2=-1092.962um; mask=33.07mil; thickness=30.0mil; clearance=0.899922mm;
        ha:flags {
         square=1
-        termname=1
        }
       }
       ha:pad.536860 {
@@ -408,14 +405,12 @@ ha:pcb-rnd-board-v4 {
        ha:flags {
         edge2=1
         square=1
-        termname=1
        }
       }
       ha:pad.536861 {
        number=5; x1=0.0; y1=-2616.962um; x2=0.0; y2=-1092.962um; mask=33.07mil; thickness=30.0mil; clearance=0.899922mm;
        ha:flags {
         square=1
-        termname=1
        }
       }
       ha:pad.536862 {
@@ -423,14 +418,12 @@ ha:pcb-rnd-board-v4 {
        ha:flags {
         edge2=1
         square=1
-        termname=1
        }
       }
       ha:pad.536863 {
        number=3; x1=50.0mil; y1=-2616.962um; x2=50.0mil; y2=-1092.962um; mask=33.07mil; thickness=30.0mil; clearance=0.899922mm;
        ha:flags {
         square=1
-        termname=1
        }
       }
       ha:pad.536864 {
@@ -438,14 +431,12 @@ ha:pcb-rnd-board-v4 {
        ha:flags {
         edge2=1
         square=1
-        termname=1
        }
       }
       ha:pad.536865 {
        number=1; x1=100.0mil; y1=-2616.962um; x2=100.0mil; y2=-1092.962um; mask=33.07mil; thickness=30.0mil; clearance=0.899922mm;
        ha:flags {
         square=1
-        termname=1
        }
       }
       ha:pad.536866 {
@@ -453,7 +444,6 @@ ha:pcb-rnd-board-v4 {
        ha:flags {
         edge2=1
         square=1
-        termname=1
        }
       }
      }
@@ -6336,7 +6326,7 @@ ha:pcb-rnd-board-v4 {
          }
        }
 
-       {ha:top paste} {
+       {ha:top paste}  {
         lid=2
         ha:combining {        }
 
@@ -6474,7 +6464,7 @@ ha:pcb-rnd-board-v4 {
          }
        }
 
-       {ha:top mask} {
+       {ha:top mask}  {
         lid=3
         ha:combining { sub=1;        }
 
@@ -18741,10 +18731,10 @@ ha:pcb-rnd-board-v4 {
       drc_x = 2469
       drc_y = 63
       netlist_height = 0
-      top_height = 295
+      top_height = 975
       library_width = 504
       drc_height = 808
-      top_width = 762
+      top_width = 1336
       drc_width = 538
       keyref_width = 0
       keyref_height = 0
@@ -18753,8 +18743,8 @@ ha:pcb-rnd-board-v4 {
       keyref_y = 0
       log_width = 395
       library_height = 660
-      top_x = 613
-      top_y = 0
+      top_x = 522
+      top_y = 35
       log_height = 365
      }
      history_size = 25

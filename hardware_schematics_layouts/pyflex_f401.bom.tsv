@@ -1,6 +1,7 @@
 .START
 ..device	value	footprint	quantity	refdes
 2013M R 1.5 k 1%	1.5 k	RESC2013N.lht	1	R9
+2013M R 1.5 k 1%	1.680R	RESC2013N.lht	1	R11
 2013M R 10k 1%	10 k	RESC2013N.lht	2	R34 R44
 2013M R 160 k 1%	160 k	RESC2013N.lht	1	R42
 2013M R 160k 1%	160 k	RESC2013N.lht	1	R32
@@ -22,7 +23,7 @@ COIL	unknown	unknown	4	L1 L31 L41 L51
 CRYSTAL	32.78kHz	1812.fp	1	X2
 FA-20H	unknown	XTALCC2520.lht	1	X1
 G5111T11UF	unknown	SOT23-5.lht	1	U4
-HEADER10	unknown	unknown	1	J3
+HEADER10	unknown	2x5hdr_1.27.fp	1	J3
 JUMPER SOLDER	unknown	jump-solder.lht	3	J5 J6 J7
 MF-CAP-0603-0.1uF	0.1 uF	chip_1608_0603_N.fp	1	C10
 MF-CAP-0603-1uF	1 uF	chip_1608_0603_N.fp	2	C11 C12
