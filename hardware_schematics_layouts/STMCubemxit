@@ -1,0 +1,4 @@
+# This is used to plan out use of pins of particular STM32 MCUs, not generate code.
+# Another good use of this tool is to derive or check clock setup constants.
+# The saved project file is pure text with all the good names used in micropython, (mostly).
+java -jar  /usr/local/STM32CubeMX/STM32CubeMX PYFLEX_F401_definition.ioc
