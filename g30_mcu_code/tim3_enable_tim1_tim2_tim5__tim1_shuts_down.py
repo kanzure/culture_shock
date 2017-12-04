@@ -31,24 +31,19 @@ except:
   pass
 micropython.alloc_emergency_exception_buf(100)
 
-# to replicate John's Original period = 3194
-# to replicate John's Original width = 684
-# to replicate John's Original number_of_pulse_pairs = 6
-#period = 150 # 400# 10000
-#width = 4 # 10#1500 
-#number_of_pulse_pairs = 92
 
 period = 265
 width = 1
 number_of_pulse_pairs = 5
 common_prescaler = 11
 
-p32_pin = Pin('JP32', Pin.OUT) # Pin('JP17', Pin.OUT)
+# G30 TH Pin JP32 ==> g30pulser.sch J2-12  PB8
+p32_pin = Pin('JP32', Pin.OUT) 
 p32_pin.value(0)
 
 
 enable_gpio_and_timers()
-enable_pa0_pa1_af()
+#enable_pa0_pa1_af()
 
 # Setup ADC Timer and a callback to try printing the value
 #adc_vals = [-1 for i in range(number_of_pulse_pairs+1 if number_of_pulse_pairs+1 > 128 else 128)]
@@ -57,7 +52,8 @@ enable_pa0_pa1_af()
 #adc_timer = t4.channel(4, pyb.Timer.PWM)#OC_TIMING, polarity=pyb.Timer.HIGH)
 #stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~1) & 0xFFFF# disable CEN
 
-adc = pyb.ADC(pyb.Pin.board.JP29)
+#G30TH pin JP29 ==> g30pulser.sch J2-9  PA4
+adc = pyb.ADC(pyb.Pin.board.JP29) 
 #adc_vals = array.array('I',[i for i in range((number_of_pulse_pairs*4)+1)])
 adc_vals = array.array('H',[0 for i in range(2048)])
 #adc.read()
@@ -74,6 +70,8 @@ def reset_vals():
 
 ### display
 # create software mode (-1) I2C peripheral at frequency of 400kHz
+#G30TH pin JP27 ==> g30pulser J2-7  PA2
+#G30TH pin JP28 ==> g30pulser J2-8  PA3
 i2c = I2C(-1, scl=pyb.Pin.board.JP28, sda=pyb.Pin.board.JP27, freq=40000) # was 400000
 ssd = None
 
@@ -108,7 +106,7 @@ def test_graph():
     # scale the values to max 1024, then store
     adc_vals[i] = int((f/len(adc_vals))*1024.)
 
-# scaling for ADC... full-scale is 1024, but it can also be reduced to make it amplified looking
+# scaling for ADC... full-scale is 1024, but it can also be reduced to make it amplified looking, (digital zoom with lower res.)
 # TODO adjust from button/touchscreen? Maybe be able to adjust X stretch too?
 adc_max_val = 1024.
 adc_max_val = 128.
@@ -215,7 +213,11 @@ class OnePulseOverFlowCounter(object):
 rep_counter_overflow_detector = OnePulseOverFlowCounter(pyb.Timer(1, prescaler=common_prescaler, period=two_byte_mask))
 
 
-connect_pa0_and_pa1_to_tim2_and_tim5()
+# connect_pa0_and_pa1_to_tim2_and_tim5()
+# commented out to test use of pyb.Pin.AF_PP
+tim2_out = pyb.Pin(pyb.Pin.cpu.A0, pyb.Pin.AF_PP, pyb.Pin.PULL_NONE, 1)  # PA0 set to AF1 --> TIM2_CH1/TIM2_ETR
+tim5_out = pyb.Pin(pyb.Pin.cpu.A1, pyb.Pin.AF_PP, pyb.Pin.PULL_NONE, 2)  # PA1 set to AF2 -->  TIM5_CH2
+
 enable_pb13_af_and_connect_to_tim1()
 
 two_bits = 2
