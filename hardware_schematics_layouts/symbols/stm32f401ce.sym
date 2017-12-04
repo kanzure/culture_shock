@@ -1,5 +1,5 @@
 v 20150930 2
-B 300 300 5000 6100 3 12 2 0 -1 -1 0 -1 -1 -1 -1 -1
+B 300 300 5300 6100 3 12 2 0 -1 -1 0 -1 -1 -1 -1 -1
 T 5900 6700 9 10 0 0 0 0 1
 spec3=c
 T 5900 6900 9 10 0 0 0 0 1
@@ -49,7 +49,7 @@ pintype=io
 P 0 4900 300 4900 1 0 0
 {
 T 350 4900 9 14 1 1 0 1 1
-pinlabel=PC14-OSC32_IN
+pinlabel=OSC32_IN_PC14
 T 200 4950 5 8 1 1 0 6 1
 pinnumber=3
 T 200 4950 5 8 0 1 0 6 1
@@ -60,7 +60,7 @@ pintype=io
 P 0 4600 300 4600 1 0 0
 {
 T 350 4600 9 14 1 1 0 1 1
-pinlabel=PC15-OSC32_OUT
+pinlabel=OSC32_OUT_PC15
 T 200 4650 5 8 1 1 0 6 1
 pinnumber=4
 T 200 4650 5 8 0 1 0 6 1
@@ -71,7 +71,7 @@ pintype=io
 P 0 4000 300 4000 1 0 0
 {
 T 350 4000 9 14 1 1 0 1 1
-pinlabel=PH0-OSC_IN
+pinlabel=OSC_IN_PH0
 T 200 4050 5 8 1 1 0 6 1
 pinnumber=5
 T 200 4050 5 8 0 1 0 6 1
@@ -82,7 +82,7 @@ pintype=io
 P 0 3700 300 3700 1 0 0
 {
 T 350 3700 9 14 1 1 0 1 1
-pinlabel=PH1-OSC_OUT
+pinlabel=OSC_OUT_PH1
 T 200 3750 5 8 1 1 0 6 1
 pinnumber=6
 T 200 3750 5 8 0 1 0 6 1
@@ -156,399 +156,399 @@ pinseq=12
 T 100 1650 5 10 0 0 0 0 1
 pintype=io
 }
-P 900 0 900 300 1 0 0
-{
-T 900 450 9 14 1 1 90 1 1
-pinlabel=PA3
-T 850 200 5 8 1 1 90 6 1
-pinnumber=13
-T 850 200 5 8 0 1 90 6 1
-pinseq=13
-T 850 100 5 10 0 0 90 0 1
-pintype=io
-}
 P 1200 0 1200 300 1 0 0
 {
 T 1200 450 9 14 1 1 90 1 1
-pinlabel=PA4
+pinlabel=PA3
 T 1150 200 5 8 1 1 90 6 1
-pinnumber=14
+pinnumber=13
 T 1150 200 5 8 0 1 90 6 1
-pinseq=14
+pinseq=13
 T 1150 100 5 10 0 0 90 0 1
 pintype=io
 }
 P 1500 0 1500 300 1 0 0
 {
 T 1500 450 9 14 1 1 90 1 1
-pinlabel=PA5
+pinlabel=PA4
 T 1450 200 5 8 1 1 90 6 1
-pinnumber=15
+pinnumber=14
 T 1450 200 5 8 0 1 90 6 1
-pinseq=15
+pinseq=14
 T 1450 100 5 10 0 0 90 0 1
 pintype=io
 }
 P 1800 0 1800 300 1 0 0
 {
-T 1900 670 9 14 1 1 90 3 1
-pinlabel=PA6
-T 1650 50 5 8 1 1 90 2 1
-pinnumber=16
-T 1650 50 5 8 0 1 90 2 1
-pinseq=16
+T 1800 450 9 14 1 1 90 1 1
+pinlabel=PA5
+T 1750 200 5 8 1 1 90 6 1
+pinnumber=15
+T 1750 200 5 8 0 1 90 6 1
+pinseq=15
 T 1750 100 5 10 0 0 90 0 1
 pintype=io
 }
 P 2100 0 2100 300 1 0 0
 {
 T 2200 670 9 14 1 1 90 3 1
-pinlabel=PA7
+pinlabel=PA6
 T 1950 50 5 8 1 1 90 2 1
-pinnumber=17
+pinnumber=16
 T 1950 50 5 8 0 1 90 2 1
-pinseq=17
+pinseq=16
 T 2050 100 5 10 0 0 90 0 1
 pintype=io
 }
 P 2400 0 2400 300 1 0 0
 {
 T 2500 670 9 14 1 1 90 3 1
-pinlabel=PB0
+pinlabel=PA7
 T 2250 50 5 8 1 1 90 2 1
-pinnumber=18
+pinnumber=17
 T 2250 50 5 8 0 1 90 2 1
-pinseq=18
+pinseq=17
 T 2350 100 5 10 0 0 90 0 1
 pintype=io
 }
 P 2700 0 2700 300 1 0 0
 {
 T 2800 670 9 14 1 1 90 3 1
-pinlabel=PB1
+pinlabel=PB0
 T 2550 50 5 8 1 1 90 2 1
-pinnumber=19
+pinnumber=18
 T 2550 50 5 8 0 1 90 2 1
-pinseq=19
+pinseq=18
 T 2650 100 5 10 0 0 90 0 1
 pintype=io
 }
 P 3000 0 3000 300 1 0 0
 {
 T 3100 670 9 14 1 1 90 3 1
-pinlabel=PB2
+pinlabel=PB1
 T 2850 50 5 8 1 1 90 2 1
-pinnumber=20
+pinnumber=19
 T 2850 50 5 8 0 1 90 2 1
-pinseq=20
+pinseq=19
 T 2950 100 5 10 0 0 90 0 1
 pintype=io
 }
 P 3300 0 3300 300 1 0 0
 {
-T 3400 743 9 14 1 1 90 3 1
-pinlabel=PB10
+T 3400 670 9 14 1 1 90 3 1
+pinlabel=PB2
 T 3150 50 5 8 1 1 90 2 1
-pinnumber=21
+pinnumber=20
 T 3150 50 5 8 0 1 90 2 1
-pinseq=21
+pinseq=20
 T 3250 100 5 10 0 0 90 0 1
 pintype=io
 }
 P 3600 0 3600 300 1 0 0
 {
-T 3700 890 9 14 1 1 90 3 1
-pinlabel=VCAP_1
+T 3700 743 9 14 1 1 90 3 1
+pinlabel=PB10
 T 3450 50 5 8 1 1 90 2 1
-pinnumber=22
+pinnumber=21
 T 3450 50 5 8 0 1 90 2 1
-pinseq=22
+pinseq=21
 T 3550 100 5 10 0 0 90 0 1
 pintype=io
 }
 P 3900 0 3900 300 1 0 0
 {
-T 4000 670 9 14 1 1 90 3 1
-pinlabel=VSS
+T 4000 940 9 14 1 1 90 3 1
+pinlabel=VCAP_1
 T 3750 50 5 8 1 1 90 2 1
-pinnumber=23
+pinnumber=22
 T 3750 50 5 8 0 1 90 2 1
-pinseq=23
+pinseq=22
 T 3850 100 5 10 0 0 90 0 1
-pintype=pwr
+pintype=io
 }
 P 4200 0 4200 300 1 0 0
 {
-T 4300 670 9 14 1 1 90 3 1
-pinlabel=VDD
+T 4300 720 9 14 1 1 90 3 1
+pinlabel=VSS
 T 4050 50 5 8 1 1 90 2 1
-pinnumber=24
+pinnumber=23
 T 4050 50 5 8 0 1 90 2 1
-pinseq=24
+pinseq=23
 T 4150 100 5 10 0 0 90 0 1
 pintype=pwr
 }
-P 5600 1000 5300 1000 1 0 0
+P 4500 0 4500 300 1 0 0
 {
-T 5250 1000 9 14 1 1 0 7 1
-pinlabel=PB12
-T 5400 1050 5 8 1 1 0 0 1
-pinnumber=25
-T 5400 1050 5 8 0 1 0 0 1
-pinseq=25
-T 5500 1050 5 10 0 0 0 6 1
-pintype=io
-}
-P 5600 1300 5300 1300 1 0 0
-{
-T 5250 1300 9 14 1 1 0 7 1
-pinlabel=PB13
-T 5400 1350 5 8 1 1 0 0 1
-pinnumber=26
-T 5400 1350 5 8 0 1 0 0 1
-pinseq=26
-T 5500 1350 5 10 0 0 0 6 1
-pintype=io
-}
-P 5600 1600 5300 1600 1 0 0
-{
-T 5250 1600 9 14 1 1 0 7 1
-pinlabel=PB14
-T 5400 1650 5 8 1 1 0 0 1
-pinnumber=27
-T 5400 1650 5 8 0 1 0 0 1
-pinseq=27
-T 5500 1650 5 10 0 0 0 6 1
-pintype=io
-}
-P 5600 1900 5300 1900 1 0 0
-{
-T 5250 1900 9 14 1 1 0 7 1
-pinlabel=PB15
-T 5400 1950 5 8 1 1 0 0 1
-pinnumber=28
-T 5400 1950 5 8 0 1 0 0 1
-pinseq=28
-T 5500 1950 5 10 0 0 0 6 1
-pintype=io
-}
-P 5600 2200 5300 2200 1 0 0
-{
-T 5250 2200 9 14 1 1 0 7 1
-pinlabel=PA8
-T 5400 2250 5 8 1 1 0 0 1
-pinnumber=29
-T 5400 2250 5 8 0 1 0 0 1
-pinseq=29
-T 5500 2250 5 10 0 0 0 6 1
-pintype=io
-}
-P 5600 2500 5300 2500 1 0 0
-{
-T 5250 2500 9 14 1 1 0 7 1
-pinlabel=PA9
-T 5400 2550 5 8 1 1 0 0 1
-pinnumber=30
-T 5400 2550 5 8 0 1 0 0 1
-pinseq=30
-T 5500 2550 5 10 0 0 0 6 1
-pintype=io
-}
-P 5600 2800 5300 2800 1 0 0
-{
-T 5250 2800 9 14 1 1 0 7 1
-pinlabel=PA10
-T 5400 2850 5 8 1 1 0 0 1
-pinnumber=31
-T 5400 2850 5 8 0 1 0 0 1
-pinseq=31
-T 5500 2850 5 10 0 0 0 6 1
-pintype=io
-}
-P 5600 3100 5300 3100 1 0 0
-{
-T 5250 3100 9 14 1 1 0 7 1
-pinlabel=PA11
-T 5400 3150 5 8 1 1 0 0 1
-pinnumber=32
-T 5400 3150 5 8 0 1 0 0 1
-pinseq=32
-T 5500 3150 5 10 0 0 0 6 1
-pintype=io
-}
-P 5600 3400 5300 3400 1 0 0
-{
-T 5250 3400 9 14 1 1 0 7 1
-pinlabel=PA12
-T 5400 3450 5 8 1 1 0 0 1
-pinnumber=33
-T 5400 3450 5 8 0 1 0 0 1
-pinseq=33
-T 5500 3450 5 10 0 0 0 6 1
-pintype=io
-}
-P 5600 3700 5300 3700 1 0 0
-{
-T 5250 3700 9 14 1 1 0 7 1
-pinlabel=PA13-JTMS-SWDIO
-T 5400 3750 5 8 1 1 0 0 1
-pinnumber=34
-T 5400 3750 5 8 0 1 0 0 1
-pinseq=34
-T 5500 3750 5 10 0 0 0 6 1
-pintype=io
-}
-P 5600 4300 5300 4300 1 0 0
-{
-T 5250 4300 9 14 1 1 0 7 1
-pinlabel=VSS
-T 5400 4350 5 8 1 1 0 0 1
-pinnumber=35
-T 5400 4350 5 8 0 1 0 0 1
-pinseq=35
-T 5500 4350 5 10 0 0 0 6 1
-pintype=pwr
-}
-P 5600 4600 5300 4600 1 0 0
-{
-T 5250 4600 9 14 1 1 0 7 1
+T 4600 720 9 14 1 1 90 3 1
 pinlabel=VDD
-T 5400 4650 5 8 1 1 0 0 1
-pinnumber=36
-T 5400 4650 5 8 0 1 0 0 1
-pinseq=36
-T 5500 4650 5 10 0 0 0 6 1
+T 4350 50 5 8 1 1 90 2 1
+pinnumber=24
+T 4350 50 5 8 0 1 90 2 1
+pinseq=24
+T 4450 100 5 10 0 0 90 0 1
 pintype=pwr
+}
+P 5900 1000 5600 1000 1 0 0
+{
+T 5550 1000 9 14 1 1 0 7 1
+pinlabel=PB12
+T 5700 1050 5 8 1 1 0 0 1
+pinnumber=25
+T 5700 1050 5 8 0 1 0 0 1
+pinseq=25
+T 5800 1050 5 10 0 0 0 6 1
+pintype=io
+}
+P 5900 1300 5600 1300 1 0 0
+{
+T 5550 1300 9 14 1 1 0 7 1
+pinlabel=PB13
+T 5700 1350 5 8 1 1 0 0 1
+pinnumber=26
+T 5700 1350 5 8 0 1 0 0 1
+pinseq=26
+T 5800 1350 5 10 0 0 0 6 1
+pintype=io
+}
+P 5900 1600 5600 1600 1 0 0
+{
+T 5550 1600 9 14 1 1 0 7 1
+pinlabel=PB14
+T 5700 1650 5 8 1 1 0 0 1
+pinnumber=27
+T 5700 1650 5 8 0 1 0 0 1
+pinseq=27
+T 5800 1650 5 10 0 0 0 6 1
+pintype=io
+}
+P 5900 1900 5600 1900 1 0 0
+{
+T 5550 1900 9 14 1 1 0 7 1
+pinlabel=PB15
+T 5700 1950 5 8 1 1 0 0 1
+pinnumber=28
+T 5700 1950 5 8 0 1 0 0 1
+pinseq=28
+T 5800 1950 5 10 0 0 0 6 1
+pintype=io
+}
+P 5900 2200 5600 2200 1 0 0
+{
+T 5550 2200 9 14 1 1 0 7 1
+pinlabel=MCO_1_PA8
+T 5700 2250 5 8 1 1 0 0 1
+pinnumber=29
+T 5700 2250 5 8 0 1 0 0 1
+pinseq=29
+T 5800 2250 5 10 0 0 0 6 1
+pintype=io
+}
+P 5900 2500 5600 2500 1 0 0
+{
+T 5550 2500 9 14 1 1 0 7 1
+pinlabel=PA9
+T 5700 2550 5 8 1 1 0 0 1
+pinnumber=30
+T 5700 2550 5 8 0 1 0 0 1
+pinseq=30
+T 5800 2550 5 10 0 0 0 6 1
+pintype=io
+}
+P 5900 2800 5600 2800 1 0 0
+{
+T 5550 2800 9 14 1 1 0 7 1
+pinlabel=PA10
+T 5700 2850 5 8 1 1 0 0 1
+pinnumber=31
+T 5700 2850 5 8 0 1 0 0 1
+pinseq=31
+T 5800 2850 5 10 0 0 0 6 1
+pintype=io
+}
+P 5900 3100 5600 3100 1 0 0
+{
+T 5550 3100 9 14 1 1 0 7 1
+pinlabel=PA11
+T 5700 3150 5 8 1 1 0 0 1
+pinnumber=32
+T 5700 3150 5 8 0 1 0 0 1
+pinseq=32
+T 5800 3150 5 10 0 0 0 6 1
+pintype=io
+}
+P 5900 3400 5600 3400 1 0 0
+{
+T 5550 3400 9 14 1 1 0 7 1
+pinlabel=PA12
+T 5700 3450 5 8 1 1 0 0 1
+pinnumber=33
+T 5700 3450 5 8 0 1 0 0 1
+pinseq=33
+T 5800 3450 5 10 0 0 0 6 1
+pintype=io
+}
+P 5900 3700 5600 3700 1 0 0
+{
+T 5550 3700 9 14 1 1 0 7 1
+pinlabel=JTMS_SWDIO_PA13
+T 5700 3750 5 8 1 1 0 0 1
+pinnumber=34
+T 5700 3750 5 8 0 1 0 0 1
+pinseq=34
+T 5800 3750 5 10 0 0 0 6 1
+pintype=io
+}
+P 5900 4300 5600 4300 1 0 0
+{
+T 5550 4300 9 14 1 1 0 7 1
+pinlabel=VSS
+T 5700 4350 5 8 1 1 0 0 1
+pinnumber=35
+T 5700 4350 5 8 0 1 0 0 1
+pinseq=35
+T 5800 4350 5 10 0 0 0 6 1
+pintype=pwr
+}
+P 5900 4600 5600 4600 1 0 0
+{
+T 5550 4600 9 14 1 1 0 7 1
+pinlabel=VDD
+T 5700 4650 5 8 1 1 0 0 1
+pinnumber=36
+T 5700 4650 5 8 0 1 0 0 1
+pinseq=36
+T 5800 4650 5 10 0 0 0 6 1
+pintype=pwr
+}
+P 4700 6700 4700 6400 1 0 0
+{
+T 4600 5050 9 14 1 1 90 5 1
+pinlabel=JTCK_SWCLK_PA14
+T 4650 6450 5 8 1 1 90 0 1
+pinnumber=37
+T 4650 6450 5 8 0 1 90 0 1
+pinseq=37
+T 4650 6600 5 10 0 0 90 6 1
+pintype=io
 }
 P 4400 6700 4400 6400 1 0 0
 {
-T 4300 5150 9 14 1 1 90 5 1
-pinlabel=PA14-JTCK-SWCLK
+T 4300 5606 9 14 1 1 90 5 1
+pinlabel=JTDI_PA15
 T 4350 6450 5 8 1 1 90 0 1
-pinnumber=37
+pinnumber=38
 T 4350 6450 5 8 0 1 90 0 1
-pinseq=37
+pinseq=38
 T 4350 6600 5 10 0 0 90 6 1
 pintype=io
 }
 P 4100 6700 4100 6400 1 0 0
 {
-T 4000 5956 9 14 1 1 90 5 1
-pinlabel=PA15
+T 4000 5270 9 14 1 1 90 5 1
+pinlabel=JTDO_SWO_PB3
 T 4050 6450 5 8 1 1 90 0 1
-pinnumber=38
+pinnumber=39
 T 4050 6450 5 8 0 1 90 0 1
-pinseq=38
+pinseq=39
 T 4050 6600 5 10 0 0 90 6 1
 pintype=io
 }
 P 3800 6700 3800 6400 1 0 0
 {
-T 3700 5370 9 14 1 1 90 5 1
-pinlabel=PB3-JTDO-SWO
+T 3700 5466 9 14 1 1 90 5 1
+pinlabel=NJTRST_PB4
 T 3750 6450 5 8 1 1 90 0 1
-pinnumber=39
+pinnumber=40
 T 3750 6450 5 8 0 1 90 0 1
-pinseq=39
+pinseq=40
 T 3750 6600 5 10 0 0 90 6 1
 pintype=io
 }
 P 3500 6700 3500 6400 1 0 0
 {
-T 3400 5516 9 14 1 1 90 5 1
-pinlabel=PB4-NJTRST
+T 3400 6030 9 14 1 1 90 5 1
+pinlabel=PB5
 T 3450 6450 5 8 1 1 90 0 1
-pinnumber=40
+pinnumber=41
 T 3450 6450 5 8 0 1 90 0 1
-pinseq=40
+pinseq=41
 T 3450 6600 5 10 0 0 90 6 1
 pintype=io
 }
 P 3200 6700 3200 6400 1 0 0
 {
-T 3100 6030 9 14 1 1 90 5 1
-pinlabel=PB5
+T 3100 5380 9 14 1 1 90 5 1
+pinlabel=I2C1_SCL_PB6
 T 3150 6450 5 8 1 1 90 0 1
-pinnumber=41
+pinnumber=42
 T 3150 6450 5 8 0 1 90 0 1
-pinseq=41
+pinseq=42
 T 3150 6600 5 10 0 0 90 6 1
 pintype=io
 }
 P 2900 6700 2900 6400 1 0 0
 {
-T 2800 6030 9 14 1 1 90 5 1
-pinlabel=PB6
+T 2800 5380 9 14 1 1 90 5 1
+pinlabel=I2C1_SDA_PB7
 T 2850 6450 5 8 1 1 90 0 1
-pinnumber=42
+pinnumber=43
 T 2850 6450 5 8 0 1 90 0 1
-pinseq=42
+pinseq=43
 T 2850 6600 5 10 0 0 90 6 1
 pintype=io
 }
 P 2600 6700 2600 6400 1 0 0
 {
-T 2500 6030 9 14 1 1 90 5 1
-pinlabel=PB7
+T 2500 5833 9 14 1 1 90 5 1
+pinlabel=BOOT0
 T 2550 6450 5 8 1 1 90 0 1
-pinnumber=43
+pinnumber=44
 T 2550 6450 5 8 0 1 90 0 1
-pinseq=43
+pinseq=44
 T 2550 6600 5 10 0 0 90 6 1
 pintype=io
 }
 P 2300 6700 2300 6400 1 0 0
 {
-T 2200 5883 9 14 1 1 90 5 1
-pinlabel=BOOT0
+T 2200 6030 9 14 1 1 90 5 1
+pinlabel=PB8
 T 2250 6450 5 8 1 1 90 0 1
-pinnumber=44
+pinnumber=45
 T 2250 6450 5 8 0 1 90 0 1
-pinseq=44
+pinseq=45
 T 2250 6600 5 10 0 0 90 6 1
 pintype=io
 }
 P 2000 6700 2000 6400 1 0 0
 {
 T 1900 6030 9 14 1 1 90 5 1
-pinlabel=PB8
+pinlabel=PB9
 T 1950 6450 5 8 1 1 90 0 1
-pinnumber=45
+pinnumber=46
 T 1950 6450 5 8 0 1 90 0 1
-pinseq=45
+pinseq=46
 T 1950 6600 5 10 0 0 90 6 1
 pintype=io
 }
 P 1700 6700 1700 6400 1 0 0
 {
 T 1600 6030 9 14 1 1 90 5 1
-pinlabel=PB9
+pinlabel=VSS
 T 1650 6450 5 8 1 1 90 0 1
-pinnumber=46
+pinnumber=47
 T 1650 6450 5 8 0 1 90 0 1
-pinseq=46
+pinseq=47
 T 1650 6600 5 10 0 0 90 6 1
-pintype=io
+pintype=pwr
 }
 P 1400 6700 1400 6400 1 0 0
 {
 T 1300 6030 9 14 1 1 90 5 1
-pinlabel=VSS
-T 1350 6450 5 8 1 1 90 0 1
-pinnumber=47
-T 1350 6450 5 8 0 1 90 0 1
-pinseq=47
-T 1350 6600 5 10 0 0 90 6 1
-pintype=pwr
-}
-P 1100 6700 1100 6400 1 0 0
-{
-T 1000 6030 9 14 1 1 90 5 1
 pinlabel=VDD
-T 1050 6450 5 8 1 1 90 0 1
+T 1350 6450 5 8 1 1 90 0 1
 pinnumber=48
-T 1050 6450 5 8 0 1 90 0 1
+T 1350 6450 5 8 0 1 90 0 1
 pinseq=48
-T 1050 6600 5 10 0 0 90 6 1
+T 1350 6600 5 10 0 0 90 6 1
 pintype=pwr
 }

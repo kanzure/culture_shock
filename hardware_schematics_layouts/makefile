@@ -153,7 +153,6 @@ drc: $(DRCS)
 $(DRCS): %.drc: %.sch
 
 	gnetlist -g drc2  $< -o $@
-	gvim  $@
 
 
 pcb: $(BOARDS)
