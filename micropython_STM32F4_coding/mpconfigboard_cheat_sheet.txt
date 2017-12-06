@@ -1,0 +1,38 @@
+
+AN2606 from STM covers the various bootloader modes available.
+http://www.st.com/content/ccc/resource/ ... 167594.pdf and in particular, Table 50 shows the various devices that can be used with the ROM based bootloader.
+
+It looks like serial bootloading is only supported via USART1 and USART3.
+
+pydfu and dfu-util can only update over USB (in particular directly connected USB).
+
+You can update the firmware via other means. You don't need to redirect the REPL (except perhaps to help you get into bootloader mode).
+
+I've written up what I've done in the past over here:
+http://blog.davehylands.com/2014/02/serial-bootloading-stm32f4.html
+
+Note that because the micropython image is a split image and has the filesystem in the middle, this will wind up wiping out the contents of the filesystem.
+
+pybv11 for the pyboard v1.1 board. The 1.1 and 1.0 boards have different frequency crystals on them, so if you mix up the firmware that will definitely cause it to not work properly.
+
+common mistake:
+make board=PYBV11
+-->
+make BOARD=PYBV11                  ========necessary capital BOARD==============================
+
+create a GNUmakefile (note that the m is lowercase) which sets the board:
+============example===================
+$(info Executing GNUmakefile)
+
+#BOARD = STM32F7DISC
+BOARD = STM32F429DISC
+#BOARD = PYBV10
+
+$(info BOARD = $(BOARD))
+
+DFU_UTIL = dfu-util -s :leave
+USE_PYDFU = 1
+
+include Makefile
+============example===================
+
