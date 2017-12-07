@@ -14,7 +14,7 @@
 .PHONY: myropcb hackvana 4pcb 4pcbnames 4pcbzip 4pcbfab gerbvmyro gerbv4pcb net pcb gschem bom drc
 
 BASENAMES = kvboard g30pulser
-MULTIPAGENAMES = pyflex_f401-1  pyflex_f401-2
+MULTIPAGENAMES = pyflex_f401  pyflex_f401_stepup
 MULTIPAGEOUTNAME = pyflex_f401
 BOARD2FABROOT = kvboard
 REV = 0.2
