@@ -13,7 +13,9 @@
 
 .PHONY: myropcb hackvana 4pcb 4pcbnames 4pcbzip 4pcbfab gerbvmyro gerbv4pcb net pcb gschem bom drc
 
-BASENAMES = pyflex_f401  kvboard g30pulser
+BASENAMES = kvboard g30pulser
+MULTIPAGENAMES = pyflex_f401-1  pyflex_f401-2
+MULTIPAGEOUTNAME = pyflex_f401
 BOARD2FABROOT = kvboard
 REV = 0.2
 GRB = ./fab
@@ -24,7 +26,8 @@ BOARDS = $(addsuffix .lht, $(BASENAMES))
 SCHEMS = $(addsuffix .sch, $(BASENAMES))
 NETS = $(addsuffix .net, $(BASENAMES))
 CMDS = $(addsuffix .lht.cmd, $(BASENAMES))
-DRCS = $(addsuffix .drc, $(BASENAMES))
+DRC = $(addsuffix .drc, $(BASENAMES)) $(addsuffix .drc, $(MULTIPAGENAMES))
+DRCS = $(addsuffix .drc, $(MULTIPAGEOUTNAME))
 BOMS =   $(addsuffix .bom.tsv,  $(BASENAMES))
 BOMPDFS =   $(addsuffix .bom.tsv.pdf,  $(BASENAMES))
 
@@ -138,21 +141,26 @@ $(BOMPDFS): %.bom.tsv.pdf: %.bom.tsv
 
 
 # this explicitly makes boms from  schematics with more than one page:
-#	gnetlist -g partslist3 micropulser1.sch 1micropulser2.sch  -o micropulser1micropulser2.bom
+#	gnetlist -g partslist3  $(MULTIPAGENAMES)  -o $(MULTIPAGEOUTNAME)
 
-net: $(NETS) $(BOMS) $(DRCS)
+net: $(NETS) $(BOMS) $(DRC)
 
 #this automatic target maker is not good for schematics with more than one page.
 $(NETS): %.net: %.sch
 
 	gnetlist -g PCB  $< -o $@
 
-drc: $(DRCS)
+# this explicitly makes nets from  schematics with more than one page:
+#	gnetlist -g PCB  $(MULTIPAGENAMES)  -o $(MULTIPAGEOUTNAME)
+
+drc: $(DRC)
 
 #this automatic target maker is not good for schematics with more than one page.
-$(DRCS): %.drc: %.sch
+$(DRC): %.drc: %.sch
 
 	gnetlist -g drc2  $< -o $@
+
+
 
 
 pcb: $(BOARDS)
