@@ -13,9 +13,9 @@
 
 .PHONY: myropcb hackvana 4pcb 4pcbnames 4pcbzip 4pcbfab gerbvmyro gerbv4pcb net pcb gschem bom drc
 
-BASENAMES = kvboard g30pulser
-MULTIPAGENAMES = pyflex_f401  pyflex_f401_stepup
-MULTIPAGEOUTNAME = pyflex_f401
+BASENAMES = kvboard g30pulser pyflex_f401 pyflex_f401_boost
+MULTIPAGENAMES = pyflex_f401  pyflex_f401_boost
+MULTIPAGEOUTNAME = pyflex_f401_all
 BOARD2FABROOT = kvboard
 REV = 0.2
 GRB = ./fab
@@ -26,7 +26,7 @@ BOARDS = $(addsuffix .lht, $(BASENAMES))
 SCHEMS = $(addsuffix .sch, $(BASENAMES))
 NETS = $(addsuffix .net, $(BASENAMES))
 CMDS = $(addsuffix .lht.cmd, $(BASENAMES))
-DRC = $(addsuffix .drc, $(BASENAMES)) $(addsuffix .drc, $(MULTIPAGENAMES))
+DRC = $(addsuffix .drc, $(BASENAMES)) #  $(addsuffix .drc, $(MULTIPAGENAMES))
 DRCS = $(addsuffix .drc, $(MULTIPAGEOUTNAME))
 BOMS =   $(addsuffix .bom.tsv,  $(BASENAMES))
 BOMPDFS =   $(addsuffix .bom.tsv.pdf,  $(BASENAMES))
