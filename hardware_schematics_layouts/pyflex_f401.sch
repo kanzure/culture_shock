@@ -106,9 +106,9 @@ C 50900 55700 1 0 0 USB_SMT_5p.sym
 T 50900 56950 5 10 1 1 0 0 1
 refdes=J4
 T 51190 56010 5 16 0 1 90 0 1
-device=microUSB_AB_antek
+device=microUSB_B_2leg
 T 51200 68150 5 10 0 0 0 0 1
-footprint=microUSB_AB_1.fp
+footprint=microUSB_AB_2.lht
 T 50900 55700 5 10 0 0 0 0 1
 value=conn
 }
@@ -307,7 +307,7 @@ net=3V1:1
 C 45500 54300 1 0 1 switch-pushbutton-no-1.sym
 {
 T 45100 54900 5 10 0 0 180 2 1
-device=SWITCH_PUSHBUTTON_NO
+device=SWITCH_PUSHBUTTON_NO_4mm
 T 45100 54600 5 10 1 1 180 2 1
 refdes=SW23
 }
@@ -615,17 +615,6 @@ netname=PA12_OTG_FS_DP
 }
 N 52500 56000 52500 56300 4
 N 53200 57300 53400 57300 4
-C 53200 56600 1 180 0 resistor-1.sym
-{
-T 52900 56200 5 10 0 0 180 0 1
-device=R_22_1%_1608
-T 53200 56600 5 10 0 0 0 0 1
-footprint=RESC1608N.lht
-T 52400 56600 5 10 1 1 0 0 1
-refdes=R8
-T 53000 56300 5 10 1 1 0 0 1
-value=22
-}
 N 52300 55600 52500 55600 4
 N 54300 56000 55900 56000 4
 {
@@ -896,9 +885,6 @@ T 58200 49600 5 10 1 1 0 0 1
 value=4.7uF
 }
 B 51300 53400 2700 1600 3 10 1 0 -1 -1 0 -1 -1 -1 -1 -1
-T 51600 54300 9 12 1 0 0 0 2
-D+, D- resistors may 
-need to be 15 Ohm.
 T 51600 53400 9 12 1 0 0 0 3
 Add an ESD protection 
 device for D+ D- VBUS
@@ -966,27 +952,16 @@ refdes=R9
 T 52900 57100 5 10 1 1 0 0 1
 value=1.78k
 }
-C 53400 55700 1 180 0 resistor-1.sym
-{
-T 53100 55300 5 10 0 0 180 0 1
-device=R_22_1%_1608
-T 53400 55700 5 10 0 0 0 0 1
-footprint=RESC1608N.lht
-T 52600 55700 5 10 1 1 0 0 1
-refdes=R7
-T 53200 55400 5 10 1 1 0 0 1
-value=22
-}
 C 54300 56100 1 180 0 resistor-1.sym
 {
 T 54000 55700 5 10 0 0 180 0 1
-device=R_22_1%_1608
+device=R_15_1%_1608
 T 54300 56100 5 10 0 0 0 0 1
 footprint=RESC1608N.lht
 T 53500 56100 5 10 1 1 0 0 1
 refdes=R6
 T 54100 55800 5 10 1 1 0 0 1
-value=22
+value=15
 }
 N 57700 57400 57700 56600 4
 N 57700 56200 58100 56200 4
@@ -1275,3 +1250,26 @@ description=Res thick 22.0 1% 1608
 }
 T 42500 53800 9 12 1 0 0 0 1
 Add LED
+B 50300 52800 5200 4800 3 10 1 0 -1 -1 0 -1 -1 -1 -1 -1
+C 53200 56600 1 180 0 resistor-1.sym
+{
+T 52900 56200 5 10 0 0 180 0 1
+device=R_15_1%_1608
+T 53200 56600 5 10 0 0 0 0 1
+footprint=RESC1608N.lht
+T 52400 56600 5 10 1 1 0 0 1
+refdes=R8
+T 53000 56300 5 10 1 1 0 0 1
+value=15
+}
+C 53400 55700 1 180 0 resistor-1.sym
+{
+T 53100 55300 5 10 0 0 180 0 1
+device=R_15_1%_1608
+T 53400 55700 5 10 0 0 0 0 1
+footprint=RESC1608N.lht
+T 52600 55700 5 10 1 1 0 0 1
+refdes=R7
+T 53200 55400 5 10 1 1 0 0 1
+value=15
+}
