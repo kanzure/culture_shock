@@ -50,7 +50,7 @@ device=B5819WS
 T 55650 58350 5 10 1 1 0 6 1
 refdes=D31
 T 55100 58000 5 10 0 0 0 0 1
-footprint=SOD323_N.lht
+footprint=SOD-323N.lht
 T 54800 57900 5 10 0 0 0 0 1
 value=semicon
 }
@@ -125,7 +125,7 @@ C 49900 53300 1 90 0 jump-solder.sym
 T 49500 53700 5 8 0 0 90 0 1
 device=JUMPER_SOLDER
 T 49900 53300 5 10 0 0 0 0 1
-footprint=jump-solder.lht
+footprint=jump-solder1.lht
 T 49500 53800 5 10 1 1 90 0 1
 refdes=J31
 T 49900 53300 5 10 0 0 0 0 1
@@ -171,7 +171,7 @@ C 50500 47000 1 90 0 jump-solder.sym
 T 50100 47400 5 8 0 0 90 0 1
 device=JUMPER_SOLDER
 T 50500 47000 5 10 0 0 0 0 1
-footprint=jump-solder.lht
+footprint=jump-solder1.lht
 T 50100 47600 5 10 1 1 180 0 1
 refdes=J41
 T 50500 47000 5 10 0 0 0 0 1
@@ -221,7 +221,7 @@ C 49200 40300 1 90 0 jump-solder.sym
 T 48800 40700 5 8 0 0 90 0 1
 device=JUMPER_SOLDER
 T 49200 40300 5 10 0 0 0 0 1
-footprint=jump-solder.lht
+footprint=jump-solder2.lht
 T 48900 40900 5 10 1 1 180 0 1
 refdes=J51
 T 49200 40300 5 10 0 0 0 0 1
@@ -461,7 +461,7 @@ device=B5819WS
 T 57050 45450 5 10 1 1 0 6 1
 refdes=D51
 T 56500 45100 5 10 0 1 0 0 1
-footprint=SOD323_N.lht
+footprint=SOD-323N.lht
 T 56200 45000 5 10 0 0 0 0 1
 value=semicon
 }
@@ -601,7 +601,7 @@ device=B5819WS
 T 56250 51850 5 10 1 1 0 6 1
 refdes=D41
 T 55700 51500 5 10 0 0 0 0 1
-footprint=SOD323_N.lht
+footprint=SOD-323N.lht
 T 55400 51400 5 10 0 0 0 0 1
 value=semicon
 }
