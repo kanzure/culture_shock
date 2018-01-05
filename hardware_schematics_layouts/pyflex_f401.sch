@@ -108,7 +108,7 @@ refdes=J4
 T 51190 56010 5 16 0 1 90 0 1
 device=microUSB_B_2leg
 T 51200 68150 5 10 0 0 0 0 1
-footprint=microUSB_AB_2.lht
+footprint=microUSB_B_2.lht
 T 50900 55700 5 10 0 0 0 0 1
 value=conn
 }
@@ -894,9 +894,9 @@ C 56500 55600 1 0 0 USB_SMT_5p.sym
 T 56500 56850 5 10 1 1 0 0 1
 refdes=J5
 T 56790 55910 5 16 0 1 90 0 1
-device=microUSB_AB_antek
+device=microUSB_C
 T 56800 68050 5 10 0 0 0 0 1
-footprint=microUSB_AB_1.fp
+footprint=microUSB_C.lht
 T 56500 55600 5 10 0 0 0 0 1
 value=conn
 }
