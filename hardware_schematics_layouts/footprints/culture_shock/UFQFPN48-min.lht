@@ -1,9 +1,11 @@
-li:pcb-rnd-subcircuit-v3 {
+li:pcb-rnd-subcircuit-v4 {
  ha:subc.419507 {
   ha:attributes {
    refdes = U0
   }
   ha:data {
+   li:padstack_prototypes {
+   }
    li:objects {
     ha:via.419498 {
      name = 49
@@ -18,7 +20,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = diagonal-round
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -36,8 +38,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = horver-round
-       bottom = diagonal-round
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -55,8 +56,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = diagonal-round
-       bottom = horver-sharp
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -74,7 +74,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = horver-round
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -92,7 +92,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = diagonal-round
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -110,8 +110,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = horver-round
-       top-mask-open = horver-sharp
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -129,7 +128,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = diagonal-round
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -147,7 +146,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = horver-round
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -165,7 +164,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = diagonal-round
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil

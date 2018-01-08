@@ -17,6 +17,22 @@ li:pcb-rnd-subcircuit-v4 {
      }
      li:objects {
       ha:arc.693405 {
+       astart = 0
+       thickness = 0.6mm
+       width = 1.2mm
+       height = 1.2mm
+       ha:attributes {
+        term = 2
+       }
+       x = 23.0mm
+       y = 39.0mm
+       adelta = 90
+       ha:flags {
+        clearline = 1
+       }
+       clearance = 0.42mm
+      }
+      ha:arc.693406 {
        astart = 90
        thickness = 0.6mm
        width = 1.2mm
@@ -26,27 +42,11 @@ li:pcb-rnd-subcircuit-v4 {
        }
        x = 23.0mm
        y = 39.0mm
-       adelta = -90
+       adelta = 90
        ha:flags {
         clearline = 1
        }
-       clearance = 0.0
-      }
-      ha:arc.693406 {
-       astart = 180
-       thickness = 0.6mm
-       width = 1.2mm
-       height = 1.2mm
-       ha:attributes {
-        term = 2
-       }
-       x = 23.0mm
-       y = 39.0mm
-       adelta = -90
-       ha:flags {
-        clearline = 1
-       }
-       clearance = 0.0
+       clearance = 0.42mm
       }
       ha:arc.693407 {
        astart = -90
@@ -62,7 +62,7 @@ li:pcb-rnd-subcircuit-v4 {
        ha:flags {
         clearline = 1
        }
-       clearance = 0.0
+       clearance = 0.42mm
       }
       ha:arc.693408 {
        astart = -180
@@ -78,7 +78,7 @@ li:pcb-rnd-subcircuit-v4 {
        ha:flags {
         clearline = 1
        }
-       clearance = 0.0
+       clearance = 0.42mm
       }
       ha:polygon.693423 {
        ha:attributes {
@@ -95,9 +95,9 @@ li:pcb-rnd-subcircuit-v4 {
         }
        }
        ha:flags {
-        clearpoly = 1
+        clearpolypoly = 1
        }
-       clearance = 40.0mil
+       clearance = 0.42mm
       }
       ha:polygon.693430 {
        ha:attributes {
@@ -114,9 +114,9 @@ li:pcb-rnd-subcircuit-v4 {
         }
        }
        ha:flags {
-        clearpoly = 1
+        clearpolypoly = 1
        }
-       clearance = 40.0mil
+       clearance = 0.42mm
       }
      }
      ha:combining {

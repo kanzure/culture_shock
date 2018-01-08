@@ -1,9 +1,11 @@
-li:pcb-rnd-subcircuit-v3 {
+li:pcb-rnd-subcircuit-v4 {
  ha:subc.419507 {
   ha:attributes {
    refdes = U0
   }
   ha:data {
+   li:padstack_prototypes {
+   }
    li:objects {
     ha:via.419498 {
      name = 49
@@ -18,7 +20,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = diagonal-round
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -36,8 +38,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = horver-round
-       bottom = diagonal-round
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -55,8 +56,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = diagonal-round
-       bottom = horver-sharp
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -74,7 +74,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = horver-round
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -92,7 +92,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = diagonal-round
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -110,8 +110,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = horver-round
-       top-mask-open = horver-sharp
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -129,7 +128,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = diagonal-round
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -147,7 +146,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = horver-round
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -165,7 +164,7 @@ li:pcb-rnd-subcircuit-v3 {
      ha:flags {
       via = 1
       ha:thermal {
-       bot-gnd = diagonal-round
+       {bottom copper} = diagonal-round
       }
      }
      clearance = 25.0mil
@@ -180,7 +179,7 @@ li:pcb-rnd-subcircuit-v3 {
      }
      li:objects {
       ha:line.418377 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 4.100196mm
        thickness = 0.279908mm
        ha:attributes {
@@ -193,7 +192,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 4.100196mm
       }
       ha:line.418380 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 9.600058mm
        thickness = 0.279908mm
        ha:attributes {
@@ -206,7 +205,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 9.600058mm
       }
       ha:line.418383 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 10.35012mm
        thickness = 0.279908mm
        ha:attributes {
@@ -219,7 +218,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 10.090024mm
       }
       ha:line.418386 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 3.61023mm
        thickness = 0.279908mm
        ha:attributes {
@@ -232,7 +231,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 3.350134mm
       }
       ha:line.418389 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 4.600322mm
        thickness = 0.279908mm
        ha:attributes {
@@ -245,7 +244,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 4.600322mm
       }
       ha:line.418392 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 9.099932mm
        thickness = 0.279908mm
        ha:attributes {
@@ -258,7 +257,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 9.099932mm
       }
       ha:line.418395 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 10.35012mm
        thickness = 0.279908mm
        ha:attributes {
@@ -271,7 +270,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 10.090024mm
       }
       ha:line.418398 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 3.61023mm
        thickness = 0.279908mm
        ha:attributes {
@@ -284,7 +283,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 3.350134mm
       }
       ha:line.418401 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 5.100194mm
        thickness = 0.279908mm
        ha:attributes {
@@ -297,7 +296,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 5.100194mm
       }
       ha:line.418404 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 8.60006mm
        thickness = 0.279908mm
        ha:attributes {
@@ -310,7 +309,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 8.60006mm
       }
       ha:line.418407 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 10.35012mm
        thickness = 0.279908mm
        ha:attributes {
@@ -323,7 +322,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 10.090024mm
       }
       ha:line.418410 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 3.61023mm
        thickness = 0.279908mm
        ha:attributes {
@@ -336,7 +335,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 3.350134mm
       }
       ha:line.418413 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 5.60032mm
        thickness = 0.279908mm
        ha:attributes {
@@ -349,7 +348,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 5.60032mm
       }
       ha:line.418416 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 8.099934mm
        thickness = 0.279908mm
        ha:attributes {
@@ -362,7 +361,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 8.099934mm
       }
       ha:line.418419 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 10.35012mm
        thickness = 0.279908mm
        ha:attributes {
@@ -375,7 +374,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 10.090024mm
       }
       ha:line.418422 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 3.61023mm
        thickness = 0.279908mm
        ha:attributes {
@@ -388,7 +387,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 3.350134mm
       }
       ha:line.418425 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 6.100192mm
        thickness = 0.279908mm
        ha:attributes {
@@ -401,7 +400,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 6.100192mm
       }
       ha:line.418428 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 7.600062mm
        thickness = 0.279908mm
        ha:attributes {
@@ -414,7 +413,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 7.600062mm
       }
       ha:line.418431 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 10.35012mm
        thickness = 0.279908mm
        ha:attributes {
@@ -427,7 +426,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 10.090024mm
       }
       ha:line.418434 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 3.61023mm
        thickness = 0.279908mm
        ha:attributes {
@@ -440,7 +439,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 3.350134mm
       }
       ha:line.418437 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 6.600318mm
        thickness = 0.279908mm
        ha:attributes {
@@ -453,7 +452,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 6.600318mm
       }
       ha:line.418440 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 7.099936mm
        thickness = 0.279908mm
        ha:attributes {
@@ -466,7 +465,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 7.099936mm
       }
       ha:line.418443 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 10.35012mm
        thickness = 0.279908mm
        ha:attributes {
@@ -479,7 +478,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 10.090024mm
       }
       ha:line.418446 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 3.61023mm
        thickness = 0.279908mm
        ha:attributes {
@@ -492,7 +491,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 3.350134mm
       }
       ha:line.418449 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 7.099936mm
        thickness = 0.279908mm
        ha:attributes {
@@ -505,7 +504,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 7.099936mm
       }
       ha:line.418452 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 6.600318mm
        thickness = 0.279908mm
        ha:attributes {
@@ -518,7 +517,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 6.600318mm
       }
       ha:line.418455 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 10.35012mm
        thickness = 0.279908mm
        ha:attributes {
@@ -531,7 +530,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 10.090024mm
       }
       ha:line.418458 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 3.61023mm
        thickness = 0.279908mm
        ha:attributes {
@@ -544,7 +543,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 3.350134mm
       }
       ha:line.418461 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 7.600062mm
        thickness = 0.279908mm
        ha:attributes {
@@ -557,7 +556,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 7.600062mm
       }
       ha:line.418464 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 6.100192mm
        thickness = 0.279908mm
        ha:attributes {
@@ -570,7 +569,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 6.100192mm
       }
       ha:line.418467 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 10.35012mm
        thickness = 0.279908mm
        ha:attributes {
@@ -583,7 +582,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 10.090024mm
       }
       ha:line.418470 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 3.61023mm
        thickness = 0.279908mm
        ha:attributes {
@@ -596,7 +595,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 3.350134mm
       }
       ha:line.418473 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 8.099934mm
        thickness = 0.279908mm
        ha:attributes {
@@ -609,7 +608,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 8.099934mm
       }
       ha:line.418476 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 5.60032mm
        thickness = 0.279908mm
        ha:attributes {
@@ -622,7 +621,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 5.60032mm
       }
       ha:line.418479 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 10.35012mm
        thickness = 0.279908mm
        ha:attributes {
@@ -635,7 +634,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 10.090024mm
       }
       ha:line.418482 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 3.61023mm
        thickness = 0.279908mm
        ha:attributes {
@@ -648,7 +647,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 3.350134mm
       }
       ha:line.418485 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 8.60006mm
        thickness = 0.279908mm
        ha:attributes {
@@ -661,7 +660,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 8.60006mm
       }
       ha:line.418488 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 5.100194mm
        thickness = 0.279908mm
        ha:attributes {
@@ -674,7 +673,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 5.100194mm
       }
       ha:line.418491 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 10.35012mm
        thickness = 0.279908mm
        ha:attributes {
@@ -687,7 +686,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 10.090024mm
       }
       ha:line.418494 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 3.61023mm
        thickness = 0.279908mm
        ha:attributes {
@@ -700,7 +699,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 3.350134mm
       }
       ha:line.418497 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 9.099932mm
        thickness = 0.279908mm
        ha:attributes {
@@ -713,7 +712,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 9.099932mm
       }
       ha:line.418500 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 4.600322mm
        thickness = 0.279908mm
        ha:attributes {
@@ -726,7 +725,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 4.600322mm
       }
       ha:line.418503 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 10.35012mm
        thickness = 0.279908mm
        ha:attributes {
@@ -739,7 +738,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 10.090024mm
       }
       ha:line.418506 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 3.61023mm
        thickness = 0.279908mm
        ha:attributes {
@@ -752,7 +751,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 3.350134mm
       }
       ha:line.418509 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 9.600058mm
        thickness = 0.279908mm
        ha:attributes {
@@ -765,7 +764,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 9.600058mm
       }
       ha:line.418512 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 4.100196mm
        thickness = 0.279908mm
        ha:attributes {
@@ -778,7 +777,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 4.100196mm
       }
       ha:line.418515 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 10.35012mm
        thickness = 0.279908mm
        ha:attributes {
@@ -791,7 +790,7 @@ li:pcb-rnd-subcircuit-v3 {
        y1 = 10.090024mm
       }
       ha:line.418518 {
-       clearance = 22.44mil
+       clearance = 0.42mm
        y2 = 3.61023mm
        thickness = 0.279908mm
        ha:attributes {
@@ -818,7 +817,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418923 {
        ha:attributes {
@@ -835,7 +834,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418928 {
        ha:attributes {
@@ -851,7 +850,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418933 {
        ha:attributes {
@@ -868,7 +867,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418938 {
        ha:attributes {
@@ -885,7 +884,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418943 {
        ha:attributes {
@@ -902,7 +901,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418948 {
        ha:attributes {
@@ -919,7 +918,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418953 {
        ha:attributes {
@@ -936,7 +935,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418958 {
        ha:attributes {
@@ -953,7 +952,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418963 {
        ha:attributes {
@@ -970,7 +969,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418968 {
        ha:attributes {
@@ -986,7 +985,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418973 {
        ha:attributes {
@@ -1003,7 +1002,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418978 {
        ha:attributes {
@@ -1020,7 +1019,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418983 {
        ha:attributes {
@@ -1037,7 +1036,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418988 {
        ha:attributes {
@@ -1054,7 +1053,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418993 {
        ha:attributes {
@@ -1071,7 +1070,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.418998 {
        ha:attributes {
@@ -1088,7 +1087,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419003 {
        ha:attributes {
@@ -1105,7 +1104,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419008 {
        ha:attributes {
@@ -1121,7 +1120,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419013 {
        ha:attributes {
@@ -1138,7 +1137,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419018 {
        ha:attributes {
@@ -1155,7 +1154,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419023 {
        ha:attributes {
@@ -1172,7 +1171,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419028 {
        ha:attributes {
@@ -1189,7 +1188,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419033 {
        ha:attributes {
@@ -1206,7 +1205,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419038 {
        ha:attributes {
@@ -1223,7 +1222,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419043 {
        ha:attributes {
@@ -1240,7 +1239,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419048 {
        ha:attributes {
@@ -1256,7 +1255,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419053 {
        ha:attributes {
@@ -1273,7 +1272,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419058 {
        ha:attributes {
@@ -1290,7 +1289,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419063 {
        ha:attributes {
@@ -1307,7 +1306,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419068 {
        ha:attributes {
@@ -1324,7 +1323,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419073 {
        ha:attributes {
@@ -1341,7 +1340,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419078 {
        ha:attributes {
@@ -1358,7 +1357,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419083 {
        ha:attributes {
@@ -1375,7 +1374,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419088 {
        ha:attributes {
@@ -1391,7 +1390,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419093 {
        ha:attributes {
@@ -1408,7 +1407,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419098 {
        ha:attributes {
@@ -1425,7 +1424,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419103 {
        ha:attributes {
@@ -1442,7 +1441,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419108 {
        ha:attributes {
@@ -1459,7 +1458,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419113 {
        ha:attributes {
@@ -1476,7 +1475,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419118 {
        ha:attributes {
@@ -1493,7 +1492,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419123 {
        ha:attributes {
@@ -1510,7 +1509,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419128 {
        ha:attributes {
@@ -1526,7 +1525,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419133 {
        ha:attributes {
@@ -1543,7 +1542,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419138 {
        ha:attributes {
@@ -1560,7 +1559,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419143 {
        ha:attributes {
@@ -1577,7 +1576,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419148 {
        ha:attributes {
@@ -1594,7 +1593,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419153 {
        ha:attributes {
@@ -1611,7 +1610,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419158 {
        ha:attributes {
@@ -1628,7 +1627,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419163 {
        ha:attributes {
@@ -1645,7 +1644,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419168 {
        ha:attributes {
@@ -1661,7 +1660,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419173 {
        ha:attributes {
@@ -1678,7 +1677,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419178 {
        ha:attributes {
@@ -1695,7 +1694,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419183 {
        ha:attributes {
@@ -1712,7 +1711,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419188 {
        ha:attributes {
@@ -1729,7 +1728,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419193 {
        ha:attributes {
@@ -1746,7 +1745,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419198 {
        ha:attributes {
@@ -1763,7 +1762,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419203 {
        ha:attributes {
@@ -1780,7 +1779,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419208 {
        ha:attributes {
@@ -1796,7 +1795,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419213 {
        ha:attributes {
@@ -1813,7 +1812,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419218 {
        ha:attributes {
@@ -1830,7 +1829,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419223 {
        ha:attributes {
@@ -1847,7 +1846,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419228 {
        ha:attributes {
@@ -1864,7 +1863,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419233 {
        ha:attributes {
@@ -1881,7 +1880,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419238 {
        ha:attributes {
@@ -1898,7 +1897,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419243 {
        ha:attributes {
@@ -1915,7 +1914,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419248 {
        ha:attributes {
@@ -1931,7 +1930,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419253 {
        ha:attributes {
@@ -1948,7 +1947,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419258 {
        ha:attributes {
@@ -1965,7 +1964,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419263 {
        ha:attributes {
@@ -1982,7 +1981,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419268 {
        ha:attributes {
@@ -1999,7 +1998,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419273 {
        ha:attributes {
@@ -2016,7 +2015,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419278 {
        ha:attributes {
@@ -2033,7 +2032,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419283 {
        ha:attributes {
@@ -2050,7 +2049,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419288 {
        ha:attributes {
@@ -2066,7 +2065,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419293 {
        ha:attributes {
@@ -2083,7 +2082,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419298 {
        ha:attributes {
@@ -2100,7 +2099,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419303 {
        ha:attributes {
@@ -2117,7 +2116,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419308 {
        ha:attributes {
@@ -2134,7 +2133,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419313 {
        ha:attributes {
@@ -2151,7 +2150,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419318 {
        ha:attributes {
@@ -2168,7 +2167,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419323 {
        ha:attributes {
@@ -2185,7 +2184,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419328 {
        ha:attributes {
@@ -2201,7 +2200,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419333 {
        ha:attributes {
@@ -2218,7 +2217,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419338 {
        ha:attributes {
@@ -2235,7 +2234,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419343 {
        ha:attributes {
@@ -2252,7 +2251,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419348 {
        ha:attributes {
@@ -2269,7 +2268,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419353 {
        ha:attributes {
@@ -2286,7 +2285,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419358 {
        ha:attributes {
@@ -2303,7 +2302,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419363 {
        ha:attributes {
@@ -2320,7 +2319,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419368 {
        ha:attributes {
@@ -2336,7 +2335,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419373 {
        ha:attributes {
@@ -2353,7 +2352,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419378 {
        ha:attributes {
@@ -2370,7 +2369,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419383 {
        ha:attributes {
@@ -2387,7 +2386,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419388 {
        ha:attributes {
@@ -2404,7 +2403,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419393 {
        ha:attributes {
@@ -2421,7 +2420,7 @@ li:pcb-rnd-subcircuit-v3 {
        ha:flags {
         clearpolypoly = 1
        }
-       clearance = 22.44mil
+       clearance = 0.42mm
       }
       ha:polygon.419398 {
        ha:attributes {

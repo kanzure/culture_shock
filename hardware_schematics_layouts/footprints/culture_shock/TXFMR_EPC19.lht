@@ -1,9 +1,11 @@
-li:pcb-rnd-subcircuit-v3 {
+li:pcb-rnd-subcircuit-v4 {
  ha:subc.267256 {
   ha:attributes {
    refdes = T0
   }
   ha:data {
+   li:padstack_prototypes {
+   }
    li:objects {
    }
    li:layers {
@@ -27,10 +29,10 @@ li:pcb-rnd-subcircuit-v3 {
         }
        }
        ha:flags {
-        clearpoly = 1
+        clearpolypoly = 1
         termname = 1
        }
-       clearance = 40.0mil
+       clearance = 0.42mm
       }
       ha:polygon.267317 {
        ha:attributes {
@@ -45,10 +47,10 @@ li:pcb-rnd-subcircuit-v3 {
         }
        }
        ha:flags {
-        clearpoly = 1
+        clearpolypoly = 1
         termname = 1
        }
-       clearance = 40.0mil
+       clearance = 0.42mm
       }
       ha:polygon.267322 {
        ha:attributes {
@@ -63,10 +65,10 @@ li:pcb-rnd-subcircuit-v3 {
         }
        }
        ha:flags {
-        clearpoly = 1
+        clearpolypoly = 1
         termname = 1
        }
-       clearance = 40.0mil
+       clearance = 0.42mm
       }
       ha:polygon.267327 {
        ha:attributes {
@@ -81,10 +83,10 @@ li:pcb-rnd-subcircuit-v3 {
         }
        }
        ha:flags {
-        clearpoly = 1
+        clearpolypoly = 1
         termname = 1
        }
-       clearance = 40.0mil
+       clearance = 0.42mm
       }
       ha:polygon.267332 {
        ha:attributes {
@@ -99,10 +101,10 @@ li:pcb-rnd-subcircuit-v3 {
         }
        }
        ha:flags {
-        clearpoly = 1
+        clearpolypoly = 1
         termname = 1
        }
-       clearance = 40.0mil
+       clearance = 0.42mm
       }
       ha:polygon.267337 {
        ha:attributes {
@@ -117,10 +119,10 @@ li:pcb-rnd-subcircuit-v3 {
         }
        }
        ha:flags {
-        clearpoly = 1
+        clearpolypoly = 1
         termname = 1
        }
-       clearance = 40.0mil
+       clearance = 0.42mm
       }
       ha:polygon.267342 {
        ha:attributes {
@@ -135,10 +137,10 @@ li:pcb-rnd-subcircuit-v3 {
         }
        }
        ha:flags {
-        clearpoly = 1
+        clearpolypoly = 1
         termname = 1
        }
-       clearance = 40.0mil
+       clearance = 0.42mm
       }
       ha:polygon.267347 {
        ha:attributes {
@@ -153,10 +155,10 @@ li:pcb-rnd-subcircuit-v3 {
         }
        }
        ha:flags {
-        clearpoly = 1
+        clearpolypoly = 1
         termname = 1
        }
-       clearance = 40.0mil
+       clearance = 0.42mm
       }
       ha:polygon.267352 {
        ha:attributes {
@@ -171,10 +173,10 @@ li:pcb-rnd-subcircuit-v3 {
         }
        }
        ha:flags {
-        clearpoly = 1
+        clearpolypoly = 1
         termname = 1
        }
-       clearance = 40.0mil
+       clearance = 0.42mm
       }
       ha:polygon.267357 {
        ha:attributes {
@@ -189,10 +191,10 @@ li:pcb-rnd-subcircuit-v3 {
         }
        }
        ha:flags {
-        clearpoly = 1
+        clearpolypoly = 1
         termname = 1
        }
-       clearance = 40.0mil
+       clearance = 0.42mm
       }
      }
      ha:combining {
@@ -336,127 +338,127 @@ li:pcb-rnd-subcircuit-v3 {
        }
        clearance = 40.0mil
       }
-      ha:polygon.267367 {
-       ha:attributes {
-       }
-       li:geometry {
-        ta:contour {
-         { 28.55mm; 21.15mm }
-         { 31.65mm; 21.15mm }
-         { 31.65mm; 22.65mm }
-         { 28.55mm; 22.65mm }
-        }
-       }
-       ha:flags {
-        clearpoly = 1
-       }
-       clearance = 40.0mil
-      }
-      ha:polygon.267372 {
-       ha:attributes {
-       }
-       li:geometry {
-        ta:contour {
-         { 28.55mm; 23.7mm }
-         { 31.65mm; 23.7mm }
-         { 31.65mm; 25.2mm }
-         { 28.55mm; 25.2mm }
-        }
-       }
-       ha:flags {
-        clearpoly = 1
-       }
-       clearance = 40.0mil
-      }
-      ha:polygon.267377 {
-       ha:attributes {
-       }
-       li:geometry {
-        ta:contour {
-         { 51.55mm; 23.7mm }
-         { 2.1515748in; 23.7mm }
-         { 2.1515748in; 25.2mm }
-         { 51.55mm; 25.2mm }
-        }
-       }
-       ha:flags {
-        clearpoly = 1
-       }
-       clearance = 40.0mil
-      }
-      ha:polygon.267382 {
-       ha:attributes {
-       }
-       li:geometry {
-        ta:contour {
-         { 51.55mm; 22.65mm }
-         { 2.1515748in; 22.65mm }
-         { 2.1515748in; 21.15mm }
-         { 51.55mm; 21.15mm }
-        }
-       }
-       ha:flags {
-        clearpoly = 1
-       }
-       clearance = 40.0mil
-      }
-      ha:polygon.267387 {
-       ha:attributes {
-       }
-       li:geometry {
-        ta:contour {
-         { 51.55mm; 20.1mm }
-         { 2.1515748in; 20.1mm }
-         { 2.1515748in; 18.6mm }
-         { 51.55mm; 18.6mm }
-        }
-       }
-       ha:flags {
-        clearpoly = 1
-       }
-       clearance = 40.0mil
-      }
-      ha:polygon.267392 {
-       ha:attributes {
-       }
-       li:geometry {
-        ta:contour {
-         { 2.1515748in; 17.6mm }
-         { 51.55mm; 17.6mm }
-         { 51.55mm; 16.1mm }
-         { 2.1515748in; 16.1mm }
-        }
-       }
-       ha:flags {
-        clearpoly = 1
-       }
-       clearance = 40.0mil
-      }
-      ha:polygon.267397 {
-       ha:attributes {
-       }
-       li:geometry {
-        ta:contour {
-         { 51.55mm; 15.05mm }
-         { 2.1515748in; 15.05mm }
-         { 2.1515748in; 13.55mm }
-         { 51.55mm; 13.55mm }
-        }
-       }
-       ha:flags {
-        clearpoly = 1
-       }
-       clearance = 40.0mil
-      }
       ha:polygon.267402 {
        ha:attributes {
        }
        li:geometry {
         ta:contour {
-         { 2.1515748in; 12.5mm }
-         { 51.55mm; 12.5mm }
-         { 51.55mm; 11.0mm }
-         { 2.1515748in; 11.0mm }
+         { 54.7mm; 12.55mm }
+         { 51.5mm; 12.55mm }
+         { 51.5mm; 431.1023622mil }
+         { 54.7mm; 431.1023622mil }
+        }
+       }
+       ha:flags {
+        clearpoly = 1
+       }
+       clearance = 40.0mil
+      }
+      ha:polygon.506445 {
+       ha:attributes {
+       }
+       li:geometry {
+        ta:contour {
+         { 54.7mm; 15.1mm }
+         { 51.5mm; 15.1mm }
+         { 51.5mm; 13.5mm }
+         { 54.7mm; 13.5mm }
+        }
+       }
+       ha:flags {
+        clearpoly = 1
+       }
+       clearance = 40.0mil
+      }
+      ha:polygon.506450 {
+       ha:attributes {
+       }
+       li:geometry {
+        ta:contour {
+         { 54.7mm; 17.65mm }
+         { 51.5mm; 17.65mm }
+         { 51.5mm; 16.05mm }
+         { 54.7mm; 16.05mm }
+        }
+       }
+       ha:flags {
+        clearpoly = 1
+       }
+       clearance = 40.0mil
+      }
+      ha:polygon.506455 {
+       ha:attributes {
+       }
+       li:geometry {
+        ta:contour {
+         { 54.7mm; 20.15mm }
+         { 51.5mm; 20.15mm }
+         { 51.5mm; 18.55mm }
+         { 54.7mm; 18.55mm }
+        }
+       }
+       ha:flags {
+        clearpoly = 1
+       }
+       clearance = 40.0mil
+      }
+      ha:polygon.506460 {
+       ha:attributes {
+       }
+       li:geometry {
+        ta:contour {
+         { 54.7mm; 893.7007874mil }
+         { 51.5mm; 893.7007874mil }
+         { 51.5mm; 21.1mm }
+         { 54.7mm; 21.1mm }
+        }
+       }
+       ha:flags {
+        clearpoly = 1
+       }
+       clearance = 40.0mil
+      }
+      ha:polygon.506465 {
+       ha:attributes {
+       }
+       li:geometry {
+        ta:contour {
+         { 54.7mm; 25.25mm }
+         { 51.5mm; 25.25mm }
+         { 51.5mm; 931.1023622mil }
+         { 54.7mm; 931.1023622mil }
+        }
+       }
+       ha:flags {
+        clearpoly = 1
+       }
+       clearance = 40.0mil
+      }
+      ha:polygon.506475 {
+       ha:attributes {
+       }
+       li:geometry {
+        ta:contour {
+         { 31.7mm; 893.7007874mil }
+         { 28.5mm; 893.7007874mil }
+         { 28.5mm; 21.1mm }
+         { 31.7mm; 21.1mm }
+        }
+       }
+       ha:flags {
+        clearpoly = 1
+       }
+       clearance = 40.0mil
+      }
+      ha:polygon.506480 {
+       ha:attributes {
+       }
+       li:geometry {
+        ta:contour {
+         { 31.7mm; 25.25mm }
+         { 28.5mm; 25.25mm }
+         { 28.5mm; 931.1023622mil }
+         { 31.7mm; 931.1023622mil }
         }
        }
        ha:flags {
