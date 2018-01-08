@@ -120,8 +120,8 @@ li:pcb-rnd-subcircuit-v4 {
         term = D0
        }
        direction = 0
-       x = 3.1515748in
-       y = 5.05mm
+       x = 79.75mm
+       y = 2.1mm
        string = %a.parent.refdes%
        fid = 0
        ha:flags {
@@ -146,10 +146,10 @@ li:pcb-rnd-subcircuit-v4 {
        }
        li:geometry {
         ta:contour {
-         { 77.4mm; 4.15mm }
-         { 78.1mm; 4.15mm }
-         { 78.1mm; 4.85mm }
-         { 77.4mm; 4.85mm }
+         { 77.35mm; 4.1mm }
+         { 78.15mm; 4.1mm }
+         { 78.15mm; 4.9mm }
+         { 77.35mm; 4.9mm }
         }
        }
        ha:flags {
@@ -157,19 +157,19 @@ li:pcb-rnd-subcircuit-v4 {
        }
        clearance = 0.5mm
       }
-      ha:polygon.555124 {
+      ha:polygon.555131 {
        ha:attributes {
-        term = 2
        }
        li:geometry {
         ta:contour {
-         { 79.6mm; 4.15mm }
-         { 80.3mm; 4.15mm }
-         { 80.3mm; 4.85mm }
-         { 79.6mm; 4.85mm }
+         { 79.55mm; 4.1mm }
+         { 80.35mm; 4.1mm }
+         { 80.35mm; 4.9mm }
+         { 79.55mm; 4.9mm }
         }
        }
        ha:flags {
+        selected = 1
         termname = 1
        }
        clearance = 0.5mm
