@@ -36,14 +36,16 @@ li:pcb-rnd-conf-v1 {
   }
   ha:design {
    min_ring = 10.00 mil
+   fab_author = Kit Matic
    text_scale = 140
    min_slk = 199.80 um
    max_height = 5.00000 in
+   line_thickness = 0.2500 mm
    shrink = 200.00 um
    poly_isle_area = 199999999.999200
-   max_width = 6.00000 in
+   max_width = 60.0000 mm
    min_wid = 200.00 um
-   bloat = 199.80 um
+   bloat = 0.1520 mm
    min_drill = 15.00 mil
   }
  }
