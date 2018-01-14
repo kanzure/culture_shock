@@ -45,7 +45,7 @@ value=2M4
 N 50100 57700 52200 57700 4
 {
 T 50200 57750 5 10 1 1 0 0 1
-netname=FB
+netname=U3_FB
 }
 C 54800 57900 1 270 1 schottky.sym
 {
@@ -62,7 +62,7 @@ N 54000 57700 54000 57900 4
 N 54000 57900 55000 57900 4
 {
 T 54100 57950 5 10 1 1 0 0 1
-netname=SW
+netname=U3_SW
 }
 N 53100 57700 53100 57900 4
 C 55000 56800 1 270 0 coil-1.sym
@@ -116,6 +116,10 @@ value=180k
 }
 N 55000 57900 55000 56800 4
 N 49900 53500 54000 53500 4
+{
+T 50000 53550 5 10 1 1 0 0 1
+netname=U3_VIN
+}
 N 52200 55200 50500 55200 4
 {
 T 51700 55250 5 10 1 1 0 6 1
@@ -146,36 +150,21 @@ value=conn
 N 49600 55200 47500 55200 4
 C 45400 50500 1 0 0 input-hier.sym
 {
-T 45700 51100 5 10 0 0 0 0 1
-value=pageconn
 T 45700 51000 5 10 0 0 0 0 1
-footprint=none
+footprint=pageconn
 T 45400 50500 5 10 1 1 0 0 1
 refdes=5V
 T 45400 50500 5 10 0 0 0 0 1
-device=pageconn
-}
-C 46400 55100 1 0 0 input-hier.sym
-{
-T 46700 55700 5 10 0 0 0 0 1
-value=pageconn
-T 46700 55600 5 10 0 0 0 0 1
-footprint=none
-T 46500 55100 5 10 1 1 0 0 1
-refdes=!SHDN1
-T 46400 55100 5 10 0 0 0 0 1
-device=pageconn
+device=input
 }
 C 45400 49600 1 0 0 input-hier.sym
 {
-T 45700 50200 5 10 0 0 0 0 1
-value=pageconn
 T 45700 50100 5 10 0 0 0 0 1
-footprint=none
+footprint=pageconn
 T 45600 49600 5 10 1 1 0 0 1
-refdes=GND
+refdes=VSS
 T 45400 49600 5 10 0 0 0 0 1
-device=pageconn
+device=input
 }
 N 48100 47200 49600 47200 4
 C 50500 47000 1 90 0 jump-solder.sym
@@ -194,27 +183,27 @@ N 48100 53500 48100 40500 4
 N 48100 53500 49000 53500 4
 C 46400 48600 1 0 0 input-hier.sym
 {
-T 46700 49200 5 10 0 0 0 0 1
-value=pageconn
 T 46400 48600 5 10 1 1 0 0 1
 refdes=!SHDN2
 T 46400 48600 5 10 0 0 0 0 1
-device=pageconn
+device=input
 T 46400 48600 5 10 0 0 0 0 1
-footprint=none
+footprint=pageconn
 }
 C 62000 54200 1 0 0 output-hier.sym
 {
-T 62200 54800 5 10 0 0 0 0 1
-value=pageconn
 T 62300 54200 5 10 1 1 0 0 1
 refdes=18V
 T 62000 54200 5 10 0 0 0 0 1
-device=pageconn
+device=input
 T 62000 54200 5 10 0 0 0 0 1
-footprint=none
+footprint=pageconn
 }
 N 49200 40500 55400 40500 4
+{
+T 49300 40550 5 10 1 1 0 0 1
+netname=U5_VIN
+}
 C 49200 40300 1 90 0 jump-solder.sym
 {
 T 48800 40700 5 8 0 0 90 0 1
@@ -238,10 +227,6 @@ N 51900 58100 51900 57700 4
 N 52800 56700 53100 56700 4
 N 53100 56700 53100 54000 4
 N 54000 55200 55000 55200 4
-{
-T 54400 55250 5 10 1 1 0 0 1
-netname=VIN
-}
 T 55700 54700 9 10 1 0 0 0 1
 substituted 10uF for 4.7uF (min)
 C 51800 59400 1 270 0 pnp-bec-123.sym
@@ -388,6 +373,10 @@ T 53100 48000 5 10 1 1 90 0 1
 value=7.5k
 }
 N 50500 47200 54600 47200 4
+{
+T 50600 47250 5 10 1 1 0 0 1
+netname=U4_VIN
+}
 C 50700 48800 1 180 0 resistor-1.sym
 {
 T 50400 48400 5 10 0 0 180 0 1
@@ -710,4 +699,13 @@ N 53600 42300 50800 42300 4
 {
 T 52100 42350 5 10 1 1 0 6 1
 netname=U5_!SHDN
+}
+C 46400 55100 1 0 0 input-hier.sym
+{
+T 46400 55100 5 10 1 1 0 0 1
+refdes=!SHDN1
+T 46400 55100 5 10 0 0 0 0 1
+device=input
+T 46400 55100 5 10 0 0 0 0 1
+footprint=pageconn
 }
