@@ -124,13 +124,6 @@ hackvana:
 	cd $(GRB); zip -9 $(BOARD2FABROOT)_rev-$(REV).zip *.g?? *.drl
 
 
-bom: $(BOMS)
-
-#this automatic target maker is not good for schematics with more than one page.
-$(BOMS): %.bom.tsv: %.sch
-	gnetlist -g partslist3 $< -o $@
-#	libreoffice --calc --infilter=generic_Text $@ &
-
 pdf: $(BOMPDFS)
 
 $(BOMPDFS): %.bom.tsv.pdf: %.bom.tsv
@@ -143,24 +136,30 @@ $(BOMPDFS): %.bom.tsv.pdf: %.bom.tsv
 # this explicitly makes boms from  schematics with more than one page:
 #	gnetlist -g partslist3  $(MULTIPAGENAMES)  -o $(MULTIPAGEOUTNAME)
 
-net: $(NETS) $(BOMS) $(DRC)
-
-#this automatic target maker is not good for schematics with more than one page.
-$(NETS): %.net: %.sch
-
-	gnetlist -g PCB  $< -o $@
-
-# this explicitly makes nets from  schematics with more than one page:
-#	gnetlist -g PCB  $(MULTIPAGENAMES)  -o $(MULTIPAGEOUTNAME)
-
 drc: $(DRC)
 
-#this automatic target maker is not good for schematics with more than one page.
 $(DRC): %.drc: %.sch
 
 	gnetlist -g drc2  $< -o $@
 
 
+bom: $(BOMS)
+
+$(BOMS): %.bom.tsv: %.sch
+	gnetlist -g partslist3 $< -o $@
+
+
+net: $(NETS) $(BOMS) $(DRC)
+
+$(NETS): %.net: %.sch
+
+	gnetlist -g PCB  $< -o $@
+
+
+
+
+# this explicitly makes nets from  schematics with more than one page:
+#	gnetlist -g PCB  $(MULTIPAGENAMES)  -o $(MULTIPAGEOUTNAME)
 
 
 pcb: $(BOARDS)
