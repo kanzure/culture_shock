@@ -121,7 +121,7 @@ refdes=J4
 T 59410 56010 5 16 0 1 90 2 1
 device=USB_B_TOP_2LEG
 T 59400 68150 5 10 0 0 0 6 1
-footprint=USB_B_TOP_2LEG.lht
+footprint=USB_B_micro_2leg.lht
 T 59700 55700 5 10 0 0 0 6 1
 value=conn
 }
@@ -859,7 +859,7 @@ refdes=J5
 T 60590 56010 5 16 0 1 90 0 1
 device=USB_B_TOP_2LEG
 T 60600 68150 5 10 0 0 0 0 1
-footprint=USB_B_TOP_2LEG.lht
+footprint=USB_B_micro_2leg.lht
 T 60300 55700 5 10 0 0 0 0 1
 value=conn
 }
