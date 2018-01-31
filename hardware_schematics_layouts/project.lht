@@ -1,5 +1,116 @@
 li:pcb-rnd-conf-v1 {
  ha:overwrite {
+  ha:appearance {
+   ha:color {
+    mask = {#072809}
+    white = {#ffffff}
+    grid = {#ff0000}
+    via_selected = {#00ffff}
+    subc = {#CC0000}
+    subc_nonetlist = {#551111}
+    li:layer {
+     {#fb0404}
+     {#102d74}
+     {#b01001}
+     {#711804}
+     {#0b1e54}
+     {#050826}
+     {#00868b}
+     {#228b22}
+     {#8b2323}
+     {#0b2984}
+     {#104e8b}
+     {#c25c06}
+     {#548b54}
+     {#8b7355}
+     {#00868b}
+     {#228b22}
+     {#8b2323}
+     {#3a5fcd}
+     {#104e8b}
+     {#cd3700}
+     {#548b54}
+     {#8b7355}
+     {#00868b}
+     {#228b22}
+     {#8b2323}
+     {#3a5fcd}
+     {#104e8b}
+     {#cd3700}
+     {#548b54}
+     {#8b7355}
+     {#00868b}
+     {#228b22}
+     {#8b2323}
+     {#3a5fcd}
+     {#104e8b}
+     {#cd3700}
+     {#548b54}
+     {#8b7355}
+    }
+    black = {#000000}
+    invisible_mark = {#cccccc}
+    subc_selected = {#00ffff}
+    element = {#000000}
+    cross = {#cdcd00}
+    invisible_objects = {#cccccc}
+    pin = {#4d4d4d}
+    crosshair = {#ff0000}
+    connected = {#00ff00}
+    via = {#7f7f7f}
+    rat_selected = {#00ffff}
+    rat = {#b8860b}
+    off_limit = {#cccccc}
+    background = {#e5e5e5}
+    li:layer_selected {
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+     {#00ffff}
+    }
+    element_selected = {#00ffff}
+    pin_name = {#ff0000}
+    warn = {#ff8000}
+    element_nonetlist = {#777777}
+    padstackmark = {#CC0000}
+    pin_selected = {#00ffff}
+    paste = {#cd00cd}
+   }
+  }
   ha:plugins {
    ha:hid_gtk {
     ha:window_geometry {
@@ -35,18 +146,18 @@ li:pcb-rnd-conf-v1 {
    }
   }
   ha:design {
-   min_ring = 10.00 mil
+   min_ring = 152.50 um
    fab_author = Kit Matic
-   text_scale = 100
+   text_scale = 140
    groups = {12:10:11:c,c,c:7:8:s,s,s:14:9:13}
-   min_slk = 8.00 mil
-   max_height = 99.0000 mm
+   min_slk = 199.80 um
+   max_height = 120.0000 mm
    line_thickness = 0.2500 mm
-   shrink = 203.00 um
+   shrink = 200.00 um
    poly_isle_area = 199999999.999200
-   max_width = 188.0000 mm
-   min_wid = 8.00 mil
-   bloat = 6.00 mil
+   max_width = 120.0000 mm
+   min_wid = 200.00 um
+   bloat = 199.80 um
    li:default_layer_name {
     top
     bottom
