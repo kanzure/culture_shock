@@ -32,7 +32,9 @@ The **.lht files** hold layout data edited with the **pcb-rnd** FOSS program fro
 If it's your first time using pcb or pcb-rnd, start from the begining with this tutorial for **pcb**, which **pcb-rnd** is derived from:  
 	http://www.delorie.com/pcb/docs/gs/gs.html
 	
-To take a *quick look* at the state of things without needing to learn to edit them, you can install the software on a debian testing installation.  It can be easy to start using those schematic and pcb editors -- just give these commands:
+To take a *quick look* at the state of things without needing to learn to edit them, you can look at image files of the schematics and layout with any browser.
+Look in directory hardware_schematics_layouts for these files:  kvboard.lht.png kvboard.sch.png pyflex_f401.sch.png pyflex_f401.lht pyflex_f401_boost.sch.png.
+To get ability to zoomin and also edit the schematics and layout, install the software as below on a debian testing installation.  It can be easy to start using those schematic and pcb editors -- just give these commands:
 
 ```bash
 sudo apt-get update
