@@ -12,7 +12,7 @@ first-pagenum=1
 T 59400 37900 5 10 1 1 0 0 1
 last-pagenum=2
 T 62600 38200 5 10 1 1 0 0 1
-rev=2018-01-27 v0.4
+rev=2018-02-13 v0.4
 T 64400 43400 5 18 1 1 270 0 1
 title2=Culture Shock PYFLEX_F401
 }
@@ -124,9 +124,9 @@ C 59700 55500 1 0 1 USB_SMT_5p.sym
 T 59700 56750 5 10 1 1 0 6 1
 refdes=J4
 T 59410 55810 5 16 0 1 90 2 1
-device=USB_B_TOP_2LEG
+device=ELMCUSB5SMT_WP
 T 59400 67950 5 10 0 0 0 6 1
-footprint=USB_B_micro_2leg.lht
+footprint=USB_AB_micro_4leg_WR.lht
 T 59700 55500 5 10 0 0 0 6 1
 value=conn
 }
@@ -192,7 +192,7 @@ description=Cap MLCC 0.1uF 25V X7R 10% 1608
 T 41800 55900 5 10 1 1 0 0 1
 refdes=C23
 T 42300 55500 5 10 1 1 0 0 1
-value=0.1 uF
+value=0.1 uF 25V
 }
 N 39500 55300 42200 55300 4
 N 40500 55300 40500 56200 4
@@ -950,7 +950,7 @@ value=22.0
 }
 N 62500 57300 62200 57300 4
 N 63600 55600 63800 55600 4
-T 62300 58400 9 12 1 0 0 0 3
+T 64500 55900 9 12 1 0 90 0 3
 ***check grounding 
 of device USB 
 ID pin is correct.***
@@ -961,36 +961,10 @@ refdes=Q1
 T 57000 52600 5 10 0 0 180 6 1
 footprint=SOT23-3N.lht
 T 57700 52200 5 10 1 1 180 6 1
-device=TSM650P02CX
+device=AO3407A
 T 57000 52600 5 10 0 0 0 0 1
-description=MOSFET P-CH -30V -4.1A Vgs+/-12V
+description=MOSFET P-CH -30V -4.3A Vgs+/-20V
 T 57700 52300 5 10 1 1 0 0 1
-value=PFET
-}
-C 59500 52400 1 180 1 PFET_enh.sym
-{
-T 60200 51800 5 10 1 1 180 6 1
-refdes=Q2
-T 59500 52400 5 10 0 0 180 6 1
-footprint=SOT23-3N.lht
-T 60200 52000 5 10 1 1 180 6 1
-device=TSM650P02CX
-T 59500 52400 5 10 0 0 0 0 1
-description=MOSFET P-CH -30V -4.1A Vgs+/-12V
-T 60200 52100 5 10 1 1 0 0 1
-value=PFET
-}
-C 39800 49900 1 180 1 PFET_enh.sym
-{
-T 40500 49300 5 10 1 1 180 6 1
-refdes=Q3
-T 39800 49900 5 10 0 0 180 6 1
-footprint=SOT23-3N.lht
-T 40500 49500 5 10 1 1 180 6 1
-device=TSM650P02CX
-T 39800 49900 5 10 0 0 0 0 1
-description=MOSFET P-CH -30V -4.1A Vgs+/-12V
-T 40500 49600 5 10 1 1 0 0 1
 value=PFET
 }
 C 39700 48700 1 270 0 EMBEDDEDresistor-1.sym
@@ -1714,7 +1688,7 @@ description=Cap MLCC 0.1uF 25V X7R 10% 1608
 T 49800 55900 5 10 1 1 0 0 1
 refdes=C73
 T 50300 55500 5 10 1 1 0 0 1
-value=0.1 uF
+value=0.1 uF 25V
 }
 C 46400 55300 1 90 0 EMBEDDEDcapacitor-1.sym
 [
@@ -1767,7 +1741,7 @@ description=Cap MLCC 0.1uF 25V X7R 10% 1608
 T 45800 55900 5 10 1 1 0 0 1
 refdes=C83
 T 46300 55500 5 10 1 1 0 0 1
-value=0.1 uF
+value=0.1 uF 25V
 }
 N 45500 56200 46200 56200 4
 C 47400 52100 1 90 0 EMBEDDEDcapacitor-1.sym
@@ -1821,7 +1795,7 @@ description=Cap MLCC 0.1uF 25V X7R 10% 1608
 T 46800 52700 5 10 1 1 0 0 1
 refdes=C12
 T 47300 52300 5 10 1 1 0 0 1
-value=0.1 uF
+value=0.1 uF 25V
 }
 C 47300 50200 1 180 0 EMBEDDEDcapacitor-1.sym
 [
@@ -1874,7 +1848,7 @@ description=Cap MLCC 0.1uF 25V X7R 10% 1608
 T 46700 49800 5 10 1 1 180 0 1
 refdes=C19
 T 47500 50300 5 10 1 1 180 0 1
-value=0.1 uF
+value=0.1 uF 25V
 }
 C 46000 49700 1 0 0 vss.sym
 N 49900 56800 49900 56500 4
@@ -2280,9 +2254,7 @@ T 53500 41700 5 10 0 0 270 6 1
 value=N.O.
 }
 N 53100 42700 53900 42700 4
-B 62000 55100 2300 3900 3 10 1 0 -1 -1 0 -1 -1 -1 -1 -1
-T 61600 59300 9 12 1 0 0 0 1
-**schematic to-do list items**
+B 62000 55100 2600 2900 3 10 1 0 -1 -1 0 -1 -1 -1 -1 -1
 C 56400 57400 1 0 0 Vdd.sym
 {
 T 56400 57600 5 10 1 1 0 0 1
@@ -3057,7 +3029,7 @@ description=Cap MLCC 0.1uF 25V X7R 10% 1608
 T 51500 42400 5 10 1 1 0 0 1
 refdes=C102
 T 52100 42000 5 10 1 1 0 0 1
-value=0.1 uF
+value=0.1 uF 25V
 }
 C 51900 41500 1 0 0 vss.sym
 C 59900 46900 1 270 1 EMBEDDEDcapacitor-1.sym
@@ -3111,7 +3083,7 @@ description=Cap MLCC 0.1uF 25V X7R 10% 1608
 T 60600 47500 5 10 1 1 0 6 1
 refdes=C103
 T 60000 47100 5 10 1 1 0 6 1
-value=0.1 uF
+value=0.1 uF 25V
 }
 N 60300 48000 59200 48000 4
 {
@@ -3576,7 +3548,7 @@ description=Cap MLCC 0.1uF 25V X7R 10% 1608
 T 43000 46500 5 10 1 1 0 0 1
 refdes=C104
 T 43600 46100 5 10 1 1 0 0 1
-value=0.1 uF
+value=0.1 uF 25V
 }
 C 42000 47800 1 270 0 EMBEDDEDresistor-1.sym
 [
@@ -3661,9 +3633,9 @@ C 60300 55500 1 0 0 USB_SMT_5p.sym
 T 60300 56750 5 10 1 1 0 0 1
 refdes=J5
 T 60590 55810 5 16 0 1 90 0 1
-device=USB_B_TOP_2LEG
+device=ELMCUSB5SMT_WP
 T 60600 67950 5 10 0 0 0 0 1
-footprint=USB_B_micro_2leg.lht
+footprint=USB_AB_micro_4leg_WR.lht
 T 60300 55500 5 10 0 0 0 0 1
 value=conn
 }
@@ -4190,4 +4162,30 @@ T 49400 56100 5 10 1 1 180 0 1
 refdes=C72
 T 50000 55500 5 10 1 1 180 0 1
 value=1 uF
+}
+C 59500 52400 1 180 1 PFET_enh.sym
+{
+T 60200 51800 5 10 1 1 180 6 1
+refdes=Q2
+T 59500 52400 5 10 0 0 180 6 1
+footprint=SOT23-3N.lht
+T 60200 52000 5 10 1 1 180 6 1
+device=AO3407A
+T 59500 52400 5 10 0 0 0 0 1
+description=MOSFET P-CH -30V -4.3A Vgs+/-20V
+T 60200 52100 5 10 1 1 0 0 1
+value=PFET
+}
+C 39800 49900 1 180 1 PFET_enh.sym
+{
+T 40500 49300 5 10 1 1 180 6 1
+refdes=Q3
+T 39800 49900 5 10 0 0 180 6 1
+footprint=SOT23-3N.lht
+T 40500 49500 5 10 1 1 180 6 1
+device=AO3407A
+T 39800 49900 5 10 0 0 0 0 1
+description=MOSFET P-CH -30V -4.3A Vgs+/-20V
+T 40500 49600 5 10 1 1 0 0 1
+value=PFET
 }

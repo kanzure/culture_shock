@@ -12,7 +12,7 @@ first-pagenum=2
 T 61900 39700 5 10 1 1 0 0 1
 last-pagenum=2
 T 64900 40000 5 10 1 1 0 0 1
-rev=2018-01-29 v0.4
+rev=2018-02-13 v0.4
 T 66800 45200 5 18 1 1 270 0 1
 title2=PYFLEX_F401 Boost PS
 }
@@ -111,17 +111,6 @@ N 52200 55200 50500 55200 4
 {
 T 51700 55250 5 10 1 1 0 6 1
 netname=U3_!SHDN
-}
-C 50500 55300 1 180 0 resistor-1.sym
-{
-T 50200 54900 5 10 0 0 180 0 1
-device=R_274_1%_2013
-T 50500 55300 5 10 0 0 0 0 1
-footprint=RESC2013N.lht
-T 49700 55400 5 10 1 1 0 0 1
-refdes=R33
-T 49900 54900 5 10 1 1 0 0 1
-value=274
 }
 C 49900 53300 1 90 0 jump-solder.sym
 {
@@ -244,7 +233,7 @@ device=BC857B
 T 52400 52900 5 10 0 0 0 0 1
 footprint=SOT23-3N.lht
 T 52400 52900 5 10 0 0 0 0 1
-description=Hfe=220 Vcemax=45 Vbemax=5V
+description=PNP BJT Hfe=150 Vcemax=45 Vbemax=5V
 T 53200 52600 5 10 1 1 0 0 1
 refdes=Q41
 T 52400 52900 5 10 0 0 0 0 1
@@ -574,24 +563,13 @@ N 51600 45900 51600 45700 4
 C 50700 48800 1 180 0 resistor-1.sym
 {
 T 50400 48400 5 10 0 0 180 0 1
-device=R_274_1%_2013
+device=R_200_1%_2013
 T 50700 48800 5 10 0 0 0 0 1
 footprint=RESC2013N.lht
 T 49900 48900 5 10 1 1 0 0 1
 refdes=R43
 T 50100 48400 5 10 1 1 0 0 1
-value=274
-}
-C 50800 42400 1 180 0 resistor-1.sym
-{
-T 50500 42000 5 10 0 0 180 0 1
-device=R_274_1%_2013
-T 50800 42400 5 10 0 0 0 0 1
-footprint=RESC2013N.lht
-T 50000 42500 5 10 1 1 0 0 1
-refdes=R53
-T 50200 42000 5 10 1 1 0 0 1
-value=274
+value=200
 }
 C 52700 48600 1 270 0 resistor-1.sym
 {
@@ -806,4 +784,26 @@ T 56500 41500 5 10 1 1 0 0 1
 refdes=C51
 T 56500 42000 5 10 1 1 0 0 1
 value=10 uF
+}
+C 50800 42400 1 180 0 resistor-1.sym
+{
+T 50500 42000 5 10 0 0 180 0 1
+device=R_200_1%_2013
+T 50800 42400 5 10 0 0 0 0 1
+footprint=RESC2013N.lht
+T 50000 42500 5 10 1 1 0 0 1
+refdes=R53
+T 50200 42000 5 10 1 1 0 0 1
+value=200
+}
+C 50500 55300 1 180 0 resistor-1.sym
+{
+T 50200 54900 5 10 0 0 180 0 1
+device=R_200_1%_2013
+T 50500 55300 5 10 0 0 0 0 1
+footprint=RESC2013N.lht
+T 49700 55400 5 10 1 1 0 0 1
+refdes=R33
+T 49900 54900 5 10 1 1 0 0 1
+value=200
 }
