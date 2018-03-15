@@ -37,7 +37,7 @@ ha:pcb-rnd-board-v4 {
  ha:meta {
    ha:size {
     thermal_scale = 0.500000
-    x = 90.0mm
+    x = 140.0mm
     y = 90.0mm
     isle_area_nm2 = 199999999.999200
    }
@@ -48137,6 +48137,42 @@ ha:pcb-rnd-board-v4 {
          clearpoly=1
         }
        }
+       ha:text.2869893 {
+        string=Shock v 0.5; x=39.825mm; y=18.715mm; scale=140; fid=0; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:text.2869894 {
+        string=Culture; x=39.875mm; y=16.465mm; scale=140; fid=0; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:text.2869932 {
+        string=license; x=15.35mm; y=21.7mm; scale=110; fid=0; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:text.2869933 {
+        string=TAPR; x=15.75mm; y=20.2mm; scale=110; fid=0; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:text.2869940 {
+        string=(c) 2018; x=70.75mm; y=19.35mm; scale=140; fid=0; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:text.2869963 {
+        string=kitmatic.com; x=30.7mm; y=12.6mm; scale=173; fid=0; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
       }
     }
 
@@ -49298,6 +49334,18 @@ ha:pcb-rnd-board-v4 {
          clearpoly=1
         }
        }
+       ha:text.2869911 {
+        string=Shock v 0.5; x=32.8mm; y=75.45mm; scale=173; fid=0; direction=2;
+        ha:flags {
+         onsolder=1
+        }
+       }
+       ha:text.2869912 {
+        string=Culture; x=42.65mm; y=75.45mm; scale=173; fid=0; direction=2;
+        ha:flags {
+         onsolder=1
+        }
+       }
       }
     }
 
@@ -49621,9 +49669,33 @@ ha:pcb-rnd-board-v4 {
      lid=6
      group=2
      ha:combining { sub=1; auto=1;     }
-     visible=0
+     visible=1
 
       li:objects {
+       ha:text.2869895 {
+        string=Shock v 0.5; x=39.9mm; y=18.7mm; scale=140; fid=0; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:text.2869896 {
+        string=Culture; x=39.8mm; y=16.45mm; scale=140; fid=0; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:text.2869941 {
+        string=(c) 2018; x=70.75mm; y=19.35mm; scale=140; fid=0; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:text.2869964 {
+        string=kitmatic.com; x=30.7mm; y=12.6mm; scale=173; fid=0; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
       }
     }
 
@@ -49641,7 +49713,7 @@ ha:pcb-rnd-board-v4 {
      lid=8
      group=11
      ha:combining {     }
-     visible=0
+     visible=1
 
       li:objects {
       }
@@ -49651,9 +49723,16 @@ ha:pcb-rnd-board-v4 {
      lid=9
      group=9
      ha:combining { sub=1; auto=1;     }
-     visible=0
+     visible=1
 
       li:objects {
+       ha:text.2869918 {
+        string=(c) 2018 kitmatic.com; x=49.5mm; y=71.9mm; scale=173; fid=0; direction=2;
+        ha:flags {
+         clearline=1
+         onsolder=1
+        }
+       }
       }
     }
    }
@@ -51983,129 +52062,114 @@ ha:pcb-rnd-board-v4 {
   ha:overwrite {
    ha:appearance {
     ha:color {
-     pin = {#302e2e}
      li:layer {
-      {#860719}  
-      {#112961}  
-      {#b01001}  
-      {#187104}  
-      {#0b1e54}  
-      {#050826}  
-      {#00868b}  
-      {#228b22}  
+      {#90040e}  
+      {#0e3364}  
+      {#0bad75}  
+      {#31580e}  
+      {#6b90de}  
+      {#142f89}  
+      {#10a557}  
+      {#42d415}  
       {#8b2323}  
-      {#0b2984}  
-      {#104e8b}  
-      {#c25c06}  
-      {#548b54}  
-      {#8b7355}  
-      {#00868b}  
-      {#228b22}  
-      {#8b2323}  
-      {#3a5fcd}  
-      {#104e8b}  
-      {#cd3700}  
-      {#548b54}  
-      {#8b7355}  
-      {#00868b}  
-      {#228b22}  
-      {#8b2323}  
-      {#3a5fcd}  
-      {#104e8b}  
-      {#cd3700}  
-      {#548b54}  
-      {#8b7355}  
-      {#00868b}  
-      {#228b22}  
-      {#8b2323}  
-      {#3a5fcd}  
-      {#104e8b}  
-      {#cd3700}  
-      {#548b54}  
-      {#8b7355}  
+      {#ba0f0f}  
+      {#c51515}  
+      {#1f6f15}  
+      {#d4aa1b}  
+      {#4cb32a}  
+      {#c91a8c}  
+      {#23a423}  
+      {}  
+      {}  
+      {}  
+      {}  
+      {}  
+      {}  
+      {#e20da4}  
+      {#14c361}  
+      {}  
+      {}  
+      {}  
+      {}  
+      {}  
+      {}  
+      {}  
+      {}  
+      {#8b4b23}  
+      {}  
+      {}  
+      {#cd6700}  
      }
-     mask = {#044108}
+     mask = {#0e3f0a}
     }
    }
    ha:design {
-    min_ring = 152.50 um
+    min_ring = 10.00 mil
     min_drill = 15.00 mil
-    fab_author = Kit Matic
-    text_scale = 140
-    via_thickness = 1000.00 um
-    groups = {10:11,12:c,c,c:7:8:s,s,s:9:}
-    min_slk = 199.80 um
-    via_drilling_hole = 500.00 um
-    max_height = 90.0000 mm
-    line_thickness = 10.00 mil
-    shrink = 200.00 um
+    text_scale = 100
+    via_thickness = 2000.00 um
+    min_slk = 8.00 mil
+    via_drilling_hole = 31.50 mil
+    max_height = 48.0000 mm
+    line_thickness = 500.00 um
+    shrink = 203.00 um
     poly_isle_area = 199999999.999200
-    max_width = 90.0000 mm
-    min_wid = 200.00 um
-    bloat = 199.80 um
-    routes = {Signal,1000,3937,1969,2000Power,1969,5512,1969,1575:Fat,5906,7087,3937,1969:Sig-tight,787,2717,1500,1200:}
-    clearance = 20.00 mil
+    max_width = 13.0000 mm
+    min_wid = 8.00 mil
+    bloat = 6.00 mil
+    routes = {Signal,1969,7874,3150,1969Power,4724,7874,3937,1969:Fat,7874,11811,3937,2559:Sig-tight,1000,6400,3150,1200:}
+    clearance = 500.00 um
    }
    ha:editor {
     snap_pin = false
     grid_unit = mm
     snap_offgrid_line = false
-    draw_grid = true
     grid = 50.00 um
-    name_on_pcb = 1
     buffer_number = 4
     all_direction_lines = true
-    show_mask = 1
+    show_mask = 0
     ha:view {
      flip_x = 0
      flip_y = 0
     }
-    description = 0
-    auto_place = 1
     show_solder_side = 0
-    fullscreen = 0
    }
    ha:plugins {
     ha:hid_gtk {
-     ha:global_grid {
-      min_dist_px = 8
-     }
      ha:window_geometry {
       netlist_x = 0
       netlist_y = 0
       pinout_x = 0
       pinout_y = 0
-      library_x = 2367
-      library_y = 160
+      library_x = 2015
+      library_y = 197
       pinout_height = 0
-      log_x = 5
-      log_y = 20
+      log_x = 0
+      log_y = 0
       netlist_width = 0
-      drc_x = 2277
-      drc_y = 0
+      drc_x = 1973
+      drc_y = 59
       netlist_height = 0
-      top_height = 295
-      library_width = 504
-      drc_height = 864
-      top_width = 762
-      drc_width = 825
+      top_height = 950
+      library_width = 554
+      drc_height = 901
+      top_width = 1121
+      drc_width = 702
       keyref_width = 0
       keyref_height = 0
       pinout_width = 0
       keyref_x = 0
       keyref_y = 0
-      log_width = 464
-      library_height = 660
-      top_x = 340
-      top_y = 20
-      log_height = 467
-     }
-     history_size = 25
-     ha:local_grid {
-      enable = 1
-      radius = 32
+      log_width = 482
+      library_height = 838
+      top_x = 488
+      top_y = 17
+      log_height = 381
      }
     }
+     ha:mincut {
+      enable = false
+     }
    }
   }
  }
