@@ -12,7 +12,7 @@ first-pagenum=1
 T 59400 37900 5 10 1 1 0 0 1
 last-pagenum=2
 T 62600 38200 5 10 1 1 0 0 1
-rev=2018-02-27 v0.5
+rev=2018-03-15 v0.6
 T 64400 43400 5 18 1 1 270 0 1
 title2=Culture Shock PYFLEX_F401
 }
@@ -3837,19 +3837,6 @@ refdes=R111
 T 42400 47200 5 10 1 1 90 0 1
 value=7.50k
 }
-C 54900 51400 1 0 0 pnp-bec-123.sym
-{
-T 56200 52000 5 10 1 1 180 0 1
-device=BC817W
-T 55300 52400 5 10 1 1 180 0 1
-refdes=Q3
-T 54900 51400 5 10 0 0 90 0 1
-footprint=SOT323N.lht
-T 54900 51400 5 10 0 0 90 0 1
-description=Hfe=220 Vcemax=45 Vbemax=5V
-T 54900 51400 5 10 0 0 90 0 1
-value=semicon
-}
 C 57400 52600 1 180 0 EMBEDDEDresistor-1.sym
 [
 L 56800 52400 56900 52600 3 0 0 0 -1 -1
@@ -4082,19 +4069,6 @@ T 59200 49000 5 10 1 1 0 0 1
 value=7.50k
 }
 N 61900 50700 61900 50200 4
-C 59400 49300 1 0 0 pnp-bec-123.sym
-{
-T 59400 49300 5 10 0 0 90 0 1
-footprint=SOT323N.lht
-T 59400 49300 5 10 0 0 90 0 1
-description=Hfe=220 Vcemax=45 Vbemax=5V
-T 59400 49300 5 10 0 0 90 0 1
-value=semicon
-T 60700 49900 5 10 1 1 180 0 1
-device=BC817W
-T 59800 50300 5 10 1 1 180 0 1
-refdes=Q6
-}
 C 61900 50500 1 180 0 EMBEDDEDresistor-1.sym
 [
 L 61300 50300 61400 50500 3 0 0 0 -1 -1
@@ -4340,19 +4314,6 @@ T 39600 48700 5 10 1 1 0 0 1
 value=7.50k
 }
 N 42300 50400 42300 49900 4
-C 39800 49000 1 0 0 pnp-bec-123.sym
-{
-T 39800 49000 5 10 0 0 90 0 1
-footprint=SOT323N.lht
-T 39800 49000 5 10 0 0 90 0 1
-description=Hfe=220 Vcemax=45 Vbemax=5V
-T 39800 49000 5 10 0 0 90 0 1
-value=semicon
-T 41100 49600 5 10 1 1 180 0 1
-device=BC817W
-T 40200 50000 5 10 1 1 180 0 1
-refdes=Q9
-}
 C 42300 50200 1 180 0 EMBEDDEDresistor-1.sym
 [
 L 41700 50000 41800 50200 3 0 0 0 -1 -1
@@ -4599,4 +4560,43 @@ T 47800 41200 5 10 0 0 90 0 1
 value=NoConnection
 T 47600 41200 5 10 0 0 90 0 1
 device=DRC_Directive
+}
+C 39800 49000 1 0 0 npn-cbe-312.sym
+{
+T 40560 49810 5 10 1 1 0 0 1
+refdes=Q9
+T 40300 49400 5 10 1 1 0 0 1
+device=BC817W
+T 39800 49000 5 10 0 0 0 0 1
+description=Hfe=220 Vcemax=45 Vbemax=5V
+T 39800 49000 5 10 0 0 0 0 1
+footprint=SOT323N.lht
+T 39800 49000 5 10 0 0 0 0 1
+value=semicon
+}
+C 54900 51400 1 0 0 npn-cbe-312.sym
+{
+T 55160 52210 5 10 1 1 0 0 1
+refdes=Q3
+T 55400 51800 5 10 1 1 0 0 1
+device=BC817W
+T 54900 51400 5 10 0 0 0 0 1
+description=Hfe=220 Vcemax=45 Vbemax=5V
+T 54900 51400 5 10 0 0 0 0 1
+footprint=SOT323N.lht
+T 54900 51400 5 10 0 0 0 0 1
+value=semicon
+}
+C 59400 49300 1 0 0 npn-cbe-312.sym
+{
+T 59660 50110 5 10 1 1 0 0 1
+refdes=Q6
+T 59900 49700 5 10 1 1 0 0 1
+device=BC817W
+T 59400 49300 5 10 0 0 0 0 1
+description=Hfe=220 Vcemax=45 Vbemax=5V
+T 59400 49300 5 10 0 0 0 0 1
+footprint=SOT323N.lht
+T 59400 49300 5 10 0 0 0 0 1
+value=semicon
 }

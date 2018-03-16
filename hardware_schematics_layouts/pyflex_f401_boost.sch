@@ -12,7 +12,7 @@ first-pagenum=2
 T 61900 39700 5 10 1 1 0 0 1
 last-pagenum=2
 T 64900 40000 5 10 1 1 0 0 1
-rev=2018-02-27 v0.5
+rev=2018-03-15 v0.6
 T 66800 45200 5 18 1 1 270 0 1
 title2=PYFLEX_F401 Boost PS
 }
@@ -152,7 +152,7 @@ substituted 10uF for 4.7uF (min)
 C 51800 59400 1 270 0 pnp-bec-123.sym
 {
 T 52800 58900 5 10 1 1 0 0 1
-device=BC817W
+device=BC857BWT1G
 T 52600 59100 5 10 1 1 0 0 1
 refdes=Q31
 T 51800 59400 5 10 0 0 0 0 1
@@ -536,7 +536,7 @@ AP3012KTR-G1
 C 52400 52900 1 270 0 pnp-bec-123.sym
 {
 T 53400 52400 5 10 1 1 0 0 1
-device=BC817W
+device=BC857BWT1G
 T 53200 52600 5 10 1 1 0 0 1
 refdes=Q41
 T 52400 52900 5 10 0 0 0 0 1
