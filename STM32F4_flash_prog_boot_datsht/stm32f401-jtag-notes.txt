@@ -1,0 +1,99 @@
+
+Supported serial peripherals
+STM32F401xD(E)
+USART1/USART2/ DFU
+(USB Device FS)/
+I2C1/I2C2/I2C3/
+SPI1/SPI2/ SPI3
+
+Bootloader firmware of STM32 F2, F4, F7 and L4 series supports OTP memory in
+addition to standard memories (internal Flash, internal SRAM, option bytes and System
+memory). The start address and the size of this area depends on product, please refer
+to product reference manual for more information. OTP memory can be read and written but cannot be erased using Erase command. When writing in an OTP memory
+location, make sure that the relative protection bit is not reset.
+
+
+
+
+
+
+For STM32 F2, F4 and F7 series the internal flash write operation format depends on
+voltage Range. By default write operation are allowed by one byte format (Half-Word,
+Word and Double-Word operations are not allowed). to increase the speed of write
+operation, the user should apply the adequate voltage range that allows write operation
+by Half-Word, Word or Double-Word and update this configuration on the fly by the
+bootloader software through a virtual memory location.
+
+This byte controls the current value of the voltage range.
+0x00: voltage range [1.8 V, 2.1 V]
+0x01: voltage range [2.1 V, 2.4 V]
+0x02: voltage range [2.4 V, 2.7 V]
+0x03: voltage range [2.7 V, 3.6 V]
+0x04: voltage range [2.7 V, 3.6 V] and double word write/erase
+operation is used. In this case it is mandatory to supply 9 V
+through the VPP pin
+
+Table 5. Supported memory area by Write, Read, Erase and Go Commands
+
+Memory Area 	Write command 	Read command	 Erase command 	Go command
+Flash 		Supported 	Supported 	Supported 	Supported
+RAM 		Supported 	Supported 	Not supported Supported
+System Memory 	Not supported 	Supported 	Not supported Not supported
+Data Memory 	Supported 	Supported 	Not supported Not supported
+OTP Memory 	Supported 	Supported 	Not supported Not supported
+
+Table 56. STM32F401xD(E) configuration in system memory boot mode
+Bootloader	Feature/Peripheral	State		Comment
+all		RCC			HSI enabled 	The system clock frequency is 60 MHz using the PLL.
+							The HSI clock source is used at startup (interface 
+							detection phase) and when USART or SPI or I2C interface 
+							is selected (once DFU bootloader is selected, the clock
+							source will be derived from the external crystal).
+
+all		RCC			HSE enabled	The system clock frequency is 60 MHz. The HSE clock source 
+							is used only when the DFU (USB FS Device) interface is selected.
+  							The external clock must provide a frequency multiple of 1 MHz 
+							and ranging from 4 MHz to 26 MHz.  The Clock Security System 
+							(CSS) interrupt is enabled for the DFU bootloader. Any 
+							failure (or removal) of the external clock generates 
+							system reset.
+
+all		RAM 			- 		12 Kbyte starting from address 0x20000000 are used 
+							by the bootloader firmware
+all		System memory 		- 		29 Kbyte starting from address 0x1FFF0000, 
+							contain the bootloader firmware	
+USART1 bootldr	USART1 			Enabled 	Once initialized the USART1 configuration
+							is: 8-bits, even parity and 1 Stop bit
+		USART1_RX pin 		Input 		PA10 pin: USART1 in reception mode
+		USART1_TX pin 		Output 		PA9 pin: USART1 in transmission mode
+
+I2C1 bootloadr	I2C1 			Enabled 	The I2C1 configuration is: I2C speed: up to 400 KHz, 
+							7-bit address, slave mode, analog filter ON. Slave 
+							7-bit address: 0b0111001x (where x = 0 for write and 
+							x = 1 for read)
+
+		I2C2_SCL pin 		Input/Output 	PB10 pin: clock line is used in open-drain mode. 
+							I2C2_SDA pin Input/Output PB3 pin: data line is 
+							used in open-drain mode.
+DFU bootloader	USB 			Enabled 	USB OTG FS configured in Forced Device mode
+		USB_DM pin		Input/Output	PA11: USB DM line.
+		USB_DP pin		Input/Output	PA12: USB DP line No external Pull-up is required
+
+
+
+Device		PID	BLID	RAM memory		System memory
+STM32F401xD(E) 	0x433 	0xD1	0x20003000 - 0x20017FFF	0x1FFF0000 - 0x1FFF77FF
+
+Device		Min bootldr Strtup (ms)		HSE Timeout (ms)
+STM32F401xD(E)	74.5				85
+
+
+USART connection timing is the time that the host should wait for between sending the
+synchronization data (0x7F) and receiving the first acknowledge response (0x79).
+Receiving any other character different from 0x7F (or line glitches) will cause Bootloader to start
+communication using a wrong baudrate. Bootloader measures the signal length between rising edge of first
+1 bit in 0x7F to the falling edge of the last 1 bit in 0x7F to deduce the baudrate value
+Bootloader does not re-align the calculated baudrate to standard baudrate values (ie. 1200, 9600, 115200
+
+Device		One USART byte sending (ms)	USART config (ms)	USART connection (ms)
+STM32F401xD(E)	0.078125			0.00326			0.15951

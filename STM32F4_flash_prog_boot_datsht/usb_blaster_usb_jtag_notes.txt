@@ -1,0 +1,66 @@
+USB BLASTER cheap Rev.c clone. The original uses FTDI FT245 and MAX CPLD chips. This one uses a Silicon Labs C8051F321 micro-controller and a 74LVC125 quad buffer, but there are many other clone variants.
+
+COMMON ISSUES: I received a number of mails from others who used my logic with
+varying success. Following are some general tips.
+
+If it works "partially" for you, "sometimes" or "it programs the device, but
+the device doesn't work afterwards", your setup maybe isn't suitable for clear
+transmission of signals at several MHz. It may still be a critical timing in
+the logic, but I'm using it even slightly "overclocked" at 25 MHz and haven't
+had any errors since months. So I doubt it's the logic. Try reducing the clock
+to the CPLD from 24 MHz to, say, 6 MHz.
+
+=============================
+
+
+:!: be aware that here the VCC{TARGET} pin has to be connected to a reference voltage used for the JTAG communication, generally provided by the target device on the board (often 3.3V or 1.8V). Else the signals can not be detected by the JTAG adapter. 
+
+add the rules for normal users to be able to access the device (udev rule based on the VID and PID shown by lsusb). This has only to be done once, before the device is plugged in to be used:
+
+echo -n 'Altera USB-Blaster JTAG adatper' | sudo tee -a /etc/udev/rules.d/60-altera-usb-blaster.rules
+echo -n 'ATTR{idVendor}=="09fb", ATTR{idProduct}=="6001", MODE="666"' | sudo tee -a /etc/udev/rules.d/60-altera-usb-blaster.rules
+sudo udevadm control --reload-rules
+
+ use the USB-Blaster emulation firmware from http://www.ixo.de/info/usb_jtag/ with the usbblaster cable driver. 
+
+ Kolja Waschk <kawk@ix...   2017-03-01 15:22:18
+
+> How about a new release after 8 years? =)
+
+Hi,
+
+I started to sort some of the existing issues so that resolved ones 
+since 0.10 now have a new tag '0.17', preparing a release with proper 
+NEWS info. But then somehow stopped activity, waiting for further info 
+from Mike about his plans (he created the UrJTAG org at github..?
+
+Kolja Waschk, January 2007
+
+ January 2007, 12:23 In principle, you could re-program an USB Blaster CPLD with my VHDL code (after you defined the correct IO pin assignments) and the device would still appear to be an USB Blaster and could be used as before with Quartus etc.
+But it's not exactly the same. I don't know the exact contents of the CPLD in the Blaster. Probably some situations exist in which the Altera device performs better than mine.
+
+I don't have detailed schematics. For my tests I just wired a FTDI module with FT245RL directly to an EPM7064 with a few external resistors and pinheader for the JTAG connection, exactly as documented in their respective datasheets.
+
+Kolja 
+
+https://www.eevblog.com/forum/microcontrollers/altera-usb-programmer/ Re: Altera USB Programmer « Reply #21 on: November 16, 2013, 02:55:24 PM 
+»[ had a look at the VHDL code, the CPLD handles all the control of the JTAG state machine, leaving the MCU to simply stream the data in and out.]
+
+but, does it work with F401 errata whee hardware flow control is broken?
+
+
+============================================
+5th July 2008, 12:11
+Original USB Blaster can be expected to stream bulk data with nearly full rate of 6 MBit/s. Most @ltera FPGA would support higher JTAG speed. About the FX2 solution?
+The maximum bit rate is 3 MHz with the FX2, but because it also has to handle the USB protocol in software, the maximum througput is probably less. In daily work it appears to be "a little slower" than an USB-Blaster.
+
+Kolja 
+
+==============
+James B   https://alteraforum.com/forum/archive/index.php/t-39001.html
+January 9th, 2013, 10:16 AM
+3) Hypothesizing that the Altera Programmer does not enable flow-control in the FTDI drivers that are used for the USB-Blaster interface, I relaxed the timing in my UM232H controller interface to slow down the interface. After few iterations, the USB-Blaster clone started working.
+
+=====================================
+
+

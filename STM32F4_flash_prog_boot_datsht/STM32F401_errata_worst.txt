@@ -1,0 +1,28 @@
+
+select the JTAG-DP or the SW-DP
+asynchronous trace can only be used with SW-DP, not JTAG-DP, since
+they share a pin.
+
+SDW-->trace
+ JTAG-DP-->scan boundary chains
+
+
+
+SD card:
+SDIO HW flow control
+Description
+When enabling the HW flow control by setting 
+bit 14 of the SDIO_CLKCR register to ‘1’, 
+glitches can occur on the SDIOCLK output clo
+ck resulting in wrong data to be written into 
+the SD/MMC card or into the SDIO device. 
+As a consequence, a CRC error will be reported 
+to the SD/SDIO MMC host interface (DCRCFAIL 
+bit set to ‘1’ in SDIO_STA register). 
+Workaround
+None. 
+Note:
+Do not use the HW flow control. Overrun errors (Rx mode) and FIFO underrun (Tx mode) 
+should be managed by the application software.
+
+I think this might be workable by setting the clock speed of the jtag_usb usb_blaster to a chunk less than the MCU clock for serial data...
