@@ -97,3 +97,28 @@ Bootloader does not re-align the calculated baudrate to standard baudrate values
 
 Device		One USART byte sending (ms)	USART config (ms)	USART connection (ms)
 STM32F401xD(E)	0.078125			0.00326			0.15951
+
+USB connection timing is the time that the host should wait for between plugging the USB
+cable and establishing a correct connection with the device. This timing includes
+enumeration and DFU components configuration. USB connection depends on the host.
+
+
+I2C connection timing is the time that the host should wait for between sending I2C device
+address and sending command code. This timing includes I2C line stretching duration.  (a + b)STM32F401xD(E)
+a. dur. of start + one byte sending through I2C.
+b. dur. of I2C line stretching.
+
+For I2C communication, a timeout mechanism is implemented and it must be respected to
+execute bootloader commands correctly. This timeout is implemented between two I2C
+frames in the same command (eg: for Write memory command a timeout is inserted
+between command sending frame and address memory sending frame). Also the same
+timeout period is inserted between two successive data reception or transmission in the
+same I2C frame. If the timeout period is elapsed a system reset is generated to avoid
+bootloader crash.
+In erase memory command and read-out unprotect command, the duration of flash
+operation should be taken into consideration when implementing the host side. After
+sending the code of pages to be erased, the host should wait until the bootloader device
+performs page erasing to complete the remaining steps of erase command.
+
+Device		Start + one I2C byte sent	I2C line stretching (ms)	I2C conn	I2C timeout
+STM32F401xD(E)	0.0225				0.0022				0.0247		1000
