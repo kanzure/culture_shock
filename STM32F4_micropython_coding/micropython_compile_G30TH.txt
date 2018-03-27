@@ -84,43 +84,23 @@ If there has been a run before and if not added to the makefile actions:
 rm -rf build-G30TH/*
 
 then run make:
-john@ecolab3 [stmhal]make BOARD=G30TH
+john@ecolab3 [stmhal]make V=1 BOARD=G30TH
 Use make V=1 or set BUILD_VERBOSE in your environment to increase build verbosity.
-Create build-G30TH/genhdr/pins.h
-Create stmconst build-G30TH/modstm_qstr.h
-Create build-G30TH/genhdr/pybcdc.inf
-Create build-G30TH/genhdr/pybcdc_inf.h
-Generating build-G30TH/genhdr/mpversion.h
-GEN build-G30TH/genhdr/qstr.i.last
-GEN build-G30TH/genhdr/qstr.split
-GEN build-G30TH/genhdr/qstrdefs.collected.h
-QSTR updated
-GEN build-G30TH/genhdr/qstrdefs.generated.h
-CC ../py/mpstate.c
-CC ../py/nlrx86.S
-CC ../py/nlrx64.S
-CC ../py/nlrthumb.c
-CC ../py/nlrxtensa.S
-CC ../py/nlrsetjmp.c
-.
-.
-.
-CC usbdev/class/src/usbd_msc_bot.c
-CC usbdev/class/src/usbd_msc_scsi.c
-CC usbdev/class/src/usbd_msc_data.c
-CC build-G30TH/pins_G30TH.c
-LINK build-G30TH/firmware.elf
-   text	   data	    bss	    dec	    hex	filename
- 277228	    276	  44260	 321764	  4e8e4	build-G30TH/firmware.elf
-Create build-G30TH/firmware.dfu
-Create build-G30TH/firmware.hex
+
+john@toolbench64 [stm32]ll build-G30TH/firm*
+-rwxrwxr-x 1 john john   14932 Mar 24 18:44 build-G30TH/firmware0.bin
+-rwxrwxr-x 1 john john  284000 Mar 24 18:44 build-G30TH/firmware1.bin
+-rw-rw-r-- 1 john john  299249 Mar 24 18:44 build-G30TH/firmware.dfu
+-rwxrwxr-x 1 john john  691484 Mar 24 18:44 build-G30TH/firmware.elf
+-rw-rw-r-- 1 john john  840905 Mar 24 18:44 build-G30TH/firmware.hex
+-rw-rw-r-- 1 john john 1145274 Mar 24 18:44 build-G30TH/firmware.map
 
 2.
 jumper b0 pad to +3.3 volts, remove 3.3V, plug back 3.3V.
 Or...  remove USB5V (and 3v3 with it) hold minigrabber boot0 to 3.3V,
 while plugging in USB to get into DFU mode.
 
-3.  The firmware on the G30TH is protected, so the first thing is getinto DFU modea
+3.  The firmware on the G30TH is protected, so the first thing is get into DFU modea
 and confirm the STM32F4 is in DFU mode as below ... 
 
 john@ecolab3 [~]lsusb

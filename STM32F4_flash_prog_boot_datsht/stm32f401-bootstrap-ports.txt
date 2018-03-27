@@ -1,0 +1,85 @@
+Table 56. STM32F401xD(E) configuration in system memory boot mode
+Bootloader	Feature/Periph	State	Comment
+
+HSI enabled 	RCC		The system clock frequency is 60 MHz using the PLL.
+		RCC		The HSI clock source is used at startup
+(interface detection phase) and when
+USART or SPI or I2C interface is selected
+(once DFU bootloader is selected, the clock
+source will be derived from the external
+crystal).
+
+		RCC		HSE enabled The system clock frequency is 60 MHz.
+The HSE clock source is used only when
+the DFU (USB FS Device) interface is
+selected.
+The external clock must provide a
+frequency multiple of 1 MHz and ranging
+from 4 MHz to 26 MHz.
+		RCC		- The Clock Security System (CSS) interrupt
+is enabled for the DFU bootloader. Any
+failure (or removal) of the external clock
+generates system reset.
+		RAM 		- 	12 Kbyte starting from address 0x20000000
+are used by the bootloader firmware
+System memory - 29 Kbyte starting from address
+0x1FFF0000, contain the bootloader firmware
+
+		System memory - 29 Kbyte starting from address
+0x1FFF0000, contain the bootloader
+firmware
+		Power		Voltage range is set to [1.62 V, 2.1 V]. In this 
+				range internal Flash write operations are allowed 
+				only in byte format (Half-Word, Word and Double-Word 
+				operations are not allowed). The voltage range 
+				can be configured in run time using bootloader
+
+
+		USART1		USART1 Enabled Once initialized the USART1 configuration
+				is: 8-bits, even parity and 1 Stop bit
+		USART1_RX pin Input PA10 pin: USART1 in reception mode
+		USART1_TX pin Output PA9 pin: USART1 in transmission mode
+
+
+
+I2C1 bootldr	I2C1 	Enabld 	The I2C1 configuration is: I2C speed: up to 400 KHz, 7-bit
+				 address, slave mode, analog filter ON. Slave 7-bit address: 
+				0b0111001x (where x = 0 for write and x = 1 for read)
+
+		I2C1_SCL pin In/Out PB6 pin: clock line is used in open-drain mode.
+		I2C1_SDA pin In/Out PB7 pin: data line is used in open-drain mode.
+==================V13.1 Initial bootloader ver  limitations None==============================================================
+Table 116. Bootloader device-dependent parameters
+
+Device		PID	BLID	RAM mem				Sys mem
+STM32F401xB(C) 	0x423 	0xD1 	0x20003000 - 0x2000FFFF 	0x1FFF0000 - 0x1FFF77FF
+STM32F401xD(E) 	0x433 	0xD1 	0x20003000 - 0x20017FFF		0x1FFF0000 - 0x1FFF77FF
+
+
+
+
+Table 117. Bootloader startup timings of STM32 devices
+
+device		Min bootldr Startup ms		HSE timeout ms
+(ms)
+STM32F401xB(C) 	74.5 				85
+STM32F401xD(E) 	74.5 				85
+
+
+
+
+
+
+
+Table 118. USART bootloader minimum timings of STM32 devices (continued)
+e 118. USART bootloader minimum timings of STM32 devices (continued)
+device		1 byte send ms	config ms	connect ms
+STM32F401xB(C) 	0.078125 	0.00326 	0.15951
+STM32F401xD(E) 	0.078125 	0.00326 	0.15951
+
+
+
+
+Table 119. USB bootloader minimum timings of STM32 devices Device USB connection (ms)
+STM32F401xB(C) 250
+STM32F401xD(E) 250
