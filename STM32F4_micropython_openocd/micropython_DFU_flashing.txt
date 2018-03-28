@@ -1,0 +1,100 @@
+
+===============flash a G30TH===============================
+first, get micropython and https://github.com/dhylands/G30TH, install G30TH into
+micropython/stmhal/boards
+If the G30TH has been unprotected once that step need not be done again -- and all that I shipped
+have had that step done already, so skip 3, 4, but step 5,6 can be usefule if you load code that stops you
+from being able to use the REPL, or rshell.
+
+
+make the firmware for micropython on the G30TH:
+
+cd micropython/stmhal
+If there has been a run before and if not added to the makefile actions:
+rm -rf build-G30TH/*
+
+then run make:
+john@ecolab3 [stmhal]make V=1 BOARD=G30TH
+Use make V=1 or set BUILD_VERBOSE in your environment to increase build verbosity.
+
+john@toolbench64 [stm32]ll build-G30TH/firm*
+-rwxrwxr-x 1 john john   14932 Mar 24 18:44 build-G30TH/firmware0.bin
+-rwxrwxr-x 1 john john  284000 Mar 24 18:44 build-G30TH/firmware1.bin
+-rw-rw-r-- 1 john john  299249 Mar 24 18:44 build-G30TH/firmware.dfu
+-rwxrwxr-x 1 john john  691484 Mar 24 18:44 build-G30TH/firmware.elf
+-rw-rw-r-- 1 john john  840905 Mar 24 18:44 build-G30TH/firmware.hex
+-rw-rw-r-- 1 john john 1145274 Mar 24 18:44 build-G30TH/firmware.map
+
+2.
+jumper b0 pad to +3.3 volts, remove 3.3V, plug back 3.3V.
+Or...  remove USB5V (and 3v3 with it) hold minigrabber boot0 to 3.3V,
+while plugging in USB to get into DFU mode.
+
+3.  The firmware on the G30TH is protected, so the first thing is get into DFU modea
+and confirm the STM32F4 is in DFU mode as below ... 
+
+john@ecolab3 [~]lsusb
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 007 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 006 Device 002: ID 17ef:1003 Lenovo Integrated Smart Card Reader
+Bus 006 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 004 Device 004: ID 0483:df11 STMicroelectronics STM Device in DFU Mode  ********Must_see_this*************
+Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 003 Device 002: ID 0483:2016 STMicroelectronics Fingerprint Reader
+Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+john@ecolab3 [~]dfu-util --list
+dfu-util 0.9
+
+Copyright 2005-2009 Weston Schmidt, Harald Welte and OpenMoko Inc.
+Copyright 2010-2016 Tormod Volden and Stefan Schmidt
+This program is Free Software and has ABSOLUTELY NO WARRANTY
+Please report bugs to http://sourceforge.net/p/dfu-util/tickets/
+
+Found DFU: [0483:df11] ver=2200, devnum=4, cfg=1, intf=0, path="4-1", alt=3, name="@Device Feature/0xFFFF0000/01*004 e", serial="345234543234"
+Found DFU: [0483:df11] ver=2200, devnum=4, cfg=1, intf=0, path="4-1", alt=2, name="@OTP Memory /0x1FFF7800/01*512 e,01*016 e", serial="345234543234"
+Found DFU: [0483:df11] ver=2200, devnum=4, cfg=1, intf=0, path="4-1", alt=1, name="@Option Bytes  /0x1FFFC000/01*016 e", serial="345234543234"
+Found DFU: [0483:df11] ver=2200, devnum=4, cfg=1, intf=0, path="4-1", alt=0, name="@Internal Flash  /0x08000000/04*016Kg,01*064Kg,03*128Kg", serial="345234543234"
+
+4.  The device can be unprotected using dfu-util: ( erase .NET firmware)
+
+john@ecolab3 [stmhal]dfu-util -s :unprotect:force -a 0 -d 0483:df11 -D build-G30TH/firmware.dfu
+dfu-util 0.9
+
+Copyright 2005-2009 Weston Schmidt, Harald Welte and OpenMoko Inc.
+Copyright 2010-2016 Tormod Volden and Stefan Schmidt
+This program is Free Software and has ABSOLUTELY NO WARRANTY
+Please report bugs to http://sourceforge.net/p/dfu-util/tickets/
+
+Opening DFU capable USB device...
+ID 0483:df11
+Run-time device DFU version 011a
+Claiming USB DFU Interface...
+Setting Alternate Setting #0 ...
+Determining device status: state = dfuERROR, status = 10
+dfuERROR, clearing status
+Determining device status: state = dfuIDLE, status = 0
+dfuIDLE, continuing
+DFU mode device DFU version 011a
+Device returned transfer size 2048
+DfuSe interface name: "Internal Flash  "
+Device disconnects, erases flash and resets now
+
+5.  Unprotecting the device also resets the device, so you'll need to put it back into DFU mode once more
+with the minigrabber and USB plug shuffle as above.
+
+6.  mass erase:
+dfu-util -s :mass-erase:force -a 0 -d 0483:df11 -D  build-G30TH/firmware.dfu
+
+7.  put it back into DFU mode once more
+with the minigrabber and USB plug shuffle as above.
+
+8. Install micropython:
+
+make BOARD=G30TH deploy
+
+reboot and test REPL with rshell.
+
+
