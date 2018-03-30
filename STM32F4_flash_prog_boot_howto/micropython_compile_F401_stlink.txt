@@ -33,11 +33,11 @@ If your filesystem becomes corrupt, boot into mode 3 to fix it. If resetting the
 ========cross compiling micropython===GCC_ARM+micropython+python3+stlink+rshell==============
 
 
-========cross compiling micropython===python3===rshell==============
+========compiling python3===rshell==============
 install python 3.x first,
 sudo pip3 install rshell
 
-========cross compiling micropython=====stlink================
+========compiling stlink================
 rshell needs the open source stlink setup to use nucleo boards...
 https://github.com/texane/stlink
 
@@ -75,7 +75,7 @@ lrwxrwxrwx 1 root root  3 Jun 29 09:38 /dev/stlinkv2-1_2 -> sg2
 john@ecolab3 [~]which st-flash
 /usr/local/bin/st-flash
 
-========cross compiling micropython===GCC ARM================
+========compiling GCC ARM================
 GCC ARM embedded only builds from source on old old ubuntu.
 If you want gdb and pyocd, you need 32 python2.7 and it works best in a container or VM...yuk!
 
@@ -85,7 +85,7 @@ r /usr/local -- I like /usr/local/gcc-arm-embedded with a symlink to the current
 cd /usr/local
 wget https://launchpad.net/gcc-arm-embedded/5.0/5-2016-q2-update/+download/gcc-arm-none-eabi-5_4-2016q2-20160622-linux.tar.bz2
 
-========cross compiling micropython===GCC ARM================
+========compiling GCC ARM================
 =================install gcc-arm-embedded====================
 sudo mkdir /usr/local/gcc-arm-embedded
 sudo ln -s /usr/local/gcc-arm-none-eabi-5_4-2016q2  /usr/local/gcc-arm-embedded
@@ -108,7 +108,7 @@ sudo git pull
 sudo git submodule sync
 sudo git submodule update
 
-git checkout -b release-1.8.1 v1.8.1
+git checkout -b release-1.9.3 v1.9.3
 #Now the local checkout of micropython is not on the bleeding edge, but version 1.8.1 
 
 cd stmhal

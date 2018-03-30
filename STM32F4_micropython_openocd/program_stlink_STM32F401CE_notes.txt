@@ -1,0 +1,67 @@
+john@ecolab3 [STM32F4_micropython_openocd]cat program_stlink_STM32F401CE.sh 
+#!/bin/bash
+# program_stlink_STM32F401CE.sh
+
+openocd   -f interface/stlink.cfg -f target/stm32f4x.cfg -c "program ./g30th_firmware0.bin 0x08000000 verify; program ./g30th_firmware1.bin 0x08020000 verify reset exit"
+john@ecolab3 [STM32F4_micropython_openocd]./program_stlink_STM32F401CE.sh 
+Open On-Chip Debugger 0.10.0+dev-00364-g1756f393 (2018-03-27-21:22)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+adapter speed: 2000 kHz
+adapter_nsrst_delay: 100
+none separate
+Info : Unable to match requested speed 2000 kHz, using 1800 kHz
+Info : Unable to match requested speed 2000 kHz, using 1800 kHz
+Info : clock speed 1800 kHz
+Info : STLINK v2 JTAG v30 API v2 SWIM v19 VID 0x0483 PID 0x374B
+Info : using stlink api v2
+Info : Target voltage: 3.261660
+Info : stm32f4x.cpu: hardware has 6 breakpoints, 4 watchpoints
+Info : Listening on port 3333 for gdb connections
+Info : Unable to match requested speed 2000 kHz, using 1800 kHz
+Info : Unable to match requested speed 2000 kHz, using 1800 kHz
+adapter speed: 1800 kHz
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0xfffffffe msp: 0xfffffffc
+Info : Unable to match requested speed 8000 kHz, using 4000 kHz
+Info : Unable to match requested speed 8000 kHz, using 4000 kHz
+adapter speed: 4000 kHz
+** Programming Started **
+auto erase enabled
+Info : device id = 0x10006433
+Info : flash size = 512kbytes
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x20000046 msp: 0xfffffffc
+wrote 16384 bytes from file ./g30th_firmware0.bin in 1.013997s (15.779 KiB/s)
+** Programming Finished **
+** Verify Started **
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000002e msp: 0xfffffffc
+verified 14932 bytes in 0.374018s (38.988 KiB/s)
+** Verified OK **
+Info : Unable to match requested speed 2000 kHz, using 1800 kHz
+Info : Unable to match requested speed 2000 kHz, using 1800 kHz
+adapter speed: 1800 kHz
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0804952c msp: 0x20018000
+Info : Unable to match requested speed 8000 kHz, using 4000 kHz
+Info : Unable to match requested speed 8000 kHz, using 4000 kHz
+adapter speed: 4000 kHz
+** Programming Started **
+auto erase enabled
+wrote 393216 bytes from file ./g30th_firmware1.bin in 9.684025s (39.653 KiB/s)
+** Programming Finished **
+** Verify Started **
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000002e msp: 0x20018000
+verified 284016 bytes in 0.862018s (321.756 KiB/s)
+** Verified OK **
+** Resetting Target **
+Info : Unable to match requested speed 2000 kHz, using 1800 kHz
+Info : Unable to match requested speed 2000 kHz, using 1800 kHz
+adapter speed: 1800 kHz
+shutdown command invoked
+
