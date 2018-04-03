@@ -1,0 +1,34 @@
+
+
+
+================== NUCLEO-F411RE board def setting============================================
+
+Postby dhylands » Sat Mar 05, 2016 10:31 pm
+I put together a PR to add a board definition for the NUCLEO-F411RE board:
+https://github.com/micropython/micropython/pull/1870
+It also needs https://github.com/micropython/micropython/pull/1867 in order to build properly.
+
+I was able to flash an image built with that and get a REPL on /dev/ttyACM0 (which is usb serial connected to the SWD, which in turns connects to UART2 on the 411.
+
+It seems that there are different revisions of the Nucleo board with different clock sources. Section 5.6.1 from the user manual (UM1724) has more info. Apparently newer boards use a clock signal from the ST-LINK MCU as HSE at 8 Mhz.
+
+#define MICROPY_HW_CLK_PLLM (8)
+#define MICROPY_HW_CLK_PLLN (192)
+#define MICROPY_HW_CLK_PLLP (RCC_PLLP_DIV2)
+#define MICROPY_HW_CLK_PLLQ (4)
+
+Yep - that worked. I confirmed it sets the frequency to 96 MHz so I updated the PR.
+
+
+If you power up normally, or press the reset button, the pyboard will boot into standard mode: the boot.py file will be executed first, then the USB will be configured, then main.py will run.
+
+You can override this boot sequence by holding down the user switch as the board is booting up. Hold down user switch and press reset, and then as you continue to hold the user switch, the LEDs will count in binary. When the LEDs have reached the mode you want, let go of the user switch, the LEDs for the selected mode will flash quickly, and the board will boot.
+
+The modes are:
+
+1.  Green LED only, standard boot: run boot.py then main.py.
+2.  Orange LED only, safe boot: don’t run any scripts on boot-up.
+3.  Green and orange LED together, filesystem reset: resets the flash filesystem to its factory state, then boots in safe mode.
+
+If your filesystem becomes corrupt, boot into mode 3 to fix it. If resetting the filesystem while plugged into your compute doesn’t work, you can try doing the same procedure while the board is plugged into a USB charger, or other USB power supply without data connection.
+================== NUCLEO-F411RE board def setting============================================
