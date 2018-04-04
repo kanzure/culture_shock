@@ -8,7 +8,7 @@ export FROZEN_DIR="/home/john/Documents/EEProjects/circuitboards/culture_shock/c
 if [ $BOARD ]
 then
     cd /home/john/micropython/ports/stm32
-    if  [ $1 = "--clean" ]
+    if [ $1 == "--clean" ]
     then
         make BOARD=$BOARD clean
         exit
