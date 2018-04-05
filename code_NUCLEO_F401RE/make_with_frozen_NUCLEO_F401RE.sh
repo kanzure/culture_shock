@@ -1,10 +1,10 @@
 #!/bin/bash
-# make_with_frozen_PYFLEX_F401.sh
+# make_with_frozen_NUCLEO_F401RE.sh
 
-export BOARD="PYFLEX_F401"
+export BOARD="NUCLEO_F401RE"
 echo Building for $BOARD
 
-export FROZEN_DIR="/home/john/Documents/EEProjects/circuitboards/culture_shock/code_PYFLEX_F401/frozen"
+export FROZEN_DIR="/home/john/Documents/EEProjects/circuitboards/culture_shock/code_NUCLEO_F401RE/frozen"
 
 if [ $BOARD ]
 then
