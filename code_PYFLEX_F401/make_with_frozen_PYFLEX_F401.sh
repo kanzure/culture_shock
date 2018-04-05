@@ -16,10 +16,10 @@ then
     if make -j 2 BOARD=$BOARD FROZEN_MPY_DIR=$FROZEN_DIR
     then
         sleep 1
-        make BOARD=$BOARD deploy
+        make BOARD=$BOARD deploy-stlink
         cd -
-        sleep 1
-        rshell
+#        sleep 1
+#        rshell
     else
         echo Build failure
     fi
