@@ -6,7 +6,7 @@ import stm
 micropython.alloc_emergency_exception_buf(100)
 
 # Use with pyb.freq(84000000) and prescaler=20 for .25 usec timer ticks.
-xfmr_pulse_period = 4000000   # = (usec * 4)   700ms
+xfmr_pulse_period = 14000000   # = (usec * 4)   700ms
 xfmr_pulse_w = 900000          # = (usec * 4)  225ms
 pos_pulse_total = 0
 pos_pulse_burstlen = 50007
@@ -27,36 +27,17 @@ t2ch2 = t2.channel(2, pyb.Timer.OC_TOGGLE, compare=xfmr_pulse_period,
 pin8 = pyb.Pin.board.LED_GREEN
 pin9 = pyb.Pin.board.LED_YELLOW
 # Define pins so they can be set with a pin reference like:  pin10.value(1) on the fly.
-pinB10 = pyb.Pin('PB10', pyb.Pin.OUT_PP)
-pinB13 = pyb.Pin('PB13', pyb.Pin.OUT_PP)
-pinB14 = pyb.Pin('PB14', pyb.Pin.OUT_PP)
-pinB15 = pyb.Pin('PB15', pyb.Pin.OUT_PP)
+pinB0 = pyb.Pin('PB0', pyb.Pin.OUT_PP)
+pinB1 = pyb.Pin('PB1', pyb.Pin.OUT_PP)
+pinB2 = pyb.Pin('PB2', pyb.Pin.OUT_PP)
 
 for i in range(30):
-    pinB10.value(1)  
+    pinB1.value(1)  
     time.sleep(1.0)
-    pinB10.value(0)
-    pinB13.value(1)
+    pinB1.value(0)
+    pinB0.value(1)
     time.sleep(1.0)
-    pinB13.value(0)
-    pinB14.value(1)
+    pinB0.value(0)
+    pinB2.value(1)
     time.sleep(1.0)
-    pinB14.value(0)
-    pinB15.value(1)
-    time.sleep(1.0)
-    pinB15.value(0)
-    pinB3.value(1)
-    time.sleep(1.0)
-    pinB3.value(0)
-    pinB4.value(1)
-    time.sleep(1.0)
-    pinB4.value(0)
-    pinB5.value(1)
-    time.sleep(1.0)
-    pinB5.value(0)
-    pinB6.value(1)
-    time.sleep(1.0)
-    pinB6.value(0)
-    pinB7.value(1)
-    time.sleep(1.0)
-    pinB7.value(0)
+    pinB2.value(0)

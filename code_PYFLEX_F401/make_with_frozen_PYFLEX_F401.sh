@@ -17,7 +17,7 @@ then
     if make -j 2 BOARD=$BOARD FROZEN_MPY_DIR=$FROZEN_DIR
     then
         sleep 1
-        make BOARD=$BOARD deploy-stlink
+#        make BOARD=$BOARD deploy-openocd
         cd -
 #        sleep 1
 #        rshell
