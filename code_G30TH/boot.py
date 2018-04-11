@@ -3,5 +3,4 @@
 
 import machine
 import pyb
-pyb.main('tim3_enable_tim1_tim2_tim5__tim1_shuts_down.py')
-#pyb.main('hv_pulser_orig.py')  # 6 ms full-length, period == 460 us, width == 196 us
+pyb.main('main.py')
