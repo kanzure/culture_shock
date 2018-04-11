@@ -14,10 +14,10 @@ then
         make BOARD=$BOARD clean
         exit
     fi
-    if make -j 2 BOARD=$BOARD FROZEN_MPY_DIR=$FROZEN_DIR
+    if make -j 2 V=1 BOARD=$BOARD FROZEN_MPY_DIR=$FROZEN_DIR
     then
         sleep 1
-#        make BOARD=$BOARD deploy-openocd
+#        make V=1 BOARD=$BOARD deploy-openocd
         cd -
 #        sleep 1
 #        rshell
