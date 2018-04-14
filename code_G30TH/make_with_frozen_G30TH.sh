@@ -1,9 +1,10 @@
 #!/bin/bash
-# make_G30TH.sh
+# make_with_frozen_G30TH.sh
 
 export BOARD="G30TH"
 echo Building for $BOARD
 
+export FROZEN_DIR="/home/john/Documents/EEProjects/circuitboards/culture_shock/code_G30TH/frozen"
 
 if [ $BOARD ]
 then
@@ -13,7 +14,7 @@ then
         make BOARD=$BOARD clean
         exit
     fi
-    if make -j 2 V=1 BOARD=$BOARD
+    if make -j 2 V=1 BOARD=$BOARD FROZEN_MPY_DIR=$FROZEN_DIR
     then
         sleep 1
         make V=1 BOARD=$BOARD deploy
