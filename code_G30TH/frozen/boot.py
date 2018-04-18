@@ -1,1 +1,5 @@
-/home/john/Documents/EEProjects/circuitboards/culture_shock/code_G30TH/boot.py
+# boot.py -- run on boot-up
+# can run arbitrary Python, but best to keep it minimal
+
+import pyb
+pyb.main('main.py')

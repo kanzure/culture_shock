@@ -1,6 +1,9 @@
 #!/bin/bash
 # make_with_frozen_G30TH.sh
 
+cp main.py frozen/
+cp boot.py frozen/
+
 export BOARD="G30TH"
 echo Building for $BOARD
 

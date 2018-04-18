@@ -2,4 +2,4 @@
 # can run arbitrary Python, but best to keep it minimal
 
 import pyb
-pyb.main('pintest.py')
+pyb.main('main.py')
