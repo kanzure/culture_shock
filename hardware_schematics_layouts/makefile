@@ -13,7 +13,7 @@
 
 .PHONY: myropcb board1 board2      gerbvmyro gerbv4pcb net pcb gschem bom drc
 
-BASENAMES = kvboard g30pulser pyflex_f401 pyflex_f401_boost
+BASENAMES = kvboard g30pulser pyflex_f401 pyflex_f401_boost pyflex_patch_panel
 MULTIPAGENAMES = pyflex_f401  pyflex_f401_boost
 MULTIPAGEOUTNAME = pyflex_f401_all
 BOARDFABROOT1 = kvboard

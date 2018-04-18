@@ -27,4 +27,4 @@ convert -colors 8 -threshold 76%  -contrast-stretch 4x95% -sharpen 0x1.0     -de
 pngquant -v --output  $basename-sm.$newsuffix --force --floyd=0.47  7 $basename-sm.o.$newsuffix
 
 # cleanup
-rm $basename.o.$newsuffix  $basename-sm.o.$newsuffix
+rm $basename.o.$newsuffix  $basename-sm.o.$newsuffix $basename.o.pdf
