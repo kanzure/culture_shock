@@ -1,0 +1,37 @@
+# main.py -- put your code here!
+import machine
+import pyb
+
+# Define pins so they can be set with a pin reference like:  pin10.value(1) on the fly.
+pinB8 = machine.Pin(machine.Pin.cpu.B8, machine.Pin.OUT_PP, machine.Pin.PULL_NONE)
+pinB9 = machine.Pin(machine.Pin.cpu.B9, machine.Pin.OUT_PP, machine.Pin.PULL_NONE)
+
+pinB8.value(0)
+pinB9.value(0)
+pyb.delay(1000)
+pinB8.value(1)
+pinB9.value(1)
+pyb.delay(1000)
+pinB8.value(0)
+pinB9.value(0)
+pyb.delay(1000)
+pinB8.value(1)
+pinB9.value(1)
+pyb.delay(1000)
+pinB8.value(0)
+pinB9.value(0)
+pyb.delay(1000)
+pinB8.value(1)
+pinB9.value(1)
+pyb.delay(1000)
+pinB8.value(0)
+pinB9.value(0)
+pyb.delay(1000)
+pinB8.value(1)
+pinB9.value(1)
+pyb.delay(1000)
+pinB8.value(0)
+pinB9.value(0)
+pyb.delay(1000)
+pinB8.value(1)
+pinB9.value(1)
