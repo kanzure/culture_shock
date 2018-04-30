@@ -1,9 +1,11 @@
 #!/bin/bash
-# make_G30FLEX.sh
+# make_PYFLEX_F401.sh
 
-export BOARD="G30FLEX"
+export BOARD="PYFLEX_F401"
 echo Building for $BOARD
 
+export FROZEN_DIR="/home/john/Documents/EEProjects/circuitboards/culture_shock/code_PYFLEX_F401/modules"
+# FROZEN_MPY_DIR=$FROZEN_DIR
 
 if [ $BOARD ]
 then
