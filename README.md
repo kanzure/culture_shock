@@ -93,3 +93,4 @@ The git repo dirs that could be there to receive images and datasheets include:
 * [culture_shock/photos_protos_tests_simuls](photos_protos_tests_simuls)
 * fab 	.  .  .	  (contains RS274-X gerber output (generated from .lht file and the makefile))
 
+Seeing a preview of markdown files like this README.md helps speed documenation.  This previewer is useful:  [markdown-editor](https://jbt.github.io/markdown-editor/)
