@@ -1,0 +1,32 @@
+# To get Nathan's stuff and use latest commit only:
+# fetch first or nothing new will show in existing tracking branches.
+
+git fetch nmz787culture_shock
+or...
+git fetch --all
+
+git branch -r
+git checkout --track -b nathans_culture_shock nmz787/master
+git branch 
+git log
+commit 4ca7de87c2201df5f2b17ebc75179310bcfdccfb (HEAD -> nathans_culture_shock, nmz787/master)
+Author: Nathan McCorkle <nmz787@gmail.com>
+Date:   Fri May 4 02:54:46 2018 -0700
+
+    updated pyflex pyMake script, but it is failing to find the stm32lib module in the build dir during the first 'make'
+
+commit 713892e442e88dcc3a87af830ca572b427817341
+Author: Kit Matic <culture_shock@kitmatic.com>
+Date:   Tue May 1 19:01:13 2018 -0500
+
+    added make_PYFLEX_F401_doc.md
+
+#change to different branch and get files from branch fetched from Nathan's remote trackign branch.
+
+git checkout master
+git cherry-pick 4ca7de87c2201df5f2b17ebc75179310bcfdccfb
+  534  git log
+  535  git push
+
+
+

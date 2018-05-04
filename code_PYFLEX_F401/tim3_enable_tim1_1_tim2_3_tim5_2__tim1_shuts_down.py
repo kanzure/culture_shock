@@ -329,7 +329,7 @@ def pulse():
   # offset TIM5 phase by 180 degrees relative to TIM2
   stm.mem32[stm.TIM5 + stm.TIM_CNT] = stm.mem32[stm.TIM5 + stm.TIM_ARR] //2   # offset TIM5 counter by half-the pulse-width
 
-  tim2_set_pwm2()
+  tim2.3_set_pwm2()
   tim5.2_set_pwm2()
   tim1.1_set_pwm2()
   

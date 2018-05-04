@@ -118,7 +118,7 @@ def set_slave_mode_and_trigger_source(slave_tim_name, master_tim_name, mode='tri
 
 @micropython.native
 def force_inactive_tim1():
-  # TODO link to PDF and page number for register field description
+  # Put tim1.2 & tim1.1 mode to FORCED_INACTIVE.
   ccmr1 = stm.mem16[stm.TIM1 + stm.TIM_CCMR1]
   ccmr1 &= 0b1000111110001111  # OC2M "100"....OC1M "100"
   ccmr1 |= 0b0100000001000000
@@ -126,81 +126,82 @@ def force_inactive_tim1():
 
 @micropython.native
 def force_inactive_tim5():
-  # Put tim5.2 & tim5.1 mode to FORCED_INACTIVE to start...
-  # TODO link to PDF and page number for register field description
+  # Put tim5.2 & tim5.1 mode to FORCED_INACTIVE.
   ccmr1 = stm.mem16[stm.TIM5 + stm.TIM_CCMR1]
-  ccmr1 &= 0b1000111110001111  # OC2M "100"....OC1M "100"
-  ccmr1 |= 0b0100000001000000
+  ccmr1 &= 0b1000111110001111  # OC2M "000"....OC1M "000" AND
+  ccmr1 |= 0b0100000001000000  # OC2M "100"....OC1M "100" OR
   stm.mem16[stm.TIM5 + stm.TIM_CCMR1] = ccmr1
 
 @micropython.native
 def force_inactive_tim2():
-  # Put t2ch2  t2ch1 mode to FORCED_INACTIVE to start...
+  # Put tim2.2 & tim2.1 mode to FORCED_INACTIVE.
   ccmr1 = stm.mem16[stm.TIM2 + stm.TIM_CCMR1]
-  ccmr1 &= 0b1000111110001111  # OC2M "100"....OC1M "100"
-  ccmr1 |= 0b0100000001000000
+  ccmr1 &= 0b1000111110001111  # OC2M "000"....OC1M "000" AND
+  ccmr1 |= 0b0100000001000000  # OC2M "100"....OC1M "100" OR
   stm.mem16[stm.TIM2 + stm.TIM_CCMR1] = ccmr1
+  # Put tim2.4 & tim2.3 mode to FORCED_INACTIVE.
+  ccmr2 = stm.mem16[stm.TIM2 + stm.TIM_CCMR2]
+  ccmr2 &= 0b1000111110001111  # OC4M "000"....OC3M "000" AND
+  ccmr2 |= 0b0100000001000000  # OC4M "100"....OC3M "100" OR
+  stm.mem16[stm.TIM2 + stm.TIM_CCMR2] = ccmr2
+
 
 @micropython.native
 def force_inactive_tim4():
-  # TODO link to PDF and page number for register field description
+  # Put tim4.2 & tim4.1 mode to FORCED_INACTIVE.
   ccmr1 = stm.mem16[stm.TIM4 + stm.TIM_CCMR1]
-  ccmr1 &= 0b1000111110001111  # OC2M "100"....OC1M "100"
-  ccmr1 |= 0b0100000001000000
+  ccmr1 &= 0b1000111110001111  # OC2M "000"....OC1M "000" AND
+  ccmr1 |= 0b0100000001000000  # OC2M "100"....OC1M "100" OR
   stm.mem16[stm.TIM4 + stm.TIM_CCMR1] = ccmr1
 
-
-
-
 def tim1.1_set_pwm1():
-  # TODO link to PDF and page number for register field description
+  # TIM_CCMR1 is for both ch2 & ch1.
   ccmr1 = stm.mem16[stm.TIM1 + stm.TIM_CCMR1]
-  ccmr1 &= 0b1111111110001111  # OC1M "110"
-  ccmr1 |= 0b0000000001100000
+  ccmr1 &= 0b1111111110001111  # OC1M "000" AND
+  ccmr1 |= 0b0000000001100001  # OC1M "110" OR
   stm.mem16[stm.TIM1 + stm.TIM_CCMR1] = ccmr1
 
 def tim1.1_set_pwm2():
-  # TODO link to PDF and page number for register field description
+  # TIM_CCMR1 is for both ch2 & ch1.
   ccmr1 = stm.mem16[stm.TIM1 + stm.TIM_CCMR1]
-  ccmr1 &= 0b1111111110001111  # OC1M "111"
-  ccmr1 |= 0b0000000001110000
+  ccmr1 &= 0b1111111110001111  # OC1M "000" AND
+  ccmr1 |= 0b0000000001110000  # OC1M "111" OR
   stm.mem16[stm.TIM1 + stm.TIM_CCMR1] = ccmr1
 
 def tim5.2_set_pwm1():
-  # TODO link to PDF and page number for register field description
+  # TIM_CCMR1 is for both ch2 & ch1.
   ccmr1 = stm.mem16[stm.TIM5 + stm.TIM_CCMR1]
-  ccmr1 &= 0b1000111111111111  # OC2M "110"
-  ccmr1 |= 0b0110000000000000
+  ccmr1 &= 0b1000111111111111  # OC2M "000" AND
+  ccmr1 |= 0b0110000000000000  # OC2M "110" OR
   stm.mem16[stm.TIM5 + stm.TIM_CCMR1] = ccmr1
 
 
 def tim5.2_set_pwm2():
-  # TIM_CCMR1 is for both ch1 & ch2.
+  # TIM_CCMR1 is for both ch2 & ch1.
   # STM32F401xE ref manual DocID025350 Rev 4  p 356/841
   ccmr1 = stm.mem16[stm.TIM5 + stm.TIM_CCMR1]
-  ccmr1 &= 0b1000111111111111  # OC2M "111"
-  ccmr1 |= 0b0111000000000000
+  ccmr1 &= 0b1000111111111111  # OC2M "000" AND
+  ccmr1 |= 0b0111000000000000  # OC2M "111" OR
   stm.mem16[stm.TIM5 + stm.TIM_CCMR1] = ccmr1
 
-def tim2_set_pwm2():
-  # Put (t2ch2/t2ch1) mode to FORCED_INACTIVE to start...
-  # TODO which isn it, ch1 or ch2?
-  # TODO link to PDF and page number for register field description
+def tim2.3_set_pwm2():
+  # TIM_CCMR2 is for both ch4 & ch3.
   ## 111: PWM mode 2 - In upcounting, channel 1 is inactive as long as TIMx_CNT<TIMx_CCR1
-  ## else active. In downcounting, channel 1 is active as long as TIMx_CNT>TIMx_CCR1 else
-  ## inactive.
-  ccmr1 = stm.mem16[stm.TIM2 + stm.TIM_CCMR1]
-  ccmr1 &= 0b1000111110001111  # OC2M "100"....OC1M "100"
-  ccmr1 |= 0b0111000001110000
-  stm.mem16[stm.TIM2 + stm.TIM_CCMR1] = ccmr1
+  ## else active. In downcounting, channel 1 is active while TIMx_CNT>TIMx_CCR1 else not.
+  ccmr2 = stm.mem16[stm.TIM2 + stm.TIM_CCMR2]
+  ccmr2 &= 0b1111111110001111  # OC4M "111"....OC3M "000" AND
+  ccmr2 |= 0b0000000001110000  # OC4M "000"....OC3M "111" OR
+  stm.mem16[stm.TIM2 + stm.TIM_CCMR2] = ccmr2
 
 
-def tim2_set_pwm1():
-  # Put t2ch2/t2ch1 mode to FORCED_INACTIVE to start...
-  ccmr1 = stm.mem16[stm.TIM2 + stm.TIM_CCMR1]
-  ccmr1 &= 0b1000111110001111  # OC2M "100"....OC1M "100"
-  ccmr1 |= 0b0110000001100000
-  stm.mem16[stm.TIM2 + stm.TIM_CCMR1] = ccmr1
+def tim2.3_set_pwm1():
+  # 110: PWM mode 1 - In upcounting, channel 1 is active as long as TIMx_CNT<TIMx_CCR1 else inactive.
+  # In downcounting, channel 1 is inactive (OC1REF=‘0) as long as TIMx_CNT>TIMx_CCR1 else active (OC1REF=1).
+  # TIM_CCMR2 is for both ch4 & ch3.
+  ccmr2 = stm.mem16[stm.TIM2 + stm.TIM_CCMR2]
+  ccmr2 &= 0b1111111110001111  # OC4M "111"....OC3M "000" AND
+  ccmr2 |= 0b0000000001100000  # OC4M "000"....OC3M "110" OR
+  stm.mem16[stm.TIM2 + stm.TIM_CCMR2] = ccmr2
 
 
 APB2_TIM1EN = 0
