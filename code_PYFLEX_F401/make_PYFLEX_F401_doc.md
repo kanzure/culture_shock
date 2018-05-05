@@ -3,8 +3,8 @@
 * `git clone https://github.com/micropython/micropython.git`
 * ``export UPYTHON_HOME=`realpath micropython` ``
 * `export BOARD=PYFLEX_F401`
-* `cd $UPYTHON_HOME/micropython`
-* `git checkout commit 68f4cba3d2aa056f305a20c9e394d4ebf81869ce`
+* `cd $UPYTHON_HOME`
+* `git checkout 68f4cba3d2aa056f305a20c9e394d4ebf81869ce`
 * __patch with ADC DMA sampling changes__
   * `patch -p1 ./ports/stm32/adc.c < ../culture_shock/FOR_ADC_DMA__adc.c.patch`
     * assumes culture_shock and micropython repos are in the same directory
