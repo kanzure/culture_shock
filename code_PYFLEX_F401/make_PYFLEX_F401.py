@@ -55,7 +55,7 @@ pyflex_board_url = 'https://github.com/jgriessen/PYFLEX_F401.git'
 erase_cmd = 'dfu-util -v -s :mass-erase:force -a 0 -d 0483:df11 -D build-G30TH/firmware.dfu'
 deploy_cmd = 'make BOARD=G30TH deploy'
 
-micropython_dirname = os.path.split(micropython_git_cmd)[-1].split('.')[0]
+micropython_dirname = "micropython"
 g30th_board_dirname = os.path.split(dhylands_g30th_board_url)[-1].split('.')[0]
 pyflex_board_dirname = os.path.split(pyflex_board_url)[-1].split('.')[0]
 
@@ -96,7 +96,7 @@ if __name__ == '__main__':
             print('provided micropython path does not exist!')
             sys.exit(-1)
     else:
-        UPYTHON_HOME = os.path.abspath(micropython_dirname)
+        UPYTHON_HOME = "../../" + micropython_dirname
 
     if args.frozen:
         os.environ["FROZEN_DIR"] = os.path.join(this_file_dir, 'modules')
