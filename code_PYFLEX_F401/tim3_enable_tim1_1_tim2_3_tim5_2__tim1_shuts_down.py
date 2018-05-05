@@ -20,7 +20,7 @@ import stm
 from math import ceil
 from pyb import Timer
 from machine import Pin
-from stm_low_level import *
+from stm_low_level_tim2_3 import *
 import micropython
 import array
 from machine import I2C
@@ -152,7 +152,7 @@ class OnePulseOverFlowCounter(object):
       self._longer_counter = self.longer_counter
       self.tail_end = (number_pulses % 128)
       self.or_in_end = (((self.tail_end*2)-1) & 0xff)
-      #if self.tail_end==1 and self.longer_counter>1 and self.or_in_end>0:
+      # if self.tail_end==1 and self.longer_counter>1 and self.or_in_end>0:
       #  self.or_in_end -= 1
       
       #self.or_in_end = 0
@@ -203,8 +203,8 @@ class OnePulseOverFlowCounter(object):
 rep_counter_overflow_detector = OnePulseOverFlowCounter(pyb.Timer(1, prescaler=common_prescaler, period=two_byte_mask))
 
 
-tim2.3_out = pyb.Pin(pyb.Pin.cpu.A2, pyb.Pin.AF_PP, pyb.Pin.PULL_NONE, 1)  # PA2 set to AF1 --> TIM2_CH3
-tim5.2_out = pyb.Pin(pyb.Pin.cpu.A1, pyb.Pin.AF_PP, pyb.Pin.PULL_NONE, 2)  # PA1 set to AF2 -->  TIM5_CH2
+tim2_3_out = pyb.Pin(pyb.Pin.cpu.A2, pyb.Pin.AF_PP, pyb.Pin.PULL_NONE, 1)  # PA2 set to AF1 --> TIM2_CH3
+tim5_2_out = pyb.Pin(pyb.Pin.cpu.A1, pyb.Pin.AF_PP, pyb.Pin.PULL_NONE, 2)  # PA1 set to AF2 -->  TIM5_CH2
 
 enable_pb13_af_and_connect_to_tim1()
 
@@ -329,9 +329,9 @@ def pulse():
   # offset TIM5 phase by 180 degrees relative to TIM2
   stm.mem32[stm.TIM5 + stm.TIM_CNT] = stm.mem32[stm.TIM5 + stm.TIM_ARR] //2   # offset TIM5 counter by half-the pulse-width
 
-  tim2.3_set_pwm2()
-  tim5.2_set_pwm2()
-  tim1.1_set_pwm2()
+  tim2_3_set_pwm2()
+  tim5_2_set_pwm2()
+  tim1_1_set_pwm2()
   
   # enable OPM
   stm.mem16[tim_kickoff + stm.TIM_CR1] |= 1<<TIM_CR1_OPM

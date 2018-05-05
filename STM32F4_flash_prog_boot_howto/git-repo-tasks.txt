@@ -25,8 +25,14 @@ Date:   Tue May 1 19:01:13 2018 -0500
 
 git checkout master
 git cherry-pick 4ca7de87c2201df5f2b17ebc75179310bcfdccfb
-  534  git log
-  535  git push
+git log
+git push
 
-
+================alternative quicker way to try next is:    ===========
+============= use github hash on right in commits view, click it to get full hash,===================
+then from mymaster branch of culture_shock:
+git fetch nmz787culture_shock
+git cherry-pick 16b3f876e77d82c700fec2c605d9b6fdd7bd302f
+git log
+git push
 
