@@ -56,6 +56,7 @@ slave_tim_2_through_5 = { 'TIM1' : {'TIM5':0b000, 'TIM2':0b001, 'TIM3':0b010, 'T
 TIM_SMCR_SMS_0 = 0
 TIM_SMCR_TS_0 = 4
 TIM_SMCR_MSM = 7
+
 def set_slave_mode_and_trigger_source(slave_tim_name, master_tim_name, mode='trigger'):
   # (SMCR)
   # 15  14  13 12     11 10 9 8  7    6 5 4  3    2 1 0
@@ -362,7 +363,6 @@ TIM_CCMR1_OC2CE = 15
 
 
 def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, period, width):
-    channel_num = channel_num - 1
     tim_base_address = getattr(stm, slave_tim_name)
     stm.mem16[tim_base_address + stm.TIM_CR1] &= (~1) & two_byte_mask # disable CEN
     stm.mem16[tim_base_address + stm.TIM_CR1] |= (0
@@ -379,10 +379,35 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
     # (CCMR1)
     # 15     14 13 12   11    10     9 8      7    6 5 4      3     2      1 0
     # OC2CE OC2M[2:0] OC2PE OC2FE CC2S[1:0] OC1CE OC1M[2:0] OC1PE OC1FE CC1S[1:0]
+    if channel_num == 1:
+        OC1CE = "0"
+        OC1M = "111"  # PWM2 mode CH1
+        OC1PE = "0"
+        OC1FE =  "0"
+        CC1S = "00"
+        ccmr1ch1_chars = OC1CE + OC1M + OC1PE + CC1S
+        ccmr1ch1 = int(ccmr1ch1_chars, base=2)
+        ccmr1 = stm.mem16[tim_base_address + stm.TIM_CCMR1]
+        ccmr1 &= 0b1111111100000000
+        ccmr1 = ccmr1 + ccmr1ch1
+        print( slave_tim_name + "CCMR1 =    " + bin(ccmr1)) 
+
+    elif channel_num == 2:
+        OC2CE = "0"
+        OC2M = "111"  # PWM2 mode CH2A
+        OC2PE = "0"
+        OC2FE = "0"
+        CC2S = "00"
+
+
+# ignore below here -- not done yet....
+        
     stm.mem16[tim_base_address + stm.TIM_CCMR1] = (0 #0b111<<12  #| 1<<15 #(0
-     # | (0<<(8*channel_num)+0)  # CC1S --  output compare on CH1  (THIS DOES NOTHING???)
        | (1<<(8*channel_num)+3)  # PWM2 mode on CH1 (OC1M)
        | (TIM_CCMR_OCM__PWM2<<(8*channel_num)+4))  # PWM2 mode on CH1 (OC1M)
+
+
+    OC3M_ = 0b111  # PWM2 mode CH3
 
     set_slave_mode_and_trigger_source(slave_tim_name, master_tim_name)
 
@@ -392,8 +417,6 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
     # CC4NP Res. CC4P CC4E CC3NP Res. CC3P CC3E CC2NP Res. CC2P CC2E CC1NP Res. CC1P CC1E
     # bin(stm.mem16[stm.TIM5 + stm.TIM_CCER])
     stm.mem16[tim_base_address + stm.TIM_CCER] = (0
-      #| (1 << (4*channel_num + 1))   # CC1P -- invert TIM2_CH1 (see description above) 
-      #| (1 << (4*channel_num + 1))   # CC1P -- invert TIM2_CH1 (see description above) 
       | (1 << (4*channel_num + 0)))  # CC2E -- enable TIM2_CH2
     return tim_base_address
 
@@ -412,7 +435,7 @@ def setup_n_pulse_kickoff_timer(tim_name, channel_num, prescaler, period, width)
     # (CCMR1)
     # 15     14 13 12   11    10     9 8      7    6 5 4      3     2      1 0
     # OC2CE OC2M[2:0] OC2PE OC2FE CC2S[1:0] OC1CE OC1M[2:0] OC1PE OC1FE CC1S[1:0]
-        # (CCMR1)
+    # (CCMR1)
     stm.mem16[tim_base_address + stm.TIM_CCMR1] = (0
     | (1<<(8*channel_num)+3) # PRE-ENABLE
     | (TIM_CCMR_OCM__PWM1<<(8*channel_num)+4)) # PWM MODE
