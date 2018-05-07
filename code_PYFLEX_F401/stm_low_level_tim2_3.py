@@ -380,34 +380,61 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
     # 15     14 13 12   11    10     9 8      7    6 5 4      3     2      1 0
     # OC2CE OC2M[2:0] OC2PE OC2FE CC2S[1:0] OC1CE OC1M[2:0] OC1PE OC1FE CC1S[1:0]
     if channel_num == 1:
-        OC1CE = "0"
-        OC1M = "111"  # PWM2 mode CH1
-        OC1PE = "0"
-        OC1FE =  "0"
-        CC1S = "00"
+        OC1CE = "0"   # Output Compare clear enable
+        OC1M = "111"  # PWM2 mode
+        OC1PE = "0"   # Output Compare preload enable
+        OC1FE =  "0"  # Output Compare fast enable
+        CC1S = "00"   # Capture/Compare selection  "00" for output
         ccmr1ch1_chars = OC1CE + OC1M + OC1PE + CC1S
         ccmr1ch1 = int(ccmr1ch1_chars, base=2)
         ccmr1 = stm.mem16[tim_base_address + stm.TIM_CCMR1]
-        ccmr1 &= 0b1111111100000000
-        ccmr1 = ccmr1 + ccmr1ch1
+        ccmr1 &= 0b1111111100000000  # clear CH1 register bits
+        ccmr1 = ccmr1 + ccmr1ch1     # add CH1 register bit settings
         print( slave_tim_name + "CCMR1 =    " + bin(ccmr1)) 
 
     elif channel_num == 2:
-        OC2CE = "0"
-        OC2M = "111"  # PWM2 mode CH2A
-        OC2PE = "0"
-        OC2FE = "0"
-        CC2S = "00"
+        OC2CE = "0"   # Output Compare clear enable
+        OC2M = "111"  # PWM2 mode
+        OC2PE = "0"   # Output Compare preload enable
+        OC2FE = "0"   # Output Compare fast enable
+        CC2S = "00"   # Capture/Compare selection  "00" for output
+        ccmr1ch2_chars = OC2CE + OC2M + OC2PE + CC2S + "00000000"
+        ccmr1ch2 = int(ccmr1ch2_chars, base=2)
+        ccmr1 = stm.mem16[tim_base_address + stm.TIM_CCMR1]
+        ccmr1 &= 0b0000000011111111  # clear CH2 register bits
+        ccmr1 = ccmr1 + ccmr1ch2     # add CH2 register bit settings
+        print( slave_tim_name + "CCMR1 =    " + bin(ccmr1)) # print TIMx_CCMR1 state
+
+    elif channel_num == 3:
+        OC3CE = "0"   # Output Compare clear enable
+        OC3M = "111"  # PWM2 mode
+        OC3PE = "0"   # Output Compare preload enable
+        OC3FE = "0"   # Output Compare fast enable
+        CC3S = "00"   # Capture/Compare selection  "00" for output
+        ccmr2ch3_chars = OC3CE + OC3M + OC3PE + CC3S
+        ccmr2ch3 = int(ccmr2ch3_chars, base=2)
+        ccmr2 = stm.mem16[tim_base_address + stm.TIM_CCMR2]
+        ccmr2 &= 0b1111111100000000  # clear CH3 register bits
+        ccmr2 = ccmr2 + ccmr2ch3     # add CH3 register bit settings
+        print( slave_tim_name + "CCMR2 =    " + bin(ccmr2)) # print TIMx_CCMR1 state
+
+    elif channel_num == 4:
+        OC4CE = "0"   # Output Compare clear enable
+        OC4M = "111"  # PWM2 mode
+        OC4PE = "0"   # Output Compare preload enable
+        OC4FE = "0"   # Output Compare fast enable
+        CC4S = "00"   # Capture/Compare selection  "00" for output
+        ccmr2ch4_chars = OC2CE + OC2M + OC2PE + CC2S + "00000000"
+        ccmr2ch4 = int(ccmr1ch4_chars, base=2)
+        ccmr2 = stm.mem16[tim_base_address + stm.TIM_CCMR2]
+        ccmr2 &= 0b0000000011111111  # clear CH4 register bits
+        ccmr2 = ccmr1 + ccmr1ch4     # add CH4 register bit settings
+        print( slave_tim_name + "CCMR1 =    " + bin(ccmr1)) # print TIMx_CCMR1 state
 
 
-# ignore below here -- not done yet....
+
+# have not considered below here -- not done yet....
         
-    stm.mem16[tim_base_address + stm.TIM_CCMR1] = (0 #0b111<<12  #| 1<<15 #(0
-       | (1<<(8*channel_num)+3)  # PWM2 mode on CH1 (OC1M)
-       | (TIM_CCMR_OCM__PWM2<<(8*channel_num)+4))  # PWM2 mode on CH1 (OC1M)
-
-
-    OC3M_ = 0b111  # PWM2 mode CH3
 
     set_slave_mode_and_trigger_source(slave_tim_name, master_tim_name)
 
