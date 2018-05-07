@@ -376,6 +376,10 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
     stm.mem32[tim_base_address + stm.TIM_CCR1] = period - width
     stm.mem32[tim_base_address + stm.TIM_CCR2] = period - width
 
+    # (TIM2 CCER)
+    # 15    14   13   12   11    10   9    8    7     6    5    4    3     2    1    0
+    # CC4NP Res. CC4P CC4E CC3NP Res. CC3P CC3E CC2NP Res. CC2P CC2E CC1NP Res. CC1P CC1E
+
     # (CCMR1)
     # 15     14 13 12   11    10     9 8      7    6 5 4      3     2      1 0
     # OC2CE OC2M[2:0] OC2PE OC2FE CC2S[1:0] OC1CE OC1M[2:0] OC1PE OC1FE CC1S[1:0]
@@ -424,25 +428,24 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         OC4PE = "0"   # Output Compare preload enable
         OC4FE = "0"   # Output Compare fast enable
         CC4S = "00"   # Capture/Compare selection  "00" for output
-        ccmr2ch4_chars = OC2CE + OC2M + OC2PE + CC2S + "00000000"
-        ccmr2ch4 = int(ccmr1ch4_chars, base=2)
+        ccmr2ch4_chars = OC4CE + OC4M + OC4PE + CC4S + "00000000"
+        ccmr2ch4 = int(ccmr2ch4_chars, base=2)
         ccmr2 = stm.mem16[tim_base_address + stm.TIM_CCMR2]
         ccmr2 &= 0b0000000011111111  # clear CH4 register bits
-        ccmr2 = ccmr1 + ccmr1ch4     # add CH4 register bit settings
+        ccmr2 = ccmr2 + ccmr2ch4     # add CH4 register bit settings
         print( slave_tim_name + "CCMR1 =    " + bin(ccmr1)) # print TIMx_CCMR1 state
+    else:
+        print( "The channels are 1 2 3 4 -- no others!  Not this:   " + channel_num )
 
 
-
-# have not considered below here -- not done yet....
         
 
     set_slave_mode_and_trigger_source(slave_tim_name, master_tim_name)
 
     stm.mem16[tim_base_address + stm.TIM_EGR] |= (1) # set bit 0 -- UG
-    # (TIM2 CCER)
-    # 15    14   13   12   11    10   9    8    7     6    5    4    3     2    1    0
-    # CC4NP Res. CC4P CC4E CC3NP Res. CC3P CC3E CC2NP Res. CC2P CC2E CC1NP Res. CC1P CC1E
-    # bin(stm.mem16[stm.TIM5 + stm.TIM_CCER])
+
+# have not considered below here -- not done yet....
+
     stm.mem16[tim_base_address + stm.TIM_CCER] = (0
       | (1 << (4*channel_num + 0)))  # CC2E -- enable TIM2_CH2
     return tim_base_address
