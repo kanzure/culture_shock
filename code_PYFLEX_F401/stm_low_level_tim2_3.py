@@ -145,7 +145,6 @@ def force_inactive_tim2():
   ccmr2 |= 0b0100000001000000  # OC4M "100"....OC3M "100" OR
   stm.mem16[stm.TIM2 + stm.TIM_CCMR2] = ccmr2
 
-
 @micropython.native
 def force_inactive_tim4():
   # Put tim4.2 & tim4.1 mode to FORCED_INACTIVE.

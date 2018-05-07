@@ -16,12 +16,13 @@ CEN -- The counter is clocked by the prescaler output CK_CNT, which is enabled o
 """
 
 
+import micropython
+micropython.alloc_emergency_exception_buf(100)
 import stm
 from math import ceil
 from pyb import Timer
 from machine import Pin
 from stm_low_level_tim2_3 import *
-import micropython
 import array
 from machine import I2C
 try:
@@ -29,7 +30,6 @@ try:
 except:
   # OLED support won't be available
   pass
-micropython.alloc_emergency_exception_buf(100)
 
 
 period = 265
