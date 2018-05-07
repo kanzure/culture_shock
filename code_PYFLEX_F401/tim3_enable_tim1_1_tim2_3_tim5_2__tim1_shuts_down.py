@@ -19,6 +19,7 @@ CEN -- The counter is clocked by the prescaler output CK_CNT, which is enabled o
 import micropython
 micropython.alloc_emergency_exception_buf(100)
 import stm
+import pyb
 from math import ceil
 from pyb import Timer
 from machine import Pin

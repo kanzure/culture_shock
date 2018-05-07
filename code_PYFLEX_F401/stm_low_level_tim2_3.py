@@ -1,5 +1,5 @@
 import stm
-
+import micropython
 
 two_byte_mask = 0xFFFF
 four_byte_mask = 0xFFFFFFFF
@@ -31,11 +31,11 @@ four_byte_mask = 0xFFFFFFFF
 #     100: Force inactive level - OC1REF is forced low.
 #     101: Force active level - OC1REF is forced high.
 #     110: PWM mode 1 - In upcounting, channel 1 is active as long as TIMx_CNT<TIMx_CCR1 else inactive.
-#          In downcounting, channel 1 is inactive (OC1REF=‘0) as long as TIMx_CNT>TIMx_CCR1 else active (OC1REF=1).
+#          In downcounting, channel 1 is inactive (OC1REF=0) as long as TIMx_CNT>TIMx_CCR1 else active (OC1REF=1).
 #     111: PWM mode 2 - In upcounting, channel 1 is inactive as long as TIMx_CNT<TIMx_CCR1 else active. 
 #          In downcounting, channel 1 is active as long as TIMx_CNT>TIMx_CCR1 else inactive.
 # Note: In PWM mode 1 or 2, the OCREF level changes only when the result of the
-# comparison changes or when the output compare mode switches from “frozen” mode to “PWM” mode.
+# comparison changes or when the output compare mode switches from frozen mode to PWM mode.
 
 TIM_CCMR1_CC1S_0 = 0
 TIM_CCMR1_OC1M_0 = 4
@@ -85,7 +85,7 @@ def set_slave_mode_and_trigger_source(slave_tim_name, master_tim_name, mode='tri
   #     When external signals are selected the active edge of the trigger signal (TRGI) is linked to
   #     the polarity selected on the external input (see Input Control register and Control Register
   #     description.
-  #     000: Slave mode disabled - if CEN = ‘1 then the prescaler is clocked directly by the internal clock.
+  #     000: Slave mode disabled - if CEN = 1 then the prescaler is clocked directly by the internal clock.
   #     001: Encoder mode 1 - Counter counts up/down on TI2FP1 edge depending on TI1FP2 level.
   #     010: Encoder mode 2 - Counter counts up/down on TI1FP2 edge depending on TI2FP1 level.
   #     011: Encoder mode 3 - Counter counts up/down on both TI1FP1 and TI2FP2 edges
@@ -195,7 +195,7 @@ def tim2_3_set_pwm2():
 
 def tim2_3_set_pwm1():
   # 110: PWM mode 1 - In upcounting, channel 1 is active as long as TIMx_CNT<TIMx_CCR1 else inactive.
-  # In downcounting, channel 1 is inactive (OC1REF=‘0) as long as TIMx_CNT>TIMx_CCR1 else active (OC1REF=1).
+  # In downcounting, channel 1 is inactive (OC1REF=0) as long as TIMx_CNT>TIMx_CCR1 else active (OC1REF=1).
   # TIM_CCMR2 is for both ch4 & ch3.
   ccmr2 = stm.mem16[stm.TIM2 + stm.TIM_CCMR2]
   ccmr2 &= 0b1111111110001111  # OC4M "111"....OC3M "000" AND
