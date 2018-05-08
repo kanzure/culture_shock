@@ -322,8 +322,8 @@ def tim2_3_set_pwm2():
   ## 111: PWM mode 2 - In upcounting, channel 1 is inactive as long as TIMx_CNT<TIMx_CCR1
   ## else active. In downcounting, channel 1 is active while TIMx_CNT>TIMx_CCR1 else not.
   ccmr2 = stm.mem16[stm.TIM2 + stm.TIM_CCMR2]
-  ccmr2 &= 0b1111111110001111  # OC4M "111"....OC3M "000" AND
-  ccmr2 |= 0b0000000001110000  # OC4M "000"....OC3M "111" OR
+  ccmr2 &= 0b1111111110001111  # OC3M "000" AND
+  ccmr2 |= 0b0000000001110000  # OC3M "111" OR
   stm.mem16[stm.TIM2 + stm.TIM_CCMR2] = ccmr2
 
 def tim5_2_set_pwm2():
@@ -377,10 +377,16 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         stm.mem16[tim_base_address + stm.TIM_CCER] &= 0b1111111111110000  # clear CH1 settings
         stm.mem16[tim_base_address + stm.TIM_CCER] |= CCxNP_CCxNE_CCxP_CCxE  #new CH1 settings
 
-    # (TIMx_CCMR1) capture/compare mode register 1
-    # 15    14 13  12  11    10     9    8     7      6  5   4   3     2     1   0
-    # OC2CE OC2M[2:0]  OC2PE OC2FE  CC2S[1:0]  OC1CE  OC1M[2:0]  OC1PE OC1FE CC1S[1:0]
     elif channel_num == 2:
+        # (TIMx_CCMR1) capture/compare mode register 1
+        # 15    14 13  12  11    10     9    8     7      6  5   4   3     2     1   0
+        # OC2CE OC2M[2:0]  OC2PE OC2FE  CC2S[1:0]  OC1CE  OC1M[2:0]  OC1PE OC1FE CC1S[1:0]
+        stm.mem16[tim_base_address + stm.TIM_CCMR2] &= 0b1111111100000000  # clear CH3 settings
+        stm.mem16[tim_base_address + stm.TIM_CCMR2] |= OCxCE_OCxM_OCxPE_OCxFE_CCxS_pwm1
+        #debug print statement
+        ccmr2 = stm.mem16[tim_base_address + stm.TIM_CCMR2]
+        print("CH3   " +  slave_tim_name + "CCMR2 =    " + bin(ccmr2))
+
         CC2NP_CC2NE = "00"   # Capture/Compare complementary polarity + enable
         CC2P_CC2E = "01"    # Capture/Compare polarity, output enable
         OC2CE = "0"   # Output Compare clear enable
@@ -410,32 +416,23 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         stm.mem16[tim_base_address + stm.TIM_CCMR2] |= OCxCE_OCxM_OCxPE_OCxFE_CCxS_pwm1
         #debug print statement
         ccmr2 = stm.mem16[tim_base_address + stm.TIM_CCMR2]
-        print( slave_tim_name + "CCMR2 =    " + bin(ccmr2))
+        print("CH3   " +  slave_tim_name + "CCMR2 =    " + bin(ccmr2))
 
         # Capture/compare enable register (TIMx_CCER)
         # 15    14   13   12   11    10    9    8    7     6    5     4    3     2     1    0
         # RESERVED   CC4P CC4E CC3NP CC3NE CC3P CC3E CC2NP CC2NE CC2P CC2E CC1NP CC1NE CC1P CC1E
-        stm.mem16[tim_base_address + stm.TIM_CCER] &= 0b1111000011111111  # clear CH3 settings
+        stm.mem16[tim_base_address + stm.TIM_CCER] &= 0b1111000011111111  # clear CH3 CCER settings
         stm.mem16[tim_base_address + stm.TIM_CCER] |= (CCxNP_CCxNE_CCxP_CCxE << 8)  #new CH3 settings
 
     elif channel_num == 4:
         # capture/compare mode register 2 (TIMx_CCMR2)
         # 15    14 13  12  11    10     9    8     7      6  5   4   3     2     1   0
         # OC4CE OC4M[2:0]  OC4PE OC4FE  CC4S[1:0]  OC3CE  OC3M[2:0]  OC3PE OC3FE CC3S[1:0]
-        CC4NP_CC4NE = "00"   # Capture/Compare complementary polarity + enable
-        CC4P_CC4E = "01"    # Capture/Compare polarity, output enable
-        OC4CE = "0"   # Output Compare clear enable
-        OC4M = "111"  # PWM2 mode
-        OC4PE = "0"   # Output Compare preload enable
-        OC4FE = "0"   # Output Compare fast enable
-        CC4S = "00"   # Capture/Compare selection  "00" for output
-        ccmr2ch4_chars = OC4CE + OC4M + OC4PE + CC4S + "00000000"
-        ccmr2ch4 = int(ccmr2ch4_chars, base=2)
+        stm.mem16[tim_base_address + stm.TIM_CCMR2] &= 0b0000000011111111  # clear CH4 CCMR2 settings
+        stm.mem16[tim_base_address + stm.TIM_CCMR2] |= (OCxCE_OCxM_OCxPE_OCxFE_CCxS_pwm1 << 8)
+        #debug print statement
         ccmr2 = stm.mem16[tim_base_address + stm.TIM_CCMR2]
-        ccmr2 &= 0b0000000011111111  # clear CH4 register bits
-        ccmr2 = ccmr2 + ccmr2ch4     # add CH4 CCMR2 bit settings
-        stm.mem16[tim_base_address + stm.TIM_CCMR1] = ccmr1
-        print( slave_tim_name + "CCMR2 =    " + bin(ccmr2)) # print TIMx_CCMR2 state
+        print("CH4   " + slave_tim_name + "CCMR2 =    " + bin(ccmr2))
 
         # Capture/compare enable register (TIMx_CCER)
         # 15    14   13   12   11    10    9    8    7     6    5     4    3     2     1    0
