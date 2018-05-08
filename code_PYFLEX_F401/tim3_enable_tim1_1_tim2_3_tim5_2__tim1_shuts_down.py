@@ -251,7 +251,7 @@ def d():
 
 
 slave_tim = setup_slave_timer('TIM5', 2, 'TIM3', common_prescaler, period, width)
-slave_tim = setup_slave_timer('TIM2', 1, 'TIM3', common_prescaler, period, width)
+slave_tim = setup_slave_timer('TIM2', 3, 'TIM3', common_prescaler, period, width)
 tim_kickoff = setup_n_pulse_kickoff_timer("TIM3", 1, common_prescaler, period, width)
 
 
@@ -289,7 +289,6 @@ stm.mem16[stm.TIM1 + stm.TIM_BDTR] &= ~0xff&two_byte_mask      #ensure no delay 
 stm.mem16[stm.TIM1 + stm.TIM_BDTR] |= 0  | (1 << TIM_BDTR_MOE)    # and the advanced-timers' gotcha: main output enable
 
 set_slave_mode_and_trigger_source('TIM1', 'TIM3')
-#setup_slave_timer('TIM4', 4, 'TIM3', common_prescaler, period, width)
 
 # 15 14 13 12 11 10   9 8     7   6 5  4   3   2    1   0
 #       Reserved    CKD[1:0] ARPE CMS DIR OPM URS UDIS CEN
