@@ -23,7 +23,7 @@ import pyb
 from math import ceil
 from pyb import Timer
 from machine import Pin
-from stm_low_level_tim2_3 import *
+from stm_low_level_tim2_3_4ch import *
 import array
 from machine import I2C
 try:
@@ -249,7 +249,8 @@ def d():
   b();pulse()
   c();pulse()
 
-
+# rewrite setup_slave_timer() to include chunk of 8 bits CCMR settings including pwm mode.
+# chunk of 8 bits CCMR settings ==>  OCxCE_OCxM_OCxPE_OCxFE_CCxS parameter
 slave_tim = setup_slave_timer('TIM5', 2, 'TIM3', common_prescaler, period, width)
 slave_tim = setup_slave_timer('TIM2', 3, 'TIM3', common_prescaler, period, width)
 tim_kickoff = setup_n_pulse_kickoff_timer("TIM3", 1, common_prescaler, period, width)
