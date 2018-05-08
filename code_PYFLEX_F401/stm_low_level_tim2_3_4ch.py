@@ -395,6 +395,9 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         stm.mem16[tim_base_address + stm.TIM_CCER] &= 0b1111111100001111 # clear CH2 settings
         stm.mem16[tim_base_address + stm.TIM_CCER] |= (CCxNP_CCxNE_CCxP_CCxE << 4)  #new CH2 settings
 
+    # (CCMR1)
+    # 15    14 13  12  11    10     9    8     7      6  5   4   3     2     1   0
+    # OC2CE OC2M[2:0]  OC2PE OC2FE  CC2S[1:0]  OC1CE  OC1M[2:0]  OC1PE OC1FE CC1S[1:0]
     elif channel_num == 3:
         # capture/compare mode register 1 (TIMx_CCMR1)
         OC3CE = "0"   # Output Compare clear enable
@@ -433,14 +436,10 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         print( slave_tim_name + "CCMR2 =    " + bin(ccmr2)) # print TIMx_CCMR2 state
 
         # Capture/compare enable register (TIMx_CCER)
-        CC4NP_CC4NE = "00"   # Not availablein CH4 (writable, but no effect.)
-        CC4P_CC4E = "01"    # Capture/Compare polarity, output enable
-        ccerch4_chars = CC4NP_CC4NE + CC4P_CC4E + "000000000000"
-        ccerch4 =  int(ccerch4_chars, base=2)
-        ccer = stm.mem16[tim_base_address + stm.TIM_CCER]
-        ccer  &= 0b0000111111111111 
-        ccer = ccer + ccerch4    #  add CH4 CCER bit settings
-        stm.mem16[tim_base_address + stm.TIM_CCER] = ccer
+        # 15    14   13   12   11    10    9    8    7     6    5     4    3     2     1    0
+        # RESERVED   CC4P CC4E CC3NP CC3NE CC3P CC3E CC2NP CC2NE CC2P CC2E CC1NP CC1NE CC1P CC1E
+        stm.mem16[tim_base_address + stm.TIM_CCER] &= 0b0000111111111111  # clear CH4 settings
+        stm.mem16[tim_base_address + stm.TIM_CCER] |= (CCxNP_CCxNE_CCxP_CCxE << 12)  #new CH4 settings
 
     else:
         print( "The channels are 1 2 3 4 -- no others!  Not this:   " + channel_num )
