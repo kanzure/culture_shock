@@ -184,25 +184,6 @@ def tim5_2_set_pwm2():
   ccmr1 |= 0b0111000000000000  # OC2M "111" OR
   stm.mem16[stm.TIM5 + stm.TIM_CCMR1] = ccmr1
 
-def tim2_3_set_pwm2():
-  # TIM_CCMR2 is for both ch4 & ch3.
-  ## 111: PWM mode 2 - In upcounting, channel 1 is inactive as long as TIMx_CNT<TIMx_CCR1
-  ## else active. In downcounting, channel 1 is active while TIMx_CNT>TIMx_CCR1 else not.
-  ccmr2 = stm.mem16[stm.TIM2 + stm.TIM_CCMR2]
-  ccmr2 &= 0b1111111110001111  # OC4M "111"....OC3M "000" AND
-  ccmr2 |= 0b0000000001110000  # OC4M "000"....OC3M "111" OR
-  stm.mem16[stm.TIM2 + stm.TIM_CCMR2] = ccmr2
-
-
-def tim2_3_set_pwm1():
-  # 110: PWM mode 1 - In upcounting, channel 1 is active as long as TIMx_CNT<TIMx_CCR1 else inactive.
-  # In downcounting, channel 1 is inactive (OC1REF=0) as long as TIMx_CNT>TIMx_CCR1 else active (OC1REF=1).
-  # TIM_CCMR2 is for both ch4 & ch3.
-  ccmr2 = stm.mem16[stm.TIM2 + stm.TIM_CCMR2]
-  ccmr2 &= 0b1111111110001111  # OC4M "111"....OC3M "000" AND
-  ccmr2 |= 0b0000000001100000  # OC4M "000"....OC3M "110" OR
-  stm.mem16[stm.TIM2 + stm.TIM_CCMR2] = ccmr2
-
 
 APB2_TIM1EN = 0
 APB1_TIM2EN = 0
@@ -358,9 +339,26 @@ TIM_CR1_OPM = 3
 TIM_CR1_CMS = 5
 TIM_CR1_DIR = 4
 
-TIM_CCMR1_OC1CE = 7
-TIM_CCMR1_OC2CE = 15
 
+
+def tim2_3_set_pwm2():
+  # TIM_CCMR2 is for both ch4 & ch3.
+  ## 111: PWM mode 2 - In upcounting, channel 1 is inactive as long as TIMx_CNT<TIMx_CCR1
+  ## else active. In downcounting, channel 1 is active while TIMx_CNT>TIMx_CCR1 else not.
+  ccmr2 = stm.mem16[stm.TIM2 + stm.TIM_CCMR2]
+  ccmr2 &= 0b1111111110001111  # OC4M "111"....OC3M "000" AND
+  ccmr2 |= 0b0000000001110000  # OC4M "000"....OC3M "111" OR
+  stm.mem16[stm.TIM2 + stm.TIM_CCMR2] = ccmr2
+
+
+def tim2_3_set_pwm1():
+  # 110: PWM mode 1 - In upcounting, channel 1 is active as long as TIMx_CNT<TIMx_CCR1 else inactive.
+  # In downcounting, channel 1 is inactive (OC1REF=0) as long as TIMx_CNT>TIMx_CCR1 else active (OC1REF=1).
+  # TIM_CCMR2 is for both ch4 & ch3.
+  ccmr2 = stm.mem16[stm.TIM2 + stm.TIM_CCMR2]
+  ccmr2 &= 0b1111111110001111  # OC4M "111"....OC3M "000" AND
+  ccmr2 |= 0b0000000001100000  # OC4M "000"....OC3M "110" OR
+  stm.mem16[stm.TIM2 + stm.TIM_CCMR2] = ccmr2
 
 def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, period, width):
     tim_base_address = getattr(stm, slave_tim_name)
@@ -494,10 +492,6 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
 
     stm.mem16[tim_base_address + stm.TIM_EGR] |= (1) # set bit 0 -- UG
 
-# have not considered below here -- not done yet....
-
-    stm.mem16[tim_base_address + stm.TIM_CCER] = (0
-      | (1 << (4*channel_num + 0)))  # CC2E -- enable TIM2_CH2
     return tim_base_address
 
 
