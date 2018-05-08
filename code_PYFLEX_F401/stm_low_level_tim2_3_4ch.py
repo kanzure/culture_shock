@@ -348,9 +348,13 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
     stm.mem32[tim_base_address + stm.TIM_CCR1] = period - width
     stm.mem32[tim_base_address + stm.TIM_CCR2] = period - width
 
-    CCxNP_CCxNE_CCxP_CCxE = 0b0001   # CC complementary=not polarity=HI enable=on # usual CCER channel setting
+    # CC complementary=not polarity=HI enable=on # usual CCER chan setting (for if block below):
+    CCxNP_CCxNE_CCxP_CCxE = 0b0001   
+    # Output and pwm mode generic pattern per channel  (for if block below):
+    OCxCE_OCxM_OCxPE_OCxFE_CCxS_pwm2 = 0b01110000
+    OCxCE_OCxM_OCxPE_OCxFE_CCxS_pwm1 = 0b01100000
 
-    # (CCMR1)
+    # (TIMx_CCMR1) capture/compare mode register 1
     # 15    14 13  12  11    10     9    8     7      6  5   4   3     2     1   0
     # OC2CE OC2M[2:0]  OC2PE OC2FE  CC2S[1:0]  OC1CE  OC1M[2:0]  OC1PE OC1FE CC1S[1:0]
     if channel_num == 1:
@@ -373,6 +377,9 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         stm.mem16[tim_base_address + stm.TIM_CCER] &= 0b1111111111110000  # clear CH1 settings
         stm.mem16[tim_base_address + stm.TIM_CCER] |= CCxNP_CCxNE_CCxP_CCxE  #new CH1 settings
 
+    # (TIMx_CCMR1) capture/compare mode register 1
+    # 15    14 13  12  11    10     9    8     7      6  5   4   3     2     1   0
+    # OC2CE OC2M[2:0]  OC2PE OC2FE  CC2S[1:0]  OC1CE  OC1M[2:0]  OC1PE OC1FE CC1S[1:0]
     elif channel_num == 2:
         CC2NP_CC2NE = "00"   # Capture/Compare complementary polarity + enable
         CC2P_CC2E = "01"    # Capture/Compare polarity, output enable
@@ -395,23 +402,15 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         stm.mem16[tim_base_address + stm.TIM_CCER] &= 0b1111111100001111 # clear CH2 settings
         stm.mem16[tim_base_address + stm.TIM_CCER] |= (CCxNP_CCxNE_CCxP_CCxE << 4)  #new CH2 settings
 
-    # (CCMR1)
-    # 15    14 13  12  11    10     9    8     7      6  5   4   3     2     1   0
-    # OC2CE OC2M[2:0]  OC2PE OC2FE  CC2S[1:0]  OC1CE  OC1M[2:0]  OC1PE OC1FE CC1S[1:0]
     elif channel_num == 3:
-        # capture/compare mode register 1 (TIMx_CCMR1)
-        OC3CE = "0"   # Output Compare clear enable
-        OC3M = "111"  # PWM2 mode
-        OC3PE = "0"   # Output Compare preload enable
-        OC3FE = "0"   # Output Compare fast enable
-        CC3S = "00"   # Capture/Compare selection  "00" for output
-        ccmr2ch3_chars = OC3CE + OC3M + OC3PE + CC3S
-        ccmr2ch3 = int(ccmr2ch3_chars, base=2)
+        # capture/compare mode register 2 (TIMx_CCMR2)
+        # 15    14 13  12  11    10     9    8     7      6  5   4   3     2     1   0
+        # OC4CE OC4M[2:0]  OC4PE OC4FE  CC4S[1:0]  OC3CE  OC3M[2:0]  OC3PE OC3FE CC3S[1:0]
+        stm.mem16[tim_base_address + stm.TIM_CCMR2] &= 0b1111111100000000  # clear CH3 settings
+        stm.mem16[tim_base_address + stm.TIM_CCMR2] |= OCxCE_OCxM_OCxPE_OCxFE_CCxS_pwm1
+        #debug print statement
         ccmr2 = stm.mem16[tim_base_address + stm.TIM_CCMR2]
-        ccmr2 &= 0b1111111100000000  # clear CH3 register bits
-        ccmr2 = ccmr2 + ccmr2ch3     # add CH3 CCMR2 bit settings
-        stm.mem16[tim_base_address + stm.TIM_CCMR1] = ccmr1
-        print( slave_tim_name + "CCMR2 =    " + bin(ccmr2)) # print TIMx_CCMR2 state
+        print( slave_tim_name + "CCMR2 =    " + bin(ccmr2))
 
         # Capture/compare enable register (TIMx_CCER)
         # 15    14   13   12   11    10    9    8    7     6    5     4    3     2     1    0
@@ -420,6 +419,9 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         stm.mem16[tim_base_address + stm.TIM_CCER] |= (CCxNP_CCxNE_CCxP_CCxE << 8)  #new CH3 settings
 
     elif channel_num == 4:
+        # capture/compare mode register 2 (TIMx_CCMR2)
+        # 15    14 13  12  11    10     9    8     7      6  5   4   3     2     1   0
+        # OC4CE OC4M[2:0]  OC4PE OC4FE  CC4S[1:0]  OC3CE  OC3M[2:0]  OC3PE OC3FE CC3S[1:0]
         CC4NP_CC4NE = "00"   # Capture/Compare complementary polarity + enable
         CC4P_CC4E = "01"    # Capture/Compare polarity, output enable
         OC4CE = "0"   # Output Compare clear enable
