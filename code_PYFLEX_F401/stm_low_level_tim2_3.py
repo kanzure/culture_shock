@@ -384,32 +384,55 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
     # 15     14 13 12   11    10     9 8      7    6 5 4      3     2      1 0
     # OC2CE OC2M[2:0] OC2PE OC2FE CC2S[1:0] OC1CE OC1M[2:0] OC1PE OC1FE CC1S[1:0]
     if channel_num == 1:
+        CC1NP_CC1NE = "00"   # Capture/Compare complementary polarity + enable
+        CC1P_CC1E = "01"    # Capture/Compare polarity, output enable
         OC1CE = "0"   # Output Compare clear enable
         OC1M = "111"  # PWM2 mode
         OC1PE = "0"   # Output Compare preload enable
         OC1FE =  "0"  # Output Compare fast enable
         CC1S = "00"   # Capture/Compare selection  "00" for output
-        ccmr1ch1_chars = OC1CE + OC1M + OC1PE + CC1S
+        ccmr1ch1_chars = OC1CE + OC1M + OC1PE + CC1S + ""
         ccmr1ch1 = int(ccmr1ch1_chars, base=2)
         ccmr1 = stm.mem16[tim_base_address + stm.TIM_CCMR1]
         ccmr1 &= 0b1111111100000000  # clear CH1 register bits
         ccmr1 = ccmr1 + ccmr1ch1     # add CH1 register bit settings
         print( slave_tim_name + "CCMR1 =    " + bin(ccmr1)) 
 
+        # Capture/compare enable register (TIMx_CCER)
+        CC1NP_CC1NE = "00"   # Capture/Compare complementary polarity + enable
+        CC1P_CC1E = "01"    # Capture/Compare polarity, output enable
+        ccerch1_chars = CC1NP_CC1NE + CC1P_CC1E
+        ccerch1 =  int(ccerch1_chars, base=2)
+        ccer = stm.mem16[tim_base_address + stm.TIM_CCER]
+        ccer  &= 0b1111111111110000 
+        ccer = ccer + ccerch1    #  add CH1 CCER bit settings
+
     elif channel_num == 2:
+        CC2NP_CC2NE = "00"   # Capture/Compare complementary polarity + enable
+        CC2P_CC2E = "01"    # Capture/Compare polarity, output enable
         OC2CE = "0"   # Output Compare clear enable
         OC2M = "111"  # PWM2 mode
         OC2PE = "0"   # Output Compare preload enable
         OC2FE = "0"   # Output Compare fast enable
         CC2S = "00"   # Capture/Compare selection  "00" for output
-        ccmr1ch2_chars = OC2CE + OC2M + OC2PE + CC2S + "00000000"
+        ccmr1ch2_chars = OC2CE + OC2M + OC2PE + CC2S + "0000"
         ccmr1ch2 = int(ccmr1ch2_chars, base=2)
         ccmr1 = stm.mem16[tim_base_address + stm.TIM_CCMR1]
         ccmr1 &= 0b0000000011111111  # clear CH2 register bits
         ccmr1 = ccmr1 + ccmr1ch2     # add CH2 register bit settings
         print( slave_tim_name + "CCMR1 =    " + bin(ccmr1)) # print TIMx_CCMR1 state
 
+        # Capture/compare enable register (TIMx_CCER)
+        CC2NP_CC2NE = "00"   # Capture/Compare complementary polarity + enable
+        CC2P_CC2E = "01"    # Capture/Compare polarity, output enable
+        ccerch2_chars = CC2NP_CC2NE + CC2P_CC2E
+        ccerch2 =  int(ccerch2_chars, base=2)
+        ccer = stm.mem16[tim_base_address + stm.TIM_CCER]
+        ccer  &= 0b1111111111110000 
+        ccer = ccer + ccerch2    #  add CH2 CCER bit settings
+
     elif channel_num == 3:
+        # capture/compare mode register 1 (TIMx_CCMR1)
         OC3CE = "0"   # Output Compare clear enable
         OC3M = "111"  # PWM2 mode
         OC3PE = "0"   # Output Compare preload enable
@@ -419,10 +442,21 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         ccmr2ch3 = int(ccmr2ch3_chars, base=2)
         ccmr2 = stm.mem16[tim_base_address + stm.TIM_CCMR2]
         ccmr2 &= 0b1111111100000000  # clear CH3 register bits
-        ccmr2 = ccmr2 + ccmr2ch3     # add CH3 register bit settings
-        print( slave_tim_name + "CCMR2 =    " + bin(ccmr2)) # print TIMx_CCMR1 state
+        ccmr2 = ccmr2 + ccmr2ch3     # add CH3 CCMR2 bit settings
+        print( slave_tim_name + "CCMR2 =    " + bin(ccmr2)) # print TIMx_CCMR2 state
+
+        # Capture/compare enable register (TIMx_CCER)
+        CC3NP_CC3NE = "00"   # Capture/Compare complementary polarity + enable
+        CC3P_CC3E = "01"    # Capture/Compare polarity, output enable
+        ccerch3_chars = CC3NP_CC3NE + CC3P_CC3E + "00000000"
+        ccerch3 =  int(ccerch3_chars, base=2)
+        ccer = stm.mem16[tim_base_address + stm.TIM_CCER]
+        ccer  &= 0b1111000011111111 
+        ccer = ccer + ccerch3    #  add CH3 CCER bit settings
 
     elif channel_num == 4:
+        CC4NP_CC4NE = "00"   # Capture/Compare complementary polarity + enable
+        CC4P_CC4E = "01"    # Capture/Compare polarity, output enable
         OC4CE = "0"   # Output Compare clear enable
         OC4M = "111"  # PWM2 mode
         OC4PE = "0"   # Output Compare preload enable
@@ -432,8 +466,18 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         ccmr2ch4 = int(ccmr2ch4_chars, base=2)
         ccmr2 = stm.mem16[tim_base_address + stm.TIM_CCMR2]
         ccmr2 &= 0b0000000011111111  # clear CH4 register bits
-        ccmr2 = ccmr2 + ccmr2ch4     # add CH4 register bit settings
-        print( slave_tim_name + "CCMR1 =    " + bin(ccmr1)) # print TIMx_CCMR1 state
+        ccmr2 = ccmr2 + ccmr2ch4     # add CH4 CCMR2 bit settings
+        print( slave_tim_name + "CCMR2 =    " + bin(ccmr2)) # print TIMx_CCMR2 state
+
+        # Capture/compare enable register (TIMx_CCER)
+        CC4NP_CC4NE = "00"   # Not availablein CH4 (writable, but no effect.)
+        CC4P_CC4E = "01"    # Capture/Compare polarity, output enable
+        ccerch4_chars = CC4NP_CC4NE + CC4P_CC4E + "000000000000"
+        ccerch4 =  int(ccerch4_chars, base=2)
+        ccer = stm.mem16[tim_base_address + stm.TIM_CCER]
+        ccer  &= 0b0000111111111111 
+        ccer = ccer + ccerch4    #  add CH4 CCER bit settings
+
     else:
         print( "The channels are 1 2 3 4 -- no others!  Not this:   " + channel_num )
 
