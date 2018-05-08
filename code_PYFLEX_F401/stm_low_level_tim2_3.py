@@ -396,6 +396,7 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         ccmr1 = stm.mem16[tim_base_address + stm.TIM_CCMR1]
         ccmr1 &= 0b1111111100000000  # clear CH1 register bits
         ccmr1 = ccmr1 + ccmr1ch1     # add CH1 register bit settings
+        stm.mem16[tim_base_address + stm.TIM_CCMR1] = ccmr1
         print( slave_tim_name + "CCMR1 =    " + bin(ccmr1)) 
 
         # Capture/compare enable register (TIMx_CCER)
@@ -406,6 +407,7 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         ccer = stm.mem16[tim_base_address + stm.TIM_CCER]
         ccer  &= 0b1111111111110000 
         ccer = ccer + ccerch1    #  add CH1 CCER bit settings
+        stm.mem16[tim_base_address + stm.TIM_CCER] = ccer
 
     elif channel_num == 2:
         CC2NP_CC2NE = "00"   # Capture/Compare complementary polarity + enable
@@ -420,6 +422,7 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         ccmr1 = stm.mem16[tim_base_address + stm.TIM_CCMR1]
         ccmr1 &= 0b0000000011111111  # clear CH2 register bits
         ccmr1 = ccmr1 + ccmr1ch2     # add CH2 register bit settings
+        stm.mem16[tim_base_address + stm.TIM_CCMR1] = ccmr1
         print( slave_tim_name + "CCMR1 =    " + bin(ccmr1)) # print TIMx_CCMR1 state
 
         # Capture/compare enable register (TIMx_CCER)
@@ -430,6 +433,7 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         ccer = stm.mem16[tim_base_address + stm.TIM_CCER]
         ccer  &= 0b1111111111110000 
         ccer = ccer + ccerch2    #  add CH2 CCER bit settings
+        stm.mem16[tim_base_address + stm.TIM_CCER] = ccer
 
     elif channel_num == 3:
         # capture/compare mode register 1 (TIMx_CCMR1)
@@ -443,6 +447,7 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         ccmr2 = stm.mem16[tim_base_address + stm.TIM_CCMR2]
         ccmr2 &= 0b1111111100000000  # clear CH3 register bits
         ccmr2 = ccmr2 + ccmr2ch3     # add CH3 CCMR2 bit settings
+        stm.mem16[tim_base_address + stm.TIM_CCMR1] = ccmr1
         print( slave_tim_name + "CCMR2 =    " + bin(ccmr2)) # print TIMx_CCMR2 state
 
         # Capture/compare enable register (TIMx_CCER)
@@ -453,6 +458,7 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         ccer = stm.mem16[tim_base_address + stm.TIM_CCER]
         ccer  &= 0b1111000011111111 
         ccer = ccer + ccerch3    #  add CH3 CCER bit settings
+        stm.mem16[tim_base_address + stm.TIM_CCER] = ccer
 
     elif channel_num == 4:
         CC4NP_CC4NE = "00"   # Capture/Compare complementary polarity + enable
@@ -467,6 +473,7 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         ccmr2 = stm.mem16[tim_base_address + stm.TIM_CCMR2]
         ccmr2 &= 0b0000000011111111  # clear CH4 register bits
         ccmr2 = ccmr2 + ccmr2ch4     # add CH4 CCMR2 bit settings
+        stm.mem16[tim_base_address + stm.TIM_CCMR1] = ccmr1
         print( slave_tim_name + "CCMR2 =    " + bin(ccmr2)) # print TIMx_CCMR2 state
 
         # Capture/compare enable register (TIMx_CCER)
@@ -477,12 +484,11 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         ccer = stm.mem16[tim_base_address + stm.TIM_CCER]
         ccer  &= 0b0000111111111111 
         ccer = ccer + ccerch4    #  add CH4 CCER bit settings
+        stm.mem16[tim_base_address + stm.TIM_CCER] = ccer
 
     else:
         print( "The channels are 1 2 3 4 -- no others!  Not this:   " + channel_num )
 
-
-        
 
     set_slave_mode_and_trigger_source(slave_tim_name, master_tim_name)
 
