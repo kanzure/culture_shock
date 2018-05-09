@@ -44,7 +44,6 @@ YEL_LED.value(0)
 
 
 enable_gpio_and_timers()
-# enable_pa0_pa1_af()    ----delete-me?-----
 
 # Setup ADC Timer and a callback to try printing the value
 #adc_vals = [-1 for i in range(number_of_pulse_pairs+1 if number_of_pulse_pairs+1 > 128 else 128)]
@@ -203,13 +202,11 @@ class OnePulseOverFlowCounter(object):
 #t1 = pyb.Timer(1, prescaler=common_prescaler, period=two_byte_mask, callback=end_of_n_pulse_train__longer)#end_of_n_pulse_train_pa1_first)
 rep_counter_overflow_detector = OnePulseOverFlowCounter(pyb.Timer(1, prescaler=common_prescaler, period=two_byte_mask))
 
-
+tim2_channel = 3
 tim2_3_out = pyb.Pin(pyb.Pin.cpu.A2, pyb.Pin.AF_PP, pyb.Pin.PULL_NONE, 1)  # PA2 set to AF1 --> TIM2_CH3
 tim5_2_out = pyb.Pin(pyb.Pin.cpu.A1, pyb.Pin.AF_PP, pyb.Pin.PULL_NONE, 2)  # PA1 set to AF2 -->  TIM5_CH2
 
 enable_pb13_af_and_connect_to_tim1()
-
-two_bits = 2
 
 # as long as both TIM's tick at AHB freq, the TIM's will tick at the same rate;
 # should there be any APB divider impacting TIM input clock freq,
@@ -219,9 +216,10 @@ two_bits = 2
 def a(period, width, number_pulses=None):
   """ adjust the HV pulser's pulse-to-pulse period, pulse width, and number of push-pull pulse-pairs """
   global number_of_pulse_pairs
+  global tim2_channel
   number_of_pulse_pairs = number_pulses
   adjust_tim5(period, width)
-  adjust_tim2(period, width)
+  adjust_tim2(period, width, tim2_channel)
   adjust_tim1(period, period//2, number_pulses)
   rep_counter_overflow_detector.set_longer_counter(number_pulses)
 
@@ -252,7 +250,7 @@ def d():
 # rewrite setup_slave_timer() to include chunk of 8 bits CCMR settings including pwm mode.
 # chunk of 8 bits CCMR settings ==>  OCxCE_OCxM_OCxPE_OCxFE_CCxS parameter
 slave_tim = setup_slave_timer('TIM5', 2, 'TIM3', common_prescaler, period, width)
-slave_tim = setup_slave_timer('TIM2', 3, 'TIM3', common_prescaler, period, width)
+slave_tim = setup_slave_timer('TIM2', tim2_channel, 'TIM3', common_prescaler, period, width)
 tim_kickoff = setup_n_pulse_kickoff_timer("TIM3", 1, common_prescaler, period, width)
 
 
@@ -331,7 +329,7 @@ def pulse():
   stm.mem32[stm.TIM5 + stm.TIM_CNT] = stm.mem32[stm.TIM5 + stm.TIM_ARR] //2   # offset TIM5 counter by half-the pulse-width
 
   tim2_3_set_pwm2()
-  tim5_2_set_pwm2()
+  tim5_set_pwm2()
   tim1_1_set_pwm2()
   
   # enable OPM
