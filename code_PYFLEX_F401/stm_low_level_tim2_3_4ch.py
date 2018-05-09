@@ -181,7 +181,7 @@ def enable_gpio_and_timers():
   stm.mem32[stm.RCC + stm.RCC_AHB1ENR] = (0
     | 1<<0   #GPIOAEN
     | 1<<1   #GPIOBEN
-    | 1<<4 ) #GPIOEEN
+    | 1<<2 ) #GPIOCEN
 
   # (RCC_APB1ENR)
   # 31 30 29  28     27 26 25 24  23     22     21     20 19 18  17       16
@@ -361,9 +361,8 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         # 15    14 13  12  11    10     9    8     7      6  5   4   3     2     1   0
         # OC2CE OC2M[2:0]  OC2PE OC2FE  CC2S[1:0]  OC1CE  OC1M[2:0]  OC1PE OC1FE CC1S[1:0]
         stm.mem16[tim_base_address + stm.TIM_CCMR1] &= 0b1111111100000000  # clear CH1 settings
-        stm.mem16[tim_base_address + stm.TIM_CCMR1] |= OCxCE_OCxM_OCxPE_OCxFE_CCxS_pwm2
-        #debug print statement
-        ccmr1 = stm.mem16[tim_base_address + stm.TIM_CCMR1]
+        stm.mem16[tim_base_address + stm.TIM_CCMR1] |= OCxCE_OCxM_OCxPE_OCxFE_CCxS_pwm2  #new CH1
+        ccmr1 = stm.mem16[tim_base_address + stm.TIM_CCMR1]   #debug print statement
         print("CH1   " +  slave_tim_name + "CCMR1 =    " + bin(ccmr1))
 
         # Capture/compare enable register (TIMx_CCER)  (RM0368 p 360)
@@ -371,6 +370,8 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         # CC4NP resv CC4P CC4E CC3NP resv  CC3P CC3E CC2NP resv CC2P CC2E CC1NP resv CC1P CC1E
         stm.mem16[tim_base_address + stm.TIM_CCER] &= 0b1111111111110000  # clear CH1 settings
         stm.mem16[tim_base_address + stm.TIM_CCER] |= CCxNP_CCxNE_CCxP_CCxE  #new CH1 settings
+        ccer = stm.mem16[tim_base_address + stm.TIM_CCER] 
+        print("CH1   " +  slave_tim_name + "  CCER =    " + bin(ccer))
         #  This could be rewritten as a function like
         #  Def clearByteOf16bits(regaddr, bytenum):
         #       STM.mem16[regaddr] &= (~((0xff << (bytenum)*8))&0xffff)
@@ -387,7 +388,7 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         stm.mem16[tim_base_address + stm.TIM_CCMR1] |= (OCxCE_OCxM_OCxPE_OCxFE_CCxS_pwm2 << 8)
         #debug print statement
         ccmr1 = stm.mem16[tim_base_address + stm.TIM_CCMR1]
-        print("CH2   " +  slave_tim_name + "CCMR1 =    " + bin(ccmr1))
+        print("CH2   " +  slave_tim_name + "  CCMR1 =    " + bin(ccmr1))
 
         # Capture/compare enable register (TIMx_CCER)  (RM0368 p 360)
         # 15    14   13   12   11    10    9    8    7     6    5     4    3     2     1    0
@@ -396,6 +397,8 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         stm.mem16[tim_base_address + stm.TIM_CCER] &= 0b1111111100001111
         # new CH2 settings
         stm.mem16[tim_base_address + stm.TIM_CCER] |= (CCxNP_CCxNE_CCxP_CCxE << 4)
+        ccer = stm.mem16[tim_base_address + stm.TIM_CCER] 
+        print("CH2   " +  slave_tim_name + "  CCER =    " + bin(ccer))
 
     elif channel_num == 3:
         # (TIMx_CCMR2) capture/compare mode register 2 (RM0368 p 359)
@@ -412,6 +415,8 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         # CC4NP resv CC4P CC4E CC3NP resv  CC3P CC3E CC2NP resv CC2P CC2E CC1NP resv CC1P CC1E
         stm.mem16[tim_base_address + stm.TIM_CCER] &= 0b1111000011111111  # clear CH3 CCER settings
         stm.mem16[tim_base_address + stm.TIM_CCER] |= (CCxNP_CCxNE_CCxP_CCxE << 8)  #new CH3 settings
+        ccer = stm.mem16[tim_base_address + stm.TIM_CCER] 
+        print("CH3   " +  slave_tim_name + "  CCER =    " + bin(ccer))
 
     elif channel_num == 4:
         # (TIMx_CCMR2) capture/compare mode register 2 (RM0368 p 359)
@@ -428,6 +433,8 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
         # CC4NP resv CC4P CC4E CC3NP resv  CC3P CC3E CC2NP resv CC2P CC2E CC1NP resv CC1P CC1E
         stm.mem16[tim_base_address + stm.TIM_CCER] &= 0b0000111111111111  # clear CH4 settings
         stm.mem16[tim_base_address + stm.TIM_CCER] |= (CCxNP_CCxNE_CCxP_CCxE << 12)  #new CH4 settings
+        ccer = stm.mem16[tim_base_address + stm.TIM_CCER] 
+        print("CH4   " +  slave_tim_name + "  CCER =    " + bin(ccer))
 
     else:
         print( "The channels are 1 2 3 4 -- no others!  Not this:   " + channel_num )
