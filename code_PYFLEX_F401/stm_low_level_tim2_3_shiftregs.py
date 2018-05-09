@@ -380,7 +380,6 @@ def setup_slave_timer(slave_tim_name, channel_num, master_tim_name, prescaler, p
     # 15     14 13 12   11    10     9 8      7    6 5 4      3     2      1 0
     # OC2CE OC2M[2:0] OC2PE OC2FE CC2S[1:0] OC1CE OC1M[2:0] OC1PE OC1FE CC1S[1:0]
     stm.mem16[tim_base_address + stm.TIM_CCMR1] = (0 #0b111<<12  #| 1<<15 #(0
-     # | (0<<(8*channel_num)+0)  # CC1S --  output compare on CH1  (THIS DOES NOTHING???)
        | (1<<(8*channel_num)+3)  # PWM2 mode on CH1 (OC1M)
        | (TIM_CCMR_OCM__PWM2<<(8*channel_num)+4))  # PWM2 mode on CH1 (OC1M)
 
