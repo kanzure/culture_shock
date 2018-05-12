@@ -23,7 +23,7 @@ commits_available = {'johns_preferred_commit': '68f4cba3d2aa056f305a20c9e394d4eb
 patch_adc_cmd = 'patch -p1 ./ports/stm32/adc.c < {}/FOR_ADC_DMA__adc.c.patch'.format(culture_shock_root)
 dhylands_g30th_board_url = 'https://github.com/dhylands/G30TH.git'
 pyflex_board_url = 'https://github.com/jgriessen/PYFLEX_F401.git'
-erase_cmd = 'dfu-util -v -s :mass-erase:force -a 0 -d 0483:df11 -D build-G30TH/firmware.dfu'
+erase_cmd = 'dfu-util -v -s :mass-erase:force -a 0 -d 0483:df11 -D build-PYFLEX_F401/firmware.dfu'
 deploy_cmd = 'make BOARD={} deploy'
 
 micropython_dirname = "micropython"
