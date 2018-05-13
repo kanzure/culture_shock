@@ -40,8 +40,13 @@ common_prescaler = 11
 
 # PYFLEX_F401 pin LED_YELLOW,PB9  ==> pyflex_f401.sch LED_YELLOW,PB9
 YEL_LED = Pin('LED_YELLOW', Pin.OUT) 
-YEL_LED.value(0)
+YEL_LED.value(1)
+# EN_18V_ONBOARD on at start for tests.
+EN_18V_ONBOARD = Pin('PB14', Pin.OUT) 
+EN_18V_ONBOARD.value(1)
+pyb.delay(600)
 
+EN_18V_ONBOARD.value(0)
 
 enable_gpio_and_timers()
 
@@ -339,8 +344,7 @@ def pulse():
   # disable OPM
   stm.mem16[stm.TIM5 + stm.TIM_CR1] &= (~(1<<TIM_CR1_OPM))&two_byte_mask
   stm.mem16[stm.TIM4 + stm.TIM_CR1] &= (~(1<<TIM_CR1_OPM))&two_byte_mask
-  YEL_LED.value(0)
-  YEL_LED.value(1)
+  
   rep_counter_overflow_detector.longer_counter = rep_counter_overflow_detector._longer_counter
   print('trace')
   stm.mem16[stm.TIM1 + stm.TIM_SR] = (stm.mem16[stm.TIM1 + stm.TIM_SR] & 0b111<<13) # clear all flags
