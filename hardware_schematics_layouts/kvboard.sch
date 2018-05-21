@@ -493,7 +493,7 @@ description=Res thick 22.0 1% 1608
 }
 T 44100 44400 9 14 1 0 0 0 1
 Lockout when cover open
-N 45700 46000 45700 47600 4
+N 45700 46000 45700 47300 4
 T 43600 44100 9 14 1 0 0 0 1
 wires to dual normally open limit switch
 C 52200 55000 1 270 0 NFET_enh.sym
@@ -865,8 +865,8 @@ N 47700 55100 48500 55100 4
 T 48400 55150 5 10 1 1 0 6 1
 netname=Q1_OFF
 }
-C 45800 47300 1 0 0 vss.sym
-N 45700 47600 45900 47600 4
+C 45800 47000 1 0 0 vss.sym
+N 45700 47300 45900 47300 4
 N 47600 47700 48400 47700 4
 {
 T 47700 47650 5 10 1 1 0 2 1
@@ -1409,3 +1409,9 @@ refdes=R12
 T 48000 51500 5 10 1 1 90 0 1
 value=1.80k
 }
+T 44800 47700 9 12 1 0 0 0 5
+U1 is within 2V of 
+its max rating.
+Consider using a 
+BRT PNP to drive 
+the output FETs.
