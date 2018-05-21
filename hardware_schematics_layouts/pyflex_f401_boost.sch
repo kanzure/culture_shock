@@ -12,7 +12,7 @@ first-pagenum=2
 T 61900 39700 5 10 1 1 0 0 1
 last-pagenum=2
 T 64900 40000 5 10 1 1 0 0 1
-rev=2018-05-19 v0.6
+rev=2018-05-21 v0.6
 T 66800 45200 5 18 1 1 270 0 1
 title2=PYFLEX_F401 Boost PS
 }
@@ -548,8 +548,6 @@ value=180k
 }
 N 45100 49200 45400 49200 4
 N 45100 49200 45100 49900 4
-T 42800 48300 9 12 1 0 0 0 1
-Add this transistor later after testing underway.
 N 46000 49700 46000 50800 4
 N 46000 50800 44600 50800 4
 C 44800 50800 1 0 1 Vdd.sym
@@ -615,7 +613,7 @@ T 44500 48900 5 10 1 1 0 0 1
 value=7.50k
 }
 T 42700 54800 9 12 1 0 0 0 1
-Add this transistor later after testing underway.
+PB14 is active LO, so set if HI after reset.
 C 45400 48700 1 0 0 pnp-bec-123.sym
 {
 T 45900 49700 5 10 1 1 90 0 1
@@ -642,3 +640,5 @@ description=Hfe=220 Vcemax=45 Vbemax=5V
 T 44700 55200 5 10 0 0 90 0 1
 value=semicon
 }
+T 42800 48200 9 12 1 0 0 0 1
+PB13 is active LO, so set if HI after reset.
