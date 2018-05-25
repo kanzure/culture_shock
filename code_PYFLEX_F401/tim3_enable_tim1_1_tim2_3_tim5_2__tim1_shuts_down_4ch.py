@@ -46,8 +46,8 @@ EN_18V_ONBOARD = Pin('PB14', Pin.OUT)
 EN_18V_ONBOARD.value(1)
 pyb.delay(600)
 
+YEL_LED.value(0)
 EN_18V_ONBOARD.value(0)
-
 enable_gpio_and_timers()
 
 # Setup ADC Timer and a callback to try printing the value
@@ -240,7 +240,7 @@ def aa():
   pulse()
 
 def b():
-  a(150,4,128)
+  a(44,20,8)
   pulse()
 
 def c():
@@ -248,9 +248,10 @@ def c():
   pulse()
 
 def d():
-  a();pulse()
+  aa();pulse()
   b();pulse()
   c();pulse()
+
 
 # rewrite setup_slave_timer() to include chunk of 8 bits CCMR settings including pwm mode.
 # chunk of 8 bits CCMR settings ==>  OCxCE_OCxM_OCxPE_OCxFE_CCxS parameter
@@ -361,6 +362,9 @@ def pulse():
   adc.read_timed_stop()
   print('done')
 
+def timers_init():
+  a(44,20,0)
+  pulse()
 
 # increase the TIM1 Update Interrupt priority, by lowering it's number all the way to 1
 # stm.mem8[0xe000e400+25]=1<<4
@@ -368,6 +372,9 @@ from nvic import *
 dump_nvic()
 nvic_set_prio(-1, 1)
 nvic_set_prio(25, 0)
+
+# make sure PA0 PA1, PA2 are output LO state
+timers_init()
 
 # probably want to enable-preload (ARR, CCR1, etc), then load next set of values, then CEN
 # because after n-pulses, UEV fires...
