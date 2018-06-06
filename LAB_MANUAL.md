@@ -175,11 +175,11 @@ Read The-ODIN's protocol for transforming a plasmid into E.Coli [here](https://d
 * repeat the following (3) times
   * centrifuge the cell solution at the calculated RPM for 3 minutes
   * discard the liquid, allowing the "cell pellet" to remain
-  * add 1mL distilled H<sub>2</sub>O
+  * add 1 mL distilled H<sub>2</sub>O
   * resuspend by pulsing with vortexer
-* resuspend once more in H<sub>2</sub>O, either 40µL or 200µL
-  * for 0.2 cm electroporation cuvette, pipet 40 µl
-  * for 0.1 cm electroporation cuvette, pipet 200 µl
+* resuspend once more in H<sub>2</sub>O, either 75 µL or 200µL
+  * for 2 mm gap electroporation cuvette, pipette 200 µl (completely full)
+  * for 1 mm gap VWR electroporation cuvette, pipette 75 µl  (completely full)
 
 * Transfer 1 pg–100 ng of plasmid DNA (1–5 µl) to cells and mix without vortexing.
   
@@ -187,10 +187,10 @@ Electroporation at low temperature (0-4 °C) seems to work best according to evi
 * for best results, pre-chill the cuvette and cell suspension on ice for 1 to 2 minutes
 
 * transfer cell solution to electroporation cuvette
-  * for 0.2 cm electroporation cuvette, maximum volume during pulse is 400 µl
-  * for 0.1 cm electroporation cuvette, maximum volume during pulse is 80 µl
+  * for 2 mm gap electroporation cuvette, maximum volume during pulse is 400 µl
+  * for 1 mm gap VWR electroporation cuvette,  preferred volume during pulse is 75 µl tolerance 10% over, zero under.
 
-* pulse with E.coli settings
+## [pulse with E.coli settings  ](https://github.com/kanzure/culture_shock/USING_CULTURE_SHOCK.md "Using culture shock")
 * immediately add 1mL LB broth (or SOC broth for better efficiency)
 * incubate for 30 to 60 mins
   * if ampicillin resistance gene was transformed 30 mins
