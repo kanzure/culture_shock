@@ -6,6 +6,6 @@
 
   * Debian Linux:  /username/media/PYBFLASH directory
 
-The project github repository, (that this document is part of), is the source of scripts to run for basic testing and as a starting point for your new recipes. The folder to find them in is: [code_PYFLEX_F401  ](https://github.com/kanzure/culture_shock/tree/master/code_PYFLEX_F401    "Culture Shock micropython code")  
+The project github repository, (that this document is part of), is the source of scripts to run for basic testing and as a starting point for your new recipes. The folder to find code in is: [code_PYFLEX_F401  ](https://github.com/kanzure/culture_shock/tree/master/code_PYFLEX_F401    "Culture Shock micropython code")   
 
 ####  
