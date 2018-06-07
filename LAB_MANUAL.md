@@ -163,7 +163,7 @@ Read The-ODIN's protocol for transforming a plasmid into E.Coli [here](https://d
 * requires 30 minute cool-down
 * requires 30 second heat-shock
 
-## Electroporation (culture_shock method!)
+## Electroporation ([Using Culture Shock](USING_CULTURE_SHOCK.md "USING_CULTURE_SHOCK.md"))
 * obtain 1mL of log-phase E.Coli broth culture (log-phase occurs after about 4-6-hours in 37° shaker incubator)
 <div><img src="photos_protos_tests_simuls_sketches/M.Komorniczak__Bacterial_growth_en.svg" width="500">
 <br><sub>from M.Komorniczak at wikimedia</sub></div>
@@ -190,7 +190,7 @@ Electroporation at low temperature (0-4 °C) seems to work best according to evi
   * for 2 mm gap electroporation cuvette, maximum volume during pulse is 400 µl
   * for 1 mm gap VWR electroporation cuvette,  preferred volume during pulse is 75 µl tolerance 10% over, zero under.
 
-## [pulse with E.coli settings  ](https://github.com/kanzure/culture_shock/USING_CULTURE_SHOCK.md "Using culture shock")
+## Pulse with E.coli settings ([Using Culture Shock](USING_CULTURE_SHOCK.md "USING_CULTURE_SHOCK.md"))
 * immediately add 1mL LB broth (or SOC broth for better efficiency)
 * incubate for 30 to 60 mins
   * if ampicillin resistance gene was transformed 30 mins
