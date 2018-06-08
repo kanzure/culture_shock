@@ -53,11 +53,11 @@ gschem kvboard.sch micropulser.sch
 The schematic and netlist and layout tools used are from the gEDA code: http://wiki.evilmadscientist.com/GEDA_Resources#Basics
 
 ## Running code on the Culture Shock platform(s)
-There are two MCU platforms:
-* a board called g30pulser.sch that runs with the micropython platform definition called G30TH
+There are two MCU platforms now -- G30TH is phasing out of use, and PYFLEX_F401 is starting up:
+* a board called g30pulser.sch runs with the micropython platform definition called G30TH
   * [Instructions to flash MicroPython for the G30TH version of culture_shock are here](DEVELOPER_NOTE.md#flashing-micropython)
   * [Additional notes are here (TODO: compress into a single document)](micropython_STM32F4_coding/micropython_compile_G30TH.txt)
-* and a board called pyflex_f401.sch that runs with the micropython platform definition called PYFLEX_F401.
+* and a board called pyflex_f401.sch runs with the micropython platform definition called PYFLEX_F401.
   * PYFLEX_F401 is complete now, so compile micropython with platform PYFLEX_F401.
   * Very soon, instructions for compiling microptyhon programs for culture shock's PYFLEX_F401 platform will be written.
 
@@ -81,10 +81,10 @@ The PYFLEX_F401 platform for micropython has the **STM32F401CE** MCU
 Flat flex cables, (FFCs), can be symmetric, their connectors are symmetric, and so connection signal vs. pin number order can be reversed by ordinary use of cables and connectors.  Using symmetric straight through flat flex cables and connectors is the standard for this project because it simplifies early design prototypes by allowing them to lay flat on the bench with component side of all modules up where one can see and probe them.  What symmetric and straight through means by example is: starting with a FFC connector with pins 1 thru 20 with a dot near pin 1 signals connect to another board by going through pin 1 on the first board, straight across without cables being folded or flipped over and into pin 20 of the other board. Pin 2 of the FFC connector on the first board leads to pin 19 on the 2nd, etc.
 
 ## Using Culture Shock and Steps Leading up to Transformation
-Learn how to prepare growth media, and purify plasmid DNA from bacterial culture in [Lab Manual.md](LAB_MANUAL.md), then transform E.Coli by electroporation in [USING_CULTURE_SHOCK.md](USING_CULTURE_SHOCK.md).
+Prepare growth media, purify plasmid DNA from a bacterial culture -- [Lab Manual.md](LAB_MANUAL.md), then transform E.Coli by electroporation -- [ Using Culture Shock](USING_CULTURE_SHOCK.md).
 
-## Aiding with Development and Debug
-See our [Developer's Manual](DEVELOPER_NOTE.md) to get started with GIT and [connecting your oscilloscope to culture_shock](DEVELOPER_NOTE.md#self-test-idea), along with other notes.
+## Aiding Development and Debugging
+See [Developer's Manual](DEVELOPER_NOTE.md) to get started with the culture shock and micropython GIT repositories on github, and hook up to culture shock so you can give it commands.
 
 ## Miscellany
 The repo's `.gitignore` file is set to skip git tracking of `.jpg` (photos) and `.pdf` (datasheets) and zipped file bundles, so any of them to distribute need to be saved outside the git repo as a zip file.

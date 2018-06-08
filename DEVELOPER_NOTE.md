@@ -10,6 +10,7 @@ Table of Contents
   * [Setup better git difftool/mergetool](#setup-better-git-difftoolmergetool)
 * [Creating table-of-contents for MarkDown (.md) files](#creating-table-of-contents-for-markdown-md-files)
 * [Preview MarkDown files locally before commit/push to GitHub](#preview-markdown-files-locally-before-commitpush-to-github)
+* [Getting a micropython prompt on the USB serial port](#getting-a-micropython-prompt-on-the-usb-serial-port)
 * [Self-Test Idea](#self-test-idea)
   * [Debug setup](#debug-setup)
   * [ADC pulse viewer GUI](#adc-pulse-viewer-gui)
@@ -186,6 +187,16 @@ based on this StackOverflow (https://stackoverflow.com/a/39628366/253127)
 
 
 
+
+# Getting a micropython prompt on the USB serial port:
+ - Windows: you need to go to 'Device manager', right click on the unknown device,
+   then update the driver software, using the 'pybcdc.inf' file found on this drive.
+   Then use a terminal program like Hyperterminal or putty.
+ - Mac OS X: use the command: screen /dev/tty.usbmodem*
+ - Linux: use the command: screen /dev/ttyACM0
+
+ - After you have a prompt, you can tell culture shock to do a soft reset \<ctl\>d or \<ctl\>x to get out of the REPL (read eval print loop) and back to your system command line.  For more on what micropython can do from the REPL, see http://micropython.org/help/ as a starting point.
+
 # Self-Test Idea
 * Setup 10 pulses with shortest possible pulse-width
   * setup list `adc_vals`
@@ -196,7 +207,7 @@ based on this StackOverflow (https://stackoverflow.com/a/39628366/253127)
 
 
 ## Debug setup
-* PA0 and PA1, as seen here, are responsible for pulsing
+* PA0 and PA1, as seen here in kvboard v0.1, are the wires for pulsing the switched power supply to get high volts.
 ![alt text](https://raw.githubusercontent.com/kanzure/culture_shock/0ed7805f742bc01429d4466670109e092e9572f7/hardware_schematics_layouts/kvboard.png "KiloVolt producing circuit-board v0.1 (2017-2-16)")
 * Connect your oscilloscope to these pins to watch the pulse widths and periods of each digital operation from the microcontroller
   * These are useful to trigger on
