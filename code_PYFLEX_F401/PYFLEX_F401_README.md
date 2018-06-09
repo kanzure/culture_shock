@@ -3,11 +3,11 @@ such as micropython_compile_G30TH.txt, micropython_coding_with_rshell.txt about 
 
 To run code on a culture shock board, (with STM32F401 inside), several files are needed.
 
-As this code is written so far, it needs these files loaded to the flash filesystem of the 
+As this code is written for v0.5 hardware, it needs these files loaded to the flash filesystem of the 
 micropython running MCU:
 
-* tim3_enable_tim1_tim2_tim5__tim1_shuts_down.py
-* stm_low_level.py
+* tim3_enable_tim1_1_tim2_3_tim5_2__tim1_shuts_down_4ch.py
+* stm_low_level_tim2_3_4ch.py
 * nvic.py
 * boot.py
 * ssd1306.py
