@@ -81,7 +81,7 @@ first-pagenum=1
 T 59400 37900 5 10 1 1 0 0 1
 last-pagenum=1
 T 62600 38200 5 10 1 1 0 0 1
-rev=2018-06-14 v0.6
+rev=2018-06-15 v0.6
 T 64400 43100 5 18 1 1 270 0 1
 title2=Culture Shock kvboard PCB
 }
@@ -1216,12 +1216,6 @@ description=Res thick 680 Ohm 1%
 T 47300 45100 9 12 1 0 0 0 2
 U4, U5 are alternates for U1.
 Install one set or the other.
-T 53700 48000 9 12 1 0 0 0 2
-Replace Q1, Q2 
-with LFPAKs
-T 54300 54400 9 12 1 0 0 0 2
-Replace Q1, Q2 
-with LFPAKs
 C 51400 55100 1 270 1 resistor-1.sym
 {
 T 51800 55400 5 10 0 0 90 2 1
