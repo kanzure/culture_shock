@@ -158,9 +158,9 @@ refdes=Q31
 T 51800 59400 5 10 0 0 0 0 1
 footprint=SOT323N.lht
 T 51800 59400 5 10 0 0 0 0 1
-description=Hfe=220 Vcemax=45 Vbemax=5V
+description=BJT PNP Hfe=220 Vcemax=45 Vbemax=5V
 T 51800 59400 5 10 0 0 0 0 1
-value=semicon
+value=BJT PNP
 }
 N 52300 59400 53500 59400 4
 N 56000 55500 56000 59400 4
@@ -519,9 +519,9 @@ refdes=Q41
 T 52400 52900 5 10 0 0 0 0 1
 footprint=SOT323N.lht
 T 52400 52900 5 10 0 0 0 0 1
-description=Hfe=220 Vcemax=45 Vbemax=5V
+description=BJT PNP Hfe=220 Vcemax=45 Vbemax=5V
 T 52400 52900 5 10 0 0 0 0 1
-value=semicon
+value=BJT PNP
 }
 C 53400 51700 1 180 0 resistor-1.sym
 {
@@ -601,9 +601,9 @@ refdes=Q42
 T 45400 48700 5 10 0 0 90 0 1
 footprint=SOT323N.lht
 T 45400 48700 5 10 0 0 90 0 1
-description=Hfe=220 Vcemax=45 Vbemax=5V
+description=BJT PNP Hfe=220 Vcemax=45 Vbemax=5V
 T 45400 48700 5 10 0 0 90 0 1
-value=semicon
+value=BJT PNP
 }
 C 46300 55200 1 0 0 pnp-bec-123.sym
 {
@@ -614,9 +614,9 @@ refdes=Q32
 T 46300 55200 5 10 0 0 90 0 1
 footprint=SOT323N.lht
 T 46300 55200 5 10 0 0 90 0 1
-description=Hfe=220 Vcemax=45 Vbemax=5V
+description=BJT PNP Hfe=220 Vcemax=45 Vbemax=5V
 T 46300 55200 5 10 0 0 90 0 1
-value=semicon
+value=BJT PNP
 }
 C 58700 59800 1 270 0 jump-solder.sym
 {

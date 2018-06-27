@@ -768,7 +768,7 @@ footprint=SOT23-3N.lht
 T 54700 52000 5 10 1 1 180 6 1
 device=AO3407A
 T 55300 52300 5 10 0 0 0 0 1
-description=MOSFET P-CH -30V -4.3A Vgs+/-20V
+description=PFET -30V -4.3A Vgs+/-20V
 T 55300 52300 5 10 0 0 0 0 1
 value=PFET
 }
@@ -1084,7 +1084,7 @@ footprint=SOT-457.lht
 T 61900 52700 5 10 1 1 0 0 1
 device=IP4220CZ6F
 T 61800 52400 5 10 0 0 0 0 1
-value=semicon
+value=diodes
 }
 N 63700 54800 61700 54800 4
 N 64500 55000 64500 52400 4
@@ -1993,11 +1993,11 @@ C 49500 51700 1 270 1 LEDSCN.sym
 T 49700 52300 5 10 1 1 90 2 1
 refdes=D12
 T 50100 51700 5 10 0 0 90 2 1
-device=LED
+device=LED 0805
 T 49500 51700 5 10 0 1 180 6 1
 footprint=DIOC2013N.lht
 T 49400 51500 5 10 1 1 90 2 1
-value=GRN
+value=GRN LED
 }
 C 49200 50600 1 270 1 EMBEDDEDresistor-1.sym
 [
@@ -2055,11 +2055,11 @@ C 49200 51900 1 270 1 LEDSCN.sym
 T 49100 52400 5 10 1 1 90 2 1
 refdes=D13
 T 49800 51900 5 10 0 0 90 2 1
-device=LED
+device=LED-0805
 T 49200 51900 5 10 0 1 180 6 1
 footprint=DIOC2013N.lht
 T 49100 51800 5 10 1 1 90 2 1
-value=YEL
+value=YEL LED
 }
 C 40400 54050 1 0 0 EMBEDDEDterminal-1.sym
 [
@@ -2316,11 +2316,11 @@ C 63200 51300 1 180 0 LEDSCN.sym
 T 62900 51500 5 10 1 1 180 0 1
 refdes=D11
 T 63200 50700 5 10 0 0 180 0 1
-device=LED
+device=LED-0805
 T 63200 51300 5 10 0 1 0 0 1
 footprint=DIOC2013N.lht
 T 62900 51000 5 10 1 1 0 0 1
-value=GRN
+value=GRN LED
 }
 N 60600 50300 59400 50300 4
 {
@@ -3168,7 +3168,7 @@ footprint=SOT23-3N.lht
 T 54700 53100 5 10 1 1 0 0 1
 device=AO3407A
 T 55300 52800 5 10 0 0 180 6 1
-description=MOSFET P-CH -30V -4.3A Vgs+/-20V
+description=PFET -30V -4.3A Vgs+/-20V
 T 55300 52800 5 10 0 0 0 0 1
 value=PFET
 }
@@ -3650,7 +3650,7 @@ C 59700 52300 1 180 1 PFET_enh.sym
 T 59700 52300 5 10 0 0 180 6 1
 footprint=SOT23-3N.lht
 T 59700 52300 5 10 0 0 0 0 1
-description=MOSFET P-CH -30V -4.3A Vgs+/-20V
+description=PFET -30V -4.3A Vgs+/-20V
 T 60400 51700 5 10 1 1 180 6 1
 refdes=Q4
 T 59100 52000 5 10 1 1 180 6 1
@@ -3890,7 +3890,7 @@ device=AO3407A
 T 59700 52800 5 10 0 0 0 0 1
 footprint=SOT23-3N.lht
 T 59700 52800 5 10 0 0 180 6 1
-description=MOSFET P-CH -30V -4.3A Vgs+/-20V
+description=PFET  -30V -4.3A Vgs+/-20V
 T 59700 52800 5 10 0 0 0 0 1
 value=PFET
 }
@@ -3899,7 +3899,7 @@ C 41700 49900 1 180 1 PFET_enh.sym
 T 41700 49900 5 10 0 0 180 6 1
 footprint=SOT23-3N.lht
 T 41700 49900 5 10 0 0 0 0 1
-description=MOSFET P-CH -30V -4.3A Vgs+/-20V
+description=PFET -30V -4.3A Vgs+/-20V
 T 42400 49300 5 10 1 1 180 6 1
 refdes=Q7
 T 42400 49500 5 10 1 1 180 6 1
@@ -4137,7 +4137,7 @@ value=PFET
 T 41700 50400 5 10 0 0 0 0 1
 footprint=SOT23-3N.lht
 T 41700 50400 5 10 0 0 180 6 1
-description=MOSFET P-CH -30V -4.3A Vgs+/-20V
+description=PFET -30V -4.3A Vgs+/-20V
 }
 N 42300 51400 46000 51400 4
 {
@@ -4153,11 +4153,11 @@ refdes=Q9
 T 40300 49400 5 10 1 1 0 0 1
 device=BC817W
 T 39800 49000 5 10 0 0 0 0 1
-description=Hfe=220 Vcemax=45 Vbemax=5V
+description=BJT NPN Hfe=220 Vcemax=45 Vbemax=5V
 T 39800 49000 5 10 0 0 0 0 1
 footprint=SOT323N.lht
 T 39800 49000 5 10 0 0 0 0 1
-value=semicon
+value=BJT NPN
 }
 C 53400 51400 1 0 0 npn-cbe-312.sym
 {
@@ -4166,11 +4166,11 @@ refdes=Q3
 T 53900 51800 5 10 1 1 0 0 1
 device=BC817W
 T 53400 51400 5 10 0 0 0 0 1
-description=Hfe=220 Vcemax=45 Vbemax=5V
+description=BJT NPN Hfe=220 Vcemax=45 Vbemax=5V
 T 53400 51400 5 10 0 0 0 0 1
 footprint=SOT323N.lht
 T 53400 51400 5 10 0 0 0 0 1
-value=semicon
+value=BJT NPN
 }
 C 57800 51400 1 0 0 npn-cbe-312.sym
 {
@@ -4179,11 +4179,11 @@ refdes=Q6
 T 58300 51800 5 10 1 1 0 0 1
 device=BC817W
 T 57800 51400 5 10 0 0 0 0 1
-description=Hfe=220 Vcemax=45 Vbemax=5V
+description=BJT NPN Hfe=220 Vcemax=45 Vbemax=5V
 T 57800 51400 5 10 0 0 0 0 1
 footprint=SOT323N.lht
 T 57800 51400 5 10 0 0 0 0 1
-value=semicon
+value=BJT NPN
 }
 T 52200 54800 9 15 1 0 0 1 2
 GNDDet used
@@ -4647,4 +4647,6 @@ T 43500 44000 5 10 1 1 0 0 1
 device=MUN5232DW1T1G
 T 42800 41900 5 10 0 1 0 0 1
 footprint=SOT363M.lht
+T 42600 42100 5 10 0 0 0 0 1
+value=BRT NPN
 }
