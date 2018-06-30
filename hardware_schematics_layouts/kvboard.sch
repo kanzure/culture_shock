@@ -7,7 +7,7 @@ netname=doubler_out
 C 57900 51900 1 0 0 diode-1.sym
 {
 T 58300 52500 5 10 0 0 0 0 1
-device=M20F
+device=S1Y
 T 58500 52500 5 10 1 1 180 0 1
 refdes=D4
 T 58600 51800 5 10 1 1 180 0 1
@@ -335,7 +335,7 @@ netname=ONBOARD_18V
 C 57000 51900 1 0 0 diode-1.sym
 {
 T 57400 52500 5 10 0 0 0 0 1
-device=M20F
+device=S1Y
 T 57600 52500 5 10 1 1 180 0 1
 refdes=D3
 T 57700 51800 5 10 1 1 180 0 1
@@ -348,7 +348,7 @@ footprint=DIOM_SMAFN.lht
 C 56800 49400 1 90 0 diode-1.sym
 {
 T 56200 49800 5 10 0 0 90 0 1
-device=M20F
+device=S1Y
 T 56200 50100 5 10 1 1 0 0 1
 refdes=D7
 T 56900 49700 5 10 1 1 0 0 1
@@ -635,29 +635,16 @@ N 52700 49300 53200 49300 4
 N 53100 48300 53500 48300 4
 N 53500 50700 54000 50700 4
 N 52700 53100 53200 53100 4
-C 58300 52900 1 0 0 diode-1.sym
-{
-T 58700 53500 5 10 0 0 0 0 1
-device=S1Y
-T 58600 53500 5 10 1 1 0 0 1
-refdes=D2
-T 58600 52700 5 10 1 1 0 0 1
-value=2KV
-T 58300 52900 5 10 0 0 0 0 1
-description=diode rect 2000V 1A DO-15
-T 58300 52900 5 10 0 0 0 0 1
-footprint=diode_10mm.fp
-}
 C 57400 52900 1 0 0 diode-1.sym
 {
 T 57800 53500 5 10 0 0 0 0 1
-device=S1Y
+device=R3000
 T 57700 53500 5 10 1 1 0 0 1
 refdes=D1
 T 57700 52700 5 10 1 1 0 0 1
-value=2KV
+value=3KV
 T 57400 52900 5 10 0 0 0 0 1
-description=diode rect 2000V 1A DO-15
+description=diode rect 3000V 0.5A DO-41
 T 57400 52900 5 10 0 0 0 0 1
 footprint=diode_10mm.fp
 }
@@ -667,19 +654,6 @@ N 59200 53100 59200 52100 4
 N 57500 51300 57500 51200 4
 N 57500 51300 56600 51300 4
 N 57500 49400 57500 48900 4
-C 57700 49400 1 90 0 diode-1.sym
-{
-T 57100 49800 5 10 0 0 90 0 1
-device=S1Y
-T 57100 50100 5 10 1 1 0 0 1
-refdes=D8
-T 57800 49700 5 10 1 1 0 0 1
-value=2KV
-T 57700 49400 5 10 0 0 90 0 1
-description=diode rect 2000V 1A DO-15
-T 57700 49400 5 10 0 0 90 0 1
-footprint=diode_10mm.fp
-}
 N 39800 49800 43200 49800 4
 {
 T 40650 50000 5 11 1 1 180 6 1
@@ -863,23 +837,10 @@ N 41400 47200 42200 47200 4
 T 41500 47350 5 10 1 1 180 6 1
 netname=N_PA2
 }
-C 57700 50300 1 90 0 diode-1.sym
-{
-T 57100 50700 5 10 0 0 90 0 1
-device=S1Y
-T 57100 51000 5 10 1 1 0 0 1
-refdes=D10
-T 57800 50600 5 10 1 1 0 0 1
-value=2KV
-T 57700 50300 5 10 0 0 90 0 1
-description=diode rect 2000V 1A DO-15
-T 57700 50300 5 10 0 0 90 0 1
-footprint=diode_10mm.fp
-}
 C 56800 50300 1 90 0 diode-1.sym
 {
 T 56200 50700 5 10 0 0 90 0 1
-device=M20F
+device=S1Y
 T 56200 51000 5 10 1 1 0 0 1
 refdes=D9
 T 56900 50600 5 10 1 1 0 0 1
@@ -1594,4 +1555,43 @@ T 52300 55000 5 10 0 0 180 6 1
 value=NFET
 T 52300 55000 5 10 0 1 180 6 1
 footprint=DPAK1.lht
+}
+C 58300 52900 1 0 0 diode-1.sym
+{
+T 58700 53500 5 10 0 0 0 0 1
+device=R3000
+T 58600 53500 5 10 1 1 0 0 1
+refdes=D2
+T 58600 52700 5 10 1 1 0 0 1
+value=3KV
+T 58300 52900 5 10 0 0 0 0 1
+description=diode rect 3000V 0.5A DO-41
+T 58300 52900 5 10 0 0 0 0 1
+footprint=diode_10mm.fp
+}
+C 57700 49400 1 90 0 diode-1.sym
+{
+T 57100 49800 5 10 0 0 90 0 1
+device=R3000
+T 57400 50200 5 10 1 1 180 0 1
+refdes=D8
+T 58100 49800 5 10 1 1 180 0 1
+value=3KV
+T 57700 49400 5 10 0 0 90 0 1
+description=diode rect 3000V 0.5A DO-41
+T 57700 49400 5 10 0 0 90 0 1
+footprint=diode_10mm.fp
+}
+C 57700 50300 1 90 0 diode-1.sym
+{
+T 57100 50700 5 10 0 0 90 0 1
+device=R3000
+T 57400 51100 5 10 1 1 180 0 1
+refdes=D10
+T 58100 50600 5 10 1 1 180 0 1
+value=3KV
+T 57700 50300 5 10 0 0 90 0 1
+description=diode rect 3000V 0.5A DO-41
+T 57700 50300 5 10 0 0 90 0 1
+footprint=diode_10mm.fp
 }
