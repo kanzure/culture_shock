@@ -12,7 +12,7 @@ first-pagenum=1
 T 59400 37900 5 10 1 1 0 0 1
 last-pagenum=2
 T 62600 38200 5 10 1 1 0 0 1
-rev=2018-07-01 v0.7-rc1
+rev=2018-06-15 v0.6
 T 64400 43400 5 18 1 1 270 0 1
 title2=Culture Shock PYFLEX_F401
 }
@@ -699,7 +699,7 @@ device=R_1.80k_1%_1608
 T 63400 57400 5 10 0 0 0 0 1
 footprint=RESC1608N.lht
 T 62600 57400 5 10 1 1 0 0 1
-refdes=R118
+refdes=R72
 T 63100 57100 5 10 1 1 0 0 1
 value=1.80k
 }
@@ -749,7 +749,7 @@ device=R_22.0_1%_1608
 T 63600 55700 5 10 0 0 0 0 1
 footprint=RESC1608N.lht
 T 62800 55700 5 10 1 1 0 0 1
-refdes=R119
+refdes=R71
 T 63400 55400 5 10 1 1 0 0 1
 value=22.0
 }
