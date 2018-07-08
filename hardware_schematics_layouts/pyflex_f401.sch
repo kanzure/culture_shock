@@ -4647,13 +4647,14 @@ footprint=SOT363M.lht
 T 42600 42100 5 10 0 0 0 0 1
 value=BRT NPN
 }
-T 43400 49900 9 12 1 0 0 0 6
+T 43400 49700 9 12 1 0 0 0 7
 Add resistance
 between VBAT 
 and 5VUNREG
 in case bad decision
 made to connect 
 VBUS to 5VUNREG
+while a battery is also.
 N 45600 50600 45600 49500 4
 N 45600 49500 44200 49500 4
 C 63000 46200 1 180 0 EMBEDDEDresistor-1.sym
