@@ -41,13 +41,19 @@ common_prescaler = 11
 # PYFLEX_F401 pin LED_YELLOW,PB9  ==> pyflex_f401.sch LED_YELLOW,PB9
 YEL_LED = Pin('LED_YELLOW', Pin.OUT) 
 YEL_LED.value(1)
-# EN_18V_ONBOARD on at start for tests.
+# EN_18V_ONBOARD is active LO, (drives base of Q32), so turn on at start.
 EN_18V_ONBOARD = Pin('PB14', Pin.OUT) 
 EN_18V_ONBOARD.value(1)
-pyb.delay(600)
+pyb.delay(900)
 
 YEL_LED.value(0)
 EN_18V_ONBOARD.value(0)
+YEL_LED.value(0)
+pyb.delay(3900)
+EN_18V_ONBOARD.value(1)
+YEL_LED.value(1)
+pyb.delay(1900)
+
 enable_gpio_and_timers()
 
 # Setup ADC Timer and a callback to try printing the value
