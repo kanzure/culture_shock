@@ -588,8 +588,13 @@ refdes=R43
 T 44500 48900 5 10 1 1 0 0 1
 value=7.50k
 }
-T 42700 54800 9 12 1 0 0 0 1
-PB14 is active LO, so set if HI after reset.
+T 42700 54300 9 12 1 0 0 0 6
+PB14 
+(to base of Q32),
+is active LO, 
+so set it LO 
+just after reset
+to use it.
 T 42800 48200 9 12 1 0 0 0 1
 PB13 is active LO, so set if HI after reset.
 C 45400 48700 1 0 0 pnp-bec-123.sym
