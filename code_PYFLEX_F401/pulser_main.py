@@ -56,7 +56,6 @@ pyb.delay(3900)
 EN_18V_ONBOARD.value(1)
 YEL_LED.value(1)
 pyb.delay(900)
-EN_18V_ONBOARD.value(1)
 
 
 # Setup ADC Timer and a callback to try printing the value
@@ -382,6 +381,8 @@ dump_nvic()
 nvic_set_prio(-1, 1)
 nvic_set_prio(25, 0)
 
+EN_18V_ONBOARD.value(1)
+YEL_LED.value(1)
 # make sure PA0 PA1, PA2 are output LO state
 timers_init()
 
