@@ -20,12 +20,13 @@ import micropython
 micropython.alloc_emergency_exception_buf(100)
 import stm
 import pyb
+import array
 from math import ceil
 from pyb import Timer
 from machine import Pin
-from stm_low_level import *
-import array
 from machine import I2C
+from stm_low_level import *
+from nvic import *
 try:
   import ssd1306
 except:
@@ -55,7 +56,7 @@ YEL_LED.value(0)
 pyb.delay(3900)
 EN_18V_ONBOARD.value(1)
 YEL_LED.value(1)
-pyb.delay(900)
+pyb.delay(200)
 
 
 # Setup ADC Timer and a callback to try printing the value
@@ -219,7 +220,7 @@ tim2_channel = 3
 tim2_3_out = pyb.Pin(pyb.Pin.cpu.A2, pyb.Pin.AF_PP, pyb.Pin.PULL_NONE, 1)  # PA2 set to AF1 --> TIM2_CH3
 tim5_2_out = pyb.Pin(pyb.Pin.cpu.A1, pyb.Pin.AF_PP, pyb.Pin.PULL_NONE, 2)  # PA1 set to AF2 -->  TIM5_CH2
 
-enable_pb13_af_and_connect_to_tim1()
+# enable_pb13_af_and_connect_to_tim1()  2018-7-16-jg
 
 # as long as both TIM's tick at AHB freq, the TIM's will tick at the same rate;
 # should there be any APB divider impacting TIM input clock freq,
@@ -376,15 +377,19 @@ def timers_init():
 
 # increase the TIM1 Update Interrupt priority, by lowering it's number all the way to 1
 # stm.mem8[0xe000e400+25]=1<<4
-from nvic import *
-dump_nvic()
-nvic_set_prio(-1, 1)
-nvic_set_prio(25, 0)
 
 EN_18V_ONBOARD.value(1)
 YEL_LED.value(1)
+
+dump_nvic()
+
+
+nvic_set_prio(-1, 1)
+nvic_set_prio(25, 0)
+
 # make sure PA0 PA1, PA2 are output LO state
-timers_init()
+# timers_init() 
+#  2018-7-16-jg
 
 # probably want to enable-preload (ARR, CCR1, etc), then load next set of values, then CEN
 # because after n-pulses, UEV fires...

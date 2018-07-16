@@ -445,8 +445,6 @@ def setup_n_pulse_kickoff_timer(tim_name, channel_num, prescaler, period, width)
     # 15    14   13   12   11    10   9    8    7     6    5    4    3     2    1    0
     # CC4NP Res. CC4P CC4E CC3NP Res. CC3P CC3E CC2NP Res. CC2P CC2E CC1NP Res. CC1P CC1E
     stm.mem16[tim_base_address + stm.TIM_CCER] |= (0
-      #| (1 << 1)  # CC1P -- invert TIM2_CH1 (see description above)
-      #|1<<4 | 1<<5 | 1<<7  # CC2E # CC2P # CC2NP
       | (1 << (4*channel_num)))  # CCxE -- enable normal output
     return tim_base_address
 
