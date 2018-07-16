@@ -1,3 +1,5 @@
+# This file contains low level, or register write code 
+# All timers are independent -- setting one up will not clear any others.
 import stm
 import micropython
 
