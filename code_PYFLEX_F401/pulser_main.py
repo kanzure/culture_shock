@@ -23,7 +23,7 @@ import pyb
 from math import ceil
 from pyb import Timer
 from machine import Pin
-from stm_low_level_tim2_3_4ch import *
+from stm_low_level import *
 import array
 from machine import I2C
 try:
@@ -37,6 +37,9 @@ period = 265
 width = 1
 number_of_pulse_pairs = 5
 common_prescaler = 11
+
+enable_gpio_and_timers()
+pyb.delay(1900)
 
 # PYFLEX_F401 pin LED_YELLOW,PB9  ==> pyflex_f401.sch LED_YELLOW,PB9
 YEL_LED = Pin('LED_YELLOW', Pin.OUT) 
@@ -52,9 +55,9 @@ YEL_LED.value(0)
 pyb.delay(3900)
 EN_18V_ONBOARD.value(1)
 YEL_LED.value(1)
-pyb.delay(1900)
+pyb.delay(900)
+EN_18V_ONBOARD.value(1)
 
-enable_gpio_and_timers()
 
 # Setup ADC Timer and a callback to try printing the value
 #adc_vals = [-1 for i in range(number_of_pulse_pairs+1 if number_of_pulse_pairs+1 > 128 else 128)]
