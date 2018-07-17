@@ -343,8 +343,12 @@ def pulse():
   stm.mem16[stm.TIM1 + stm.TIM_SR] = (stm.mem16[stm.TIM1 + stm.TIM_SR] & 0b111<<13) # clear all flags
   pyb.enable_irq()
   print('pulsing')
+  # enable OPM
   #reset_vals()
   adc.read_timed(adc_vals)
+  #  2018-7-17-jg  debug what kills PB9 output...
+  YEL_LED = Pin('LED_YELLOW', Pin.OUT) 
+  YEL_LED.value(1)
   #stm.mem16[stm.TIM4 + stm.TIM_CR1] |= 1 # CEN -- start ADC callback
   if rep_counter_overflow_detector.longer_counter==1:
     stm.mem16[tim_kickoff + stm.TIM_CR1] |= 1
