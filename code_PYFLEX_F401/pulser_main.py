@@ -40,6 +40,10 @@ number_of_pulse_pairs = 5
 common_prescaler = 11
 
 enable_gpio_and_timers()
+# PYFLEX_F401 pin LED_YELLOW,PB9  ==> pyflex_f401.sch LED_YELLOW,PB9
+YEL_LED = Pin('LED_YELLOW', Pin.OUT) 
+# EN_18V_ONBOARD is active LO, (drives base of Q32), so turn on at start.
+EN_18V_ONBOARD = Pin('PB14', Pin.OUT) 
 
 
 # Setup ADC Timer and a callback to try printing the value
@@ -185,7 +189,7 @@ class OnePulseOverFlowCounter(object):
       stm.mem16[stm.TIM2 + stm.TIM_CR1] |= 0b1000 # enable OPM
       stm.mem16[stm.TIM1 + stm.TIM_CR1] = self.cr1
 
-      stm.mem32[stm.GPIOB + stm.GPIO_ODR] = 0
+#      stm.mem32[stm.GPIOB + stm.GPIO_ODR] = 0
       stm.mem16[stm.TIM4 + stm.TIM_CR1] &= self.disable_cen_val # disable CEN on ADC
     else:
       if self.longer_counter == 1:
@@ -346,9 +350,6 @@ def pulse():
   # enable OPM
   #reset_vals()
   adc.read_timed(adc_vals)
-  #  2018-7-17-jg  debug what kills PB9 output...
-  YEL_LED = Pin('LED_YELLOW', Pin.OUT) 
-  YEL_LED.value(1)
   #stm.mem16[stm.TIM4 + stm.TIM_CR1] |= 1 # CEN -- start ADC callback
   if rep_counter_overflow_detector.longer_counter==1:
     stm.mem16[tim_kickoff + stm.TIM_CR1] |= 1
@@ -369,11 +370,7 @@ dump_nvic()
 
 
 
-# PYFLEX_F401 pin LED_YELLOW,PB9  ==> pyflex_f401.sch LED_YELLOW,PB9
-YEL_LED = Pin('LED_YELLOW', Pin.OUT) 
 YEL_LED.value(1)
-# EN_18V_ONBOARD is active LO, (drives base of Q32), so turn on at start.
-EN_18V_ONBOARD = Pin('PB14', Pin.OUT) 
 EN_18V_ONBOARD.value(1)
 pyb.delay(900)
 
