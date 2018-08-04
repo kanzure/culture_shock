@@ -8,11 +8,18 @@ Based on:
 Definitions:
 
 CEN -- The counter is clocked by the prescaler output CK_CNT, which is enabled only when the
-       counter enable bit (CEN) in TIMx_CR1 register is set (refer also to the slave mode controller
-       description to get more details on counter enabling).
-       Note that the counter starts counting 1 clock cycle after setting the CEN bit in the TIMx_CR1
-       register.
+      counter enable bit (CEN) in TIMx_CR1 register is set (refer also to the slave mode controller
+      description to get more details on counter enabling).
+      Note that the counter starts counting 1 clock cycle after setting the CEN bit in the TIMx_CR1
+      register.
 
+To get PA0 PA1 PA2 GPIOs to stay LO until wanted to go high, other setup is done after
+      reset and soft reset:
+
+      Setup is done right after imports with enable_gpio_and_timers(), then lots 
+      of function defs and the "all good"  sequence of LED flashes and power supply turn on at the end.
+
+      It is important to have the function timers_init() come before the power supply turn on.
 """
 
 
@@ -360,7 +367,7 @@ def pulse():
   print('done')
 
 def timers_init():
-  a(44,20,0)
+  a(33,11,1)
   pulse()
 
 # increase the TIM1 Update Interrupt priority, by lowering it's number all the way to 1
@@ -370,17 +377,6 @@ dump_nvic()
 
 
 
-YEL_LED.value(1)
-EN_18V_ONBOARD.value(1)
-pyb.delay(900)
-
-YEL_LED.value(0)
-EN_18V_ONBOARD.value(0)
-YEL_LED.value(0)
-pyb.delay(2900)
-EN_18V_ONBOARD.value(1)
-YEL_LED.value(1)
-pyb.delay(200)
 
 
 
@@ -388,13 +384,28 @@ pyb.delay(200)
 nvic_set_prio(-1, 1)
 nvic_set_prio(25, 0)
 
-# make sure PA0 PA1, PA2 are output LO state
-# timers_init() 
-#  2018-7-16-jg
-
 # probably want to enable-preload (ARR, CCR1, etc), then load next set of values, then CEN
 # because after n-pulses, UEV fires...
 # then in a UEV interrupt (??) we can load the next set of values via DMA/memory, and re-CEN (unless there are no more data from DMA/memory)
 
 #import dump_regs
 #dump_regs.dump_regs()
+
+
+# make sure PA0 PA1, PA2 are output LO state
+timers_init() 
+
+YEL_LED.value(1)
+EN_18V_ONBOARD.value(1)
+pyb.delay(900)
+
+YEL_LED.value(0)
+EN_18V_ONBOARD.value(0)
+YEL_LED.value(0)
+pyb.delay(2000)
+
+pyb.delay(10)
+
+EN_18V_ONBOARD.value(1)
+YEL_LED.value(1)
+pyb.delay(200)
