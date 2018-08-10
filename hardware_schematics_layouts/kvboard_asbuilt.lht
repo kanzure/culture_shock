@@ -22622,6 +22622,102 @@ ha:pcb-rnd-board-v5 {
          clearline=1
         }
        }
+       ha:line.2902200 {
+        x1=68.35mm; y1=74.1mm; x2=65.1mm; y2=76.8mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902203 {
+        x1=65.1mm; y1=76.8mm; x2=60.15mm; y2=76.7mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902206 {
+        x1=60.15mm; y1=76.7mm; x2=59.7mm; y2=76.0mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902209 {
+        x1=59.7mm; y1=76.0mm; x2=59.3mm; y2=77.2mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902212 {
+        x1=59.3mm; y1=77.2mm; x2=58.9mm; y2=76.5mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902215 {
+        x1=58.9mm; y1=76.5mm; x2=57.4mm; y2=78.25mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902218 {
+        x1=68.35mm; y1=70.4mm; x2=66.95mm; y2=70.25mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902221 {
+        x1=66.95mm; y1=70.25mm; x2=64.2mm; y2=69.3mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902224 {
+        x1=64.2mm; y1=69.3mm; x2=61.3mm; y2=69.95mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902227 {
+        x1=61.3mm; y1=69.95mm; x2=59.75mm; y2=70.5mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902230 {
+        x1=59.75mm; y1=70.5mm; x2=59.75mm; y2=71.7mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902233 {
+        x1=59.75mm; y1=71.7mm; x2=60.25mm; y2=72.0mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902236 {
+        x1=60.25mm; y1=72.0mm; x2=59.05mm; y2=72.3mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902239 {
+        x1=59.05mm; y1=72.3mm; x2=59.75mm; y2=72.65mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902242 {
+        x1=59.75mm; y1=72.65mm; x2=59.4mm; y2=74.7mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:line.2902245 {
+        x1=59.4mm; y1=74.7mm; x2=57.35mm; y2=77.9mm; thickness=0.5mm; clearance=1.0mm;
+        ha:flags {
+         clearline=1
+        }
+       }
        ha:text.2881324 {
         string=HV Zone; x=14.15mm; y=16.25mm; scale=240; fid=0; direction=1;
         ha:flags {
@@ -22683,13 +22779,13 @@ ha:pcb-rnd-board-v5 {
         }
        }
        ha:text.2897085 {
-        string=56k; x=3.1515748in; y=78.3mm; scale=100; fid=0; direction=0;
+        string=2.2k; x=3.1515748in; y=78.3mm; scale=100; fid=0; direction=0;
         ha:flags {
          clearline=1
         }
        }
        ha:text.2897087 {
-        string=56k; x=79.45mm; y=63.15mm; scale=100; fid=0; direction=0;
+        string=2.2k; x=79.45mm; y=63.15mm; scale=100; fid=0; direction=0;
         ha:flags {
          clearline=1
         }
@@ -22702,6 +22798,18 @@ ha:pcb-rnd-board-v5 {
        }
        ha:text.2897089 {
         string=U1; x=83.6mm; y=72.0mm; scale=100; fid=0; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:text.2902248 {
+        string=3.4k; x=56.85mm; y=70.5mm; scale=100; fid=0; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:text.2902249 {
+        string=3.4k; x=56.25mm; y=74.45mm; scale=100; fid=0; direction=0;
         ha:flags {
          clearline=1
         }
