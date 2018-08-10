@@ -6,8 +6,8 @@ To run code on a culture shock board, (with STM32F401 inside), several files are
 As this code is written for v0.5 hardware, it needs these files loaded to the flash filesystem of the 
 micropython running MCU:
 
-* tim3_enable_tim1_1_tim2_3_tim5_2__tim1_shuts_down_4ch.py
-* stm_low_level_tim2_3_4ch.py
+* pulser_main.py
+* stm_low_level.py
 * nvic.py
 * boot.py
 * ssd1306.py

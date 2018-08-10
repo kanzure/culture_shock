@@ -373,13 +373,6 @@ def timers_init():
 # increase the TIM1 Update Interrupt priority, by lowering it's number all the way to 1
 # stm.mem8[0xe000e400+25]=1<<4
 
-dump_nvic()
-
-
-
-
-
-
 
 nvic_set_prio(-1, 1)
 nvic_set_prio(25, 0)
