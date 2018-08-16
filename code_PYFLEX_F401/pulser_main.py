@@ -49,8 +49,9 @@ common_prescaler = 11
 enable_gpio_and_timers()
 # PYFLEX_F401 pin LED_YELLOW,PB9  ==> pyflex_f401.sch LED_YELLOW,PB9
 YEL_LED = Pin('LED_YELLOW', Pin.OUT) 
-# EN_18V_ONBOARD is active LO, (drives base of Q32), so turn on at start.
+# EN_18V_ONBOARD is active HI, (drives base of Q32), U3_!SHDN is inverted EN_18V_ONBOARD.
 EN_18V_ONBOARD = Pin('PB14', Pin.OUT) 
+EN_18V_U4 = Pin('PB13', Pin.OUT) 
 
 
 # Setup ADC Timer and a callback to try printing the value
@@ -374,6 +375,8 @@ def timers_init():
 # stm.mem8[0xe000e400+25]=1<<4
 
 
+
+
 nvic_set_prio(-1, 1)
 nvic_set_prio(25, 0)
 
@@ -390,15 +393,14 @@ timers_init()
 
 YEL_LED.value(1)
 EN_18V_ONBOARD.value(1)
+#EN_18V_U4.value(0)
 pyb.delay(900)
 
 YEL_LED.value(0)
 EN_18V_ONBOARD.value(0)
-YEL_LED.value(0)
+#EN_18V_U4.value(1)
 pyb.delay(2000)
 
-pyb.delay(10)
 
-EN_18V_ONBOARD.value(1)
 YEL_LED.value(1)
-pyb.delay(200)
+#EN_18V_U4.value(0)
