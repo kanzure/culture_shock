@@ -34751,7 +34751,7 @@ ha:pcb-rnd-board-v5 {
       }
        ha:subc.3250662 {
         ha:attributes {
-         refdes=TV2
+         refdes=VS2
         }
        ha:data {
               li:padstack_prototypes {
@@ -34944,7 +34944,7 @@ ha:pcb-rnd-board-v5 {
        }
        ha:subc.3250815 {
         ha:attributes {
-         refdes=TV1
+         refdes=VS1
         }
        ha:data {
               li:padstack_prototypes {
@@ -35028,10 +35028,11 @@ ha:pcb-rnd-board-v5 {
              }
             }
             ha:text.3250822 {
-             string=%a.parent.refdes%; x=63.85mm; y=18.0mm; scale=100; fid=0; direction=0;
+             string=%a.parent.refdes%; x=63.85mm; y=18.0mm; scale=80; fid=0; direction=0;
              ha:flags {
               dyntext=1
               floater=1
+              selected=1
              }
             }
            }
@@ -35970,7 +35971,7 @@ ha:pcb-rnd-board-v5 {
        }
        ha:subc.3262417 {
         ha:attributes {
-         refdes=TV4
+         refdes=VS4
         }
        ha:data {
               li:padstack_prototypes {
@@ -36054,7 +36055,7 @@ ha:pcb-rnd-board-v5 {
              }
             }
             ha:text.3262424 {
-             string=%a.parent.refdes%; x=68.45mm; y=19.85mm; scale=100; fid=0; direction=0;
+             string=%a.parent.refdes%; x=68.45mm; y=19.85mm; scale=80; fid=0; direction=0;
              ha:flags {
               dyntext=1
               floater=1
@@ -41493,7 +41494,7 @@ ha:pcb-rnd-board-v5 {
         }
         ha:subc.3337683 {
          ha:attributes {
-          refdes=TV3
+          refdes=VS3
          }
         ha:data {
                 li:padstack_prototypes {
@@ -51049,7 +51050,7 @@ ha:pcb-rnd-board-v5 {
  ha:netlists {
    li:input {
     ha:5VUNREG {
-    li:conn { C9-2; C21-2; C62-2; D11-2; J31-2; JB-3; Q1-3; Q4-3; Q7-3; R9-2; R105-1; R108-1; R118-2; SW23-3; SW23-4; TV1-2; TV2-2; U2-1; U2-3; U6-1; U6-2; U6-16;    }
+    li:conn { C9-2; C21-2; C62-2; D11-2; J31-2; JB-3; Q1-3; Q4-3; Q7-3; R9-2; R105-1; R108-1; R118-2; SW23-3; SW23-4; U2-1; U2-3; U6-1; U6-2; U6-16; VS1-2; VS2-2;    }
     }
     ha:I2C1_SCL_PB6 {
     li:conn { JB-6; JB6-1; U1-42;    }
@@ -51169,10 +51170,10 @@ ha:pcb-rnd-board-v5 {
     li:conn { R14-2; SW23-1; SW23-2; U1-44;    }
     }
     ha:unnamed_net2 {
-    li:conn { JUSB-2; R8-1; TV2-1; TV3-2;    }
+    li:conn { JUSB-2; R8-1; VS2-1; VS3-2;    }
     }
     ha:unnamed_net3 {
-    li:conn { JUSB-3; R6-1; R9-1; TV1-1; TV4-2;    }
+    li:conn { JUSB-3; R6-1; R9-1; VS1-1; VS4-2;    }
     }
     ha:unnamed_net4 {
     li:conn { JUSB-4; R7-1;    }
@@ -51343,7 +51344,7 @@ ha:pcb-rnd-board-v5 {
     li:conn { C6-2; C7-2; C11-2; C12-2; C18-1; C101-1; J21-2; JB-8; JC-1; L10-1; R111-1; U1-24; U1-36; U1-48;    }
     }
     ha:VSS {
-    li:conn { C4-1; C5-1; C6-1; C7-1; C8-2; C9-1; C10-1; C11-1; C12-1; C13-1; C14-1; C15-1; C16-1; C17-1; C18-2; C21-1; C22-1; C23-1; C31-1; C32-1; C61-2; C62-1; C101-2; C102-1; C103-1; C104-1; D12-1; D13-1; JA-1; JA-5; JA-6; JA-7; JA-8; JA-11; JA-12; JA-14; JA-15; JA-17; JA-19; JA-20; JA-21; JA-22; JB-1; JB-2; JB-4; JB-5; JB-12; JB-15; JB-18; JB-19; JB-20; JB-21; JB-22; JC-3; JC-5; JD-5; JD-6; JF-1; JG-1; JUSB-5; JUSB-6; Q3-2; Q6-2; Q9-2; R14-1; R32-1; R34-2; R63-1; R103-1; R113-2; R115-2; R119-1; R123-1; R128-1; SW11-1; SW11-2; SW22-1; SW22-2; TV3-1; TV4-1; U1-8; U1-23; U1-35; U1-47; U1-49; U2-2; U3-2; U5-1; U5-4; U6-6; U6-7; U6-11; X1-2; X1-4;    }
+    li:conn { C4-1; C5-1; C6-1; C7-1; C8-2; C9-1; C10-1; C11-1; C12-1; C13-1; C14-1; C15-1; C16-1; C17-1; C18-2; C21-1; C22-1; C23-1; C31-1; C32-1; C61-2; C62-1; C101-2; C102-1; C103-1; C104-1; D12-1; D13-1; JA-1; JA-5; JA-6; JA-7; JA-8; JA-11; JA-12; JA-14; JA-15; JA-17; JA-19; JA-20; JA-21; JA-22; JB-1; JB-2; JB-4; JB-5; JB-12; JB-15; JB-18; JB-19; JB-20; JB-21; JB-22; JC-3; JC-5; JD-5; JD-6; JF-1; JG-1; JUSB-5; JUSB-6; Q3-2; Q6-2; Q9-2; R14-1; R32-1; R34-2; R63-1; R103-1; R113-2; R115-2; R119-1; R123-1; R128-1; SW11-1; SW11-2; SW22-1; SW22-2; U1-8; U1-23; U1-35; U1-47; U1-49; U2-2; U3-2; U5-1; U5-4; U6-6; U6-7; U6-11; VS3-1; VS4-1; X1-2; X1-4;    }
     }
    }
  }
