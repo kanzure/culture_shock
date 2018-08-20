@@ -12,7 +12,7 @@ first-pagenum=2
 T 61900 39700 5 10 1 1 0 0 1
 last-pagenum=2
 T 64900 40000 5 10 1 1 0 0 1
-rev=2018-08-16 v0.7
+rev=2018-08-19 v0.7
 T 66800 45200 5 18 1 1 270 0 1
 title2=PYFLEX_F401 Power
 }
