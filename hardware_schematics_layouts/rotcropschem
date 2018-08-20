@@ -15,10 +15,10 @@ echo "intermediate = "   $basename.o.pdf
 /usr/bin/pdfjam --angle '-90' --fitpaper 'true' --rotateoversize 'true' --outfile $basename.o.pdf --keepinfo --landscape --trim "2mm 8mm 8mm 11mm" -- $old_name 1
 #  --trim   " top left bottom  right"
 
-convert -colors 64  -density 300 -level 45%,100%    -verbose -quality 98  $basename.o.pdf  -fill white  -tint 20 $basename.o.$newsuffix
+#convert -colors 64  -density 300 -level 45%,100%    -verbose -quality 98  $basename.o.pdf  -fill white  -tint 20 $basename.o.$newsuffix
 #  $new_name   +sigmoidal-contrast 2x50    -contrast-stretch 9x100%
 # -colors 8 -threshold 76%  -contrast-stretch 4x95% -sharpen 0x1.0
-pngquant -v --output  $new_name --force --floyd=0.47  7 $basename.o.$newsuffix
+#pngquant -v --output  $new_name --force --floyd=0.47  7 $basename.o.$newsuffix
 #  optipng -o 1 -f 3 -clobber -out $new_name  $basename.o.$newsuffix
 
 #convert -colors 2  -density 300 -level 95%,100%    -verbose -quality 98  $basename.o.pdf   $basename-sm.$newsuffix
