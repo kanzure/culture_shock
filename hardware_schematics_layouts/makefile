@@ -13,7 +13,7 @@
 
 .PHONY: myropcb board1 board2      gerbvmyro gerbv4pcb net pcb gschem bom drc
 
-BASENAMES = kvboard g30pulser pyflex_f401  
+BASENAMES = kvboard kvboard_asbuilt 
 MULTIPAGENAMES = pyflex_f401  pyflex_f401_boost
 MULTIPAGEOUTNAME = pyflex_f401_all
 BOARDFABROOT1 = kvboard
@@ -27,8 +27,7 @@ BOARDS = $(addsuffix .lht, $(BASENAMES))
 SCHEMS = $(addsuffix .sch, $(BASENAMES))
 NETS = $(addsuffix .net, $(BASENAMES))
 CMDS = $(addsuffix .lht.cmd, $(BASENAMES))
-DRC = $(addsuffix .drc, $(BASENAMES)) #  $(addsuffix .drc, $(MULTIPAGENAMES))
-DRCS = $(addsuffix .drc, $(MULTIPAGEOUTNAME))
+DRCS = $(addsuffix .drc, $(BASENAMES))
 BOMS =   $(addsuffix .bom.tsv,  $(BASENAMES))
 BOMPDFS =   $(addsuffix .bom.tsv.pdf,  $(BASENAMES))
 
@@ -56,9 +55,9 @@ $(BOMPDFS): %.bom.tsv.pdf: %.bom.tsv
 # this explicitly makes boms from  schematics with more than one page:
 #	gnetlist -g partslist3  $(MULTIPAGENAMES)  -o $(MULTIPAGEOUTNAME)
 
-drc: $(DRC)
+drc: $(DRCS)
 
-$(DRC): %.drc: %.sch
+$(DRCS): %.drc: %.sch
 
 	gnetlist -g drc2  $< -o $@
 
@@ -71,7 +70,7 @@ $(BOMS): %.bom.tsv: %.sch
 
 net: $(NETS) $(BOMS) $(DRC)
 
-$(NETS): %.net: %.sch
+$(NETS): %.net:  %.sch
 
 	gnetlist -g PCB  $< -o $@
 
