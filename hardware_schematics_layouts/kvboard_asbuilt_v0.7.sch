@@ -1,4 +1,4 @@
-v 20150930 2
+v 20180820 2
 N 60200 52100 61200 52100 4
 {
 T 60700 52200 5 10 1 1 0 0 1
@@ -28,7 +28,7 @@ symversion=0.1
 T 60700 50200 5 10 1 1 0 0 1
 value=4.7nF
 T 61000 50900 5 10 0 0 0 0 1
-footprint=disk_cap_5mm_flat.fp
+footprint=disk_cap_5mm_flat.lht
 }
 C 57000 51900 1 0 0 capacitor-1.sym
 {
@@ -41,7 +41,7 @@ symversion=0.1
 T 57700 52500 5 10 1 1 180 0 1
 value=4.7nF
 T 57000 51900 5 10 0 0 0 0 1
-footprint=disk_cap_5mm_flat.fp
+footprint=disk_cap_5mm_flat.lht
 }
 N 57900 52100 58400 52100 4
 {
@@ -62,7 +62,7 @@ symversion=0.1
 T 57700 53400 5 10 1 1 180 0 1
 value=4.7nF
 T 57000 52800 5 10 0 0 0 0 1
-footprint=disk_cap_5mm_flat_flip.fp
+footprint=disk_cap_5mm_flat_flip.lht
 }
 N 59500 43800 62200 43800 4
 N 61200 48900 61200 50000 4
@@ -81,7 +81,7 @@ first-pagenum=1
 T 59400 37900 5 10 1 1 0 0 1
 last-pagenum=1
 T 62600 38200 5 10 1 1 0 0 1
-rev=2018-08-19 v0.7
+rev=2018-08-27 v0.8
 T 64400 43100 5 18 1 1 270 0 1
 title2=Culture Shock kvboard PCB
 }
@@ -158,7 +158,7 @@ symversion=0.1
 T 60000 50500 5 10 1 1 0 0 1
 value=4.7nF
 T 60300 51200 5 10 0 0 0 0 1
-footprint=disk_cap_5mm_flat_flip.fp
+footprint=disk_cap_5mm_flat_flip.lht
 }
 N 60500 51200 60500 52100 4
 N 60500 48900 60500 50300 4
@@ -345,7 +345,7 @@ device=R_22.0_1%_1608
 T 60500 40400 5 10 1 1 90 0 1
 refdes=R95
 T 60800 41300 5 10 1 1 90 0 1
-value=22
+value=22.0
 T 60700 40500 5 10 0 0 90 0 1
 footprint=RESC1608N.lht
 T 60700 40500 5 10 0 0 90 0 1
@@ -417,7 +417,7 @@ device=R_22.0_1%_1608
 T 60800 40400 5 10 1 1 90 0 1
 refdes=R94
 T 61100 41300 5 10 1 1 90 0 1
-value=22
+value=22.0
 T 61000 40500 5 10 0 0 90 0 1
 footprint=RESC1608N.lht
 T 61000 40500 5 10 0 0 90 0 1
@@ -430,7 +430,7 @@ device=R_22.0_1%_1608
 T 61100 40400 5 10 1 1 90 0 1
 refdes=R93
 T 61400 41300 5 10 1 1 90 0 1
-value=22
+value=22.0
 T 61300 40500 5 10 0 0 90 0 1
 footprint=RESC1608N.lht
 T 61300 40500 5 10 0 0 90 0 1
@@ -443,7 +443,7 @@ device=R_22.0_1%_1608
 T 61400 40400 5 10 1 1 90 0 1
 refdes=R92
 T 61700 41300 5 10 1 1 90 0 1
-value=22
+value=22.0
 T 61600 40500 5 10 0 0 90 0 1
 footprint=RESC1608N.lht
 T 61600 40500 5 10 0 0 90 0 1
@@ -456,7 +456,7 @@ device=R_22.0_1%_1608
 T 61700 40400 5 10 1 1 90 0 1
 refdes=R91
 T 62000 41300 5 10 1 1 90 0 1
-value=22
+value=22.0
 T 61900 40500 5 10 0 0 90 0 1
 footprint=RESC1608N.lht
 T 61900 40500 5 10 0 0 90 0 1
@@ -469,7 +469,7 @@ device=R_22.0_1%_1608
 T 62000 40400 5 10 1 1 90 0 1
 refdes=R90
 T 62300 41300 5 10 1 1 90 0 1
-value=22
+value=22.0
 T 62200 40500 5 10 0 0 90 0 1
 footprint=RESC1608N.lht
 T 62200 40500 5 10 0 0 90 0 1
@@ -1136,19 +1136,6 @@ N 47100 46500 47400 46500 4
 N 47400 46500 47400 48800 4
 N 42000 47100 44200 47100 4
 N 47800 45600 43900 45600 4
-C 43000 45500 1 0 0 resistor-1.sym
-{
-T 43300 45900 5 10 0 0 0 0 1
-device=R_4.7R_1%_1608
-T 43000 45500 5 10 0 0 270 0 1
-description=Res thick 4.70k 1% 1608
-T 43000 45500 5 10 0 0 270 0 1
-footprint=RESC1608N.lht
-T 43000 45900 5 10 1 1 0 0 1
-refdes=R38
-T 43500 45300 5 10 1 1 0 0 1
-value=22k
-}
 C 43600 48400 1 270 0 EMBEDDEDresistor-1.sym
 [
 L 43800 47800 43600 47900 3 0 0 0 -1 -1
@@ -1254,15 +1241,15 @@ N 44200 45900 44200 46500 4
 C 42000 47000 1 0 1 resistor-1.sym
 {
 T 41700 47400 5 10 0 0 180 2 1
-device=R_4.7R_1%_1608
+device=R_22.0k_1%_1608
 T 42000 47000 5 10 0 0 90 6 1
-description=Res thick 4.70k 1% 1608
+description=Res thick 22.0k 1% 1608
 T 42000 47000 5 10 0 0 90 6 1
 footprint=RESC1608N.lht
 T 41500 47300 5 10 1 1 180 2 1
 refdes=R39
 T 41800 46800 5 10 1 1 180 2 1
-value=22K
+value=22.0K
 }
 N 41100 47100 39900 47100 4
 {
@@ -1393,17 +1380,17 @@ N 42800 48400 42800 48800 4
 C 53500 51300 1 270 0 capacitor-1.sym
 {
 T 54200 51100 5 10 0 0 270 0 1
-device=CL31A106MBHNNNE
+device=CL10B104MB8NNNC
 T 53500 51300 5 10 0 0 0 0 1
-description=CAP CER 10UF 50V X5R 1206 
+description=CAP CER 1nF 50V X7R 1608[0603] 
 T 53500 51300 5 10 0 0 0 0 1
-footprint=CAPC3216N.lht
+footprint=CAPC1608N.lht
 T 53600 50400 5 10 1 1 90 0 1
 refdes=C60
 T 53900 51000 5 10 1 1 90 0 1
 value=1 nF
 T 53300 51200 5 10 0 1 0 0 1
-comment=X5R
+comment=X7R
 }
 N 53000 49300 54000 49300 4
 {
@@ -1432,21 +1419,6 @@ netname=SNUB5
 }
 N 53600 53500 53600 53300 4
 N 52900 53500 52900 52600 4
-C 53400 51500 1 270 1 capacitor-1.sym
-{
-T 53400 52100 5 10 1 1 90 2 1
-refdes=C50
-T 54100 51700 5 10 0 0 90 2 1
-device=CL31A106MBHNNNE
-T 53400 51500 5 10 0 0 180 6 1
-description=CAP CER 10UF 50V X5R 1206 
-T 53400 51500 5 10 0 0 180 6 1
-footprint=CAPC3216N.lht
-T 53700 51400 5 10 1 1 90 2 1
-value=1 nF
-T 53200 51600 5 10 0 1 180 6 1
-comment=X5R
-}
 N 52900 51700 52900 51400 4
 N 53600 51500 53600 51400 4
 N 54800 53500 54900 53500 4
@@ -1538,7 +1510,7 @@ description=Res thick 22.0 1% 1608
 T 41800 39700 5 10 1 1 180 0 1
 refdes=R43
 T 42200 39200 5 10 1 1 180 0 1
-value=22
+value=22.0
 }
 N 41400 39400 40300 39400 4
 {
@@ -1556,7 +1528,7 @@ description=Res thick 22.0 1% 1608
 T 42000 43800 5 10 1 1 180 0 1
 refdes=R44
 T 42300 43300 5 10 1 1 180 0 1
-value=22
+value=22.0
 }
 N 41500 43500 40300 43500 4
 {
@@ -1859,7 +1831,31 @@ refdes=R60
 T 53300 50700 5 10 1 1 90 0 1
 value=200
 }
-T 51300 39000 9 44 1 0 0 0 3
-asbuilt for v0.7
-since sent to fab
-on 2018-8-20
+C 53400 52400 1 270 0 capacitor-1.sym
+{
+T 54100 52200 5 10 0 0 270 0 1
+device=CL10B104MB8NNNC
+T 53400 52400 5 10 0 0 0 0 1
+description=CAP CER 1nF 50V X7R 1608[0603] 
+T 53400 52400 5 10 0 0 0 0 1
+footprint=CAPC1608N.lht
+T 53500 51500 5 10 1 1 90 0 1
+refdes=C50
+T 53800 52100 5 10 1 1 90 0 1
+value=1 nF
+T 53200 52300 5 10 0 1 0 0 1
+comment=X7R
+}
+C 43900 45500 1 0 1 resistor-1.sym
+{
+T 43600 45900 5 10 0 0 180 2 1
+device=R_22.0k_1%_1608
+T 43900 45500 5 10 0 0 90 6 1
+description=Res thick 22.0k 1% 1608
+T 43900 45500 5 10 0 0 90 6 1
+footprint=RESC1608N.lht
+T 43400 45800 5 10 1 1 180 2 1
+refdes=R38
+T 43700 45300 5 10 1 1 180 2 1
+value=22.0K
+}

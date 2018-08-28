@@ -13,7 +13,7 @@
 
 .PHONY: myropcb board1 board2      gerbvmyro gerbv4pcb net pcb gschem bom drc
 
-BASENAMES = kvboard kvboard_asbuilt 
+BASENAMES = kvboard  kvboard_asbuilt_v0.7
 MULTIPAGENAMES = pyflex_f401  pyflex_f401_boost
 MULTIPAGEOUTNAME = pyflex_f401_all
 BOARDFABROOT1 = kvboard
@@ -52,8 +52,6 @@ $(BOMPDFS): %.bom.tsv.pdf: %.bom.tsv
 
 
 
-# this explicitly makes boms from  schematics with more than one page:
-#	gnetlist -g partslist3  $(MULTIPAGENAMES)  -o $(MULTIPAGEOUTNAME)
 
 drc: $(DRCS)
 

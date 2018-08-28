@@ -1,4 +1,4 @@
-v 20150930 2
+v 20180820 2
 N 60200 52100 61200 52100 4
 {
 T 60700 52200 5 10 1 1 0 0 1
@@ -28,7 +28,7 @@ symversion=0.1
 T 60700 50200 5 10 1 1 0 0 1
 value=4.7nF
 T 61000 50900 5 10 0 0 0 0 1
-footprint=disk_cap_5mm_flat.fp
+footprint=disk_cap_5mm_flat.lht
 }
 C 57000 51900 1 0 0 capacitor-1.sym
 {
@@ -41,7 +41,7 @@ symversion=0.1
 T 57700 52500 5 10 1 1 180 0 1
 value=4.7nF
 T 57000 51900 5 10 0 0 0 0 1
-footprint=disk_cap_5mm_flat.fp
+footprint=disk_cap_5mm_flat.lht
 }
 N 57900 52100 58400 52100 4
 {
@@ -62,7 +62,7 @@ symversion=0.1
 T 57700 53400 5 10 1 1 180 0 1
 value=4.7nF
 T 57000 52800 5 10 0 0 0 0 1
-footprint=disk_cap_5mm_flat_flip.fp
+footprint=disk_cap_5mm_flat_flip.lht
 }
 N 59500 43800 62200 43800 4
 N 61200 48900 61200 50000 4
@@ -81,7 +81,7 @@ first-pagenum=1
 T 59400 37900 5 10 1 1 0 0 1
 last-pagenum=1
 T 62600 38200 5 10 1 1 0 0 1
-rev=2018-08-19 v0.7
+rev=2018-08-27 v0.8
 T 64400 43100 5 18 1 1 270 0 1
 title2=Culture Shock kvboard PCB
 }
@@ -158,7 +158,7 @@ symversion=0.1
 T 60000 50500 5 10 1 1 0 0 1
 value=4.7nF
 T 60300 51200 5 10 0 0 0 0 1
-footprint=disk_cap_5mm_flat_flip.fp
+footprint=disk_cap_5mm_flat_flip.lht
 }
 N 60500 51200 60500 52100 4
 N 60500 48900 60500 50300 4
