@@ -1,0 +1,60 @@
+ 
+    easyw-fc wrote:
+    Hi, when using PoM I can only create nested Parts, but without the option to have more of one Part at the same level... may be I'm not using PoM in the right way...I attach the desired and of the PoM tree I get
+
+PoM always adds whatever is created to active container. Including new Parts. That is, to have "Part002" to "Part", activate "Part" before creating "Part002" by double-clicking it in tree (you can also get there using Leave, Enter buttons of PoM workbench, which I highly recommend adding to a global toolbar, as they are quite versatile).
+
+To add another Part to the root of document, deactivate whatever is active (either by double-clicking it in tree, or pressing Leave button until it becomes grey)
+
+
+
+   triplus wrote:
+    How about if Tip would have a Compound property. Once enabled Tip would basically become Part -> Make compound feature (making a compound out of individual features inside Module/Body)? I am guessing user could use all sorts of tools already mentioned earlier (and a few others) directly on such Module/Body after?
+
+I'm making a special independent container for that. Do you think I should merge them all into one mighty container? (the benefit of doing that is ability to switch container type after it's been made and populated).
+Top
+
+
+    shaise wrote:
+    Then what is the meaning of a Cube inside a Body? (create a cube in Part WB, select it, then press the Body button from PartDesign)
+
+This process imports any type of solid as base feature in a PartDesign body, so you can use PD tools with it.
+
+    shaise wrote:
+    I still cant put sketches directly on it
+
+Sure you can, but for some reason PartDesign still considers the cube a "foreign" object. So when trying to map a sketch to the cube, a dialog opens which says that selected geometries are not part of the active body, and to select a type of reference. The first two (Make independent copy/Make dependent copy) create a reference object, but "Create cross-reference" attaches the sketch directly to the cube.
+
+
+by DeepSOIC » Mon Mar 06, 2017 2:33 pm 
+
+Let's say you are modeling a flange, with a non-circular opening. Lets use a slot. We want screw holes around the opening... 
+There is no PartDesign pattern (AFAIR) that can produce the necessary holes, but there is a handy tool in Draft workbench that can help, Draft PathArray. This is where PoM Subtractive Shape comes in.
+* Create Subtractive shape container. You will be presented with an empty screen, where you should model the shape that cuts the holes.
+* Add shapebinder of the sketch that was padded (select Sketch in tree, and click PoM Shapebinder).
+* From Sketcher workbench, create a new sketch, and constrain up a slot that goes through the centers of future screwholes.
+* From Part workbench, add a cylinder, and set it up to have the right radius, and enough height to penetrate all the way through. Leave it at the origin
+* Select Cylinder, Sketch001, and apply Draft PathArray 
+* Done! Leave the container to get back into Body (e.g. use PoM Leave command, or double-click Body in tree).
+You may need to click Recompute button to see the result. Also, there is a chance Tip property of SubtractiveShape isn't pointing to the actual shape to use for cutting (PathArray). In that case, you can fix it by using PoM Set as Tip command. 
+
+by DeepSOIC » Tue Mar 07, 2017 2:58 pm 
+New feature!
+* Exporter
+It is an object you add to the project, and it can automatically export an object into a file whenever it changes. It can export Parts and Groups, but limited to a single level nesting (child Part containers are fed to FreeCAD's exporter, but FC's exporters usually ignore them).
+I hope that this picture explains well what it does   https://forum.freecadweb.org/download/file.php?id=34489
+
+Exporter checks that model has no features in an error state, will refuse to export if it finds errors.
+
+BLUE = edits
+
+New feature!
+* Tree automation
+When you enter a container, tree is automatically expanded to show only the stuff in active container. Everything around it is automatically collapsed.
+
+For example. You are in shapegroup deep inside, and you change active container to body. shapegroup is automatically collapsed, and part001 is too, so that the tree view shows the piece you work on in isolation. 
+
+
+
+
+
