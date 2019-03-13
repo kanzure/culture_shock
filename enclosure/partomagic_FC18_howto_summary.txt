@@ -1,0 +1,86 @@
+Part-o-Magic has a few limitations:
+Avoid PartDesign datum lines.
+
+-----------------Part-o-Magic allows containers of containers------------------
+
+to have "Part002" inside "Part", activate "Part" before creating "Part002"   (leave and enter buttons)
+
+PoM always adds whatever is created to active container.
+
+To add another Part to the root of document, deactivate whatever is active, activate root, add another Part.
+
+-----------------Part-o-Magic allows containers of containers------------------
+
+start from sketcher workbench to make a part-o-magic extrusion, ( do not use PartDesign workbench)
+
+What I see in your project looks like you want to subtract sweep from cone. If so:
+1. enter SubtractiveShape
+-> nothing is visible, but it should be. I don't know what's going on, but let's ignore it for a moment.
+2. select cs-enc-bosses-subtract and invoke "Set Tip" command from part-o-magic
+3. leave SubtractiveShape, and make the last feature of cs-enc-back-floor-n-bosses visible. You should see your cone got cut by the sweep.
+
+
+==============================PartDesign Body=====================
+Base Feature
+
+The base feature is by definition the first PartDesign feature created in the Body. But it is possible to use a solid shape, either imported or modelled in other workbenches, as a base feature to which sketches and other features can be added.
+PartDesign Body tree-03.png
+Tip
+
+The tip is the feature that is exposed outside the Body. It is automatically set to the last feature at the bottom of the tree. But sometimes it can be useful to change it to an earlier feature in the Body tree, which in effect rolls back its history; then it is possible to add features that should have been added earlier. In the Body tree, the feature set to tip displays a green dot with a white down arrow in it.
+PartDesign Body tree-04.png
+
+For more details, see the PartDesign MoveTip.png Move Tip page.
+Visibility Management
+
+The Body's visibility supersedes the visibility of any object it contains. If the Body is hidden, the objects it contains will be hidden as well, even if their visibility is set to true. Only one feature can be visible at a time. Selecting a hidden feature and pressing the space bar will make it visible, and automatically hide the previously visible feature.
+Interaction with other workbenches
+
+By default, objects underneath a Body are selectable, and this is of course required to edit and add features in PartDesign. But selecting a Body's features to create operations from other workbenches (like Part or Draft) is not advised, as the results may be unexpected; in all cases, an error labelled Links go out of the allowed scope will appear in the Report view.
+
+Therefore, for interactions with other workbenches, only the Body itself should be selected from the Model tree. In cases where it is necessary to select specific topology on the Body (vertex, edge, face), then the Body's Display Mode Body view property can be switched from Through (default) to Tip. This property is accessible from the View panel. In Tip mode, access to the objects under the Body (features, datums, sketches) is disabled; everything but the tip feature will be hidden in the 3D view, no matter which object is set as visible.
+
+Once operations in other workbenches are completed, do not forget to reset the Display Mode Body property to Through to be able to edit the Body.
+How to use
+
+    Press the PartDesign Body.png Create body button. The new body automatically becomes active.
+    Double-click the Body in the Model tree or right-click and select Toggle active body to activate or deactivate a body. If another body is already active, it will be automatically deactivated.
+    If a solid shape is selected first, a BaseFeature solid object is added to the Body; the BaseFeature is linked to the original solid shape. Accepted shapes can be an imported solid, or a solid made in any other FreeCAD workbench.
+    In a new document, if a sketch is created from the PartDesign workbench toolbar, a new Body will be automatically created.
+
+Properties
+
+    VIEWDisplay Mode Body: sets the display between two modes:
+        Through (default) exposes everything inside the body (features, datums, sketches, etc.). It is the mode used in adding and editing features inside the body.
+        Tip exposes only the shape of the Body itself according to the set tip; everything else including sketches is hidden from view and cannot be displayed. Practical use: "Tip" allows selection of edges and faces of the Body to create operations from other workbenches.
+    DATATip: displays/sets the feature defined as tip.
+    DATABase Feature: displays/sets the external shape used as base feature. Does not apply if a PartDesign feature is the base feature.
+    DATAPlacement: specifies the orientation and position of the Body in the 3D space. See Placement.
+    DATALabel: the Label is the name given to the operation. This name can be changed at your convenience.
+    DATAGroup: lists the referenced objects inside the Body.
+
+==============================PartDesign Body=====================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------sweeps--------------------------------
+
+PartDesign additive pipe can be pressed after selecting a profile sketch.  The profile must already be oriented perpendicular to the starting point of a section of the sweep outline,
+and offset so it is at the starting point also.  Next choose [add edge] button and select the segment to start the sweep with.  
+Display updates rendering a translucent version of the sweep up to that section end point.  Repeat adding edges one at a time until all there.  Click OK.
+
